@@ -1,3 +1,4 @@
+import 'package:action_manager_poc/config/theme/app_themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,12 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: theme(),
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Action Manager POC"),
         ),
-        body: Center(
-          child: const Text("Welcome"),
+        body: const Center(
+          child: Text("Welcome"),
         ),
       ),
     );
