@@ -1,5 +1,7 @@
 import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import 'package:floor/floor.dart';
 
+@Entity(tableName: 'person', primaryKeys: ['id'])
 class PersonModel extends PersonEntity {
   const PersonModel({
     int? id,
