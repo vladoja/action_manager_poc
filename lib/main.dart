@@ -1,4 +1,6 @@
+import 'package:action_manager_poc/config/routes/routes.dart';
 import 'package:action_manager_poc/config/theme/app_themes.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,14 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Action Manager POC"),
-        ),
-        body: const Center(
-          child: Text("Welcome"),
-        ),
-      ),
+      onGenerateRoute: AppRoutes.onGenerateRoutes,
+      home: const HomePage(),
     );
   }
 }
