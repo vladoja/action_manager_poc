@@ -11,8 +11,11 @@ class PersonalPage extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildBody(context),
-      floatingActionButton:
-          IconButton(onPressed: () {}, icon: const Icon(Icons.add_circle)),
+      floatingActionButton: IconButton(
+          onPressed: () {
+            _onCreateNewPerson(context);
+          },
+          icon: const Icon(Icons.add_circle)),
     );
   }
 
@@ -46,7 +49,7 @@ class PersonalPage extends StatelessWidget {
           } else {
             return Center(
               child: ListView.builder(
-                itemCount: persons!.length,
+                itemCount: persons.length,
                 itemBuilder: (context, index) {
                   return _createPersonTile(context, persons[index]);
                 },
@@ -114,5 +117,9 @@ class PersonalPage extends StatelessWidget {
 
   void _onReloadButtonTapped(BuildContext context) {
     BlocProvider.of<PersonalBloc>(context).add(const GetPersonal());
+  }
+
+  void _onCreateNewPerson(BuildContext context) {
+    Navigator.pushNamed(context, '/Personal/New');
   }
 }

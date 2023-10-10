@@ -1,4 +1,5 @@
 import 'package:action_manager_poc/features/app/presentation/pages/home/home_page.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/personal/edit_person_page.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/personal/personal_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,8 @@ class AppRoutes {
 
       case '/Personal':
         return _materialRoute(const PersonalPage());
+      case '/Personal/New':
+        return _materialRoute(const EditPersonPage());
       default:
         return _materialRoute(const HomePage());
     }
