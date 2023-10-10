@@ -1,5 +1,6 @@
 import 'package:action_manager_poc/features/app/domain/entities/person.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
+import 'package:action_manager_poc/features/app/presentation/widgets/confirmation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -85,9 +86,18 @@ class PersonalPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                onPressed: () {
+                onPressed: () async {
                   print('Delete clicked');
-                  _onRemovePersonTapped(context, person);
+                  final confirmed = await showDialog(
+                    context: context,
+                    builder: (context) => const ConfirmationWidget(
+                        questionTitle: "Naozaj zmazat ?",
+                        questionDescription:
+                            "Naozaj zmazat osobu z personalu?"),
+                  );
+                  if (confirmed == true) {
+                    _onRemovePersonTapped(context, person);
+                  }
                 },
                 icon: const Icon(
                   Icons.delete,
