@@ -39,13 +39,20 @@ class PersonalPage extends StatelessWidget {
         }
         if (state is PersonalDone) {
           var persons = state.persons;
-          return Center(
+          if (persons!.isEmpty) {
+            return const Center(
+              child: Text('Empty'),
+            );
+          } else {
+            return Center(
               child: ListView.builder(
-            itemCount: persons!.length,
-            itemBuilder: (context, index) {
-              return _createPersonTile(context, persons[index]);
-            },
-          ));
+                itemCount: persons!.length,
+                itemBuilder: (context, index) {
+                  return _createPersonTile(context, persons[index]);
+                },
+              ),
+            );
+          }
         }
 
         print("No bloc event catched");
