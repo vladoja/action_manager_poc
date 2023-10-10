@@ -1,6 +1,7 @@
-import 'package:action_manager_poc/features/app/data/models/person.dart';
-import 'package:action_manager_poc/temp/dummy_personal.dart';
+import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PersonalPage extends StatelessWidget {
   const PersonalPage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class PersonalPage extends StatelessWidget {
       appBar: _buildAppBar(context),
       body: _buildBody(context),
       floatingActionButton:
-          IconButton(onPressed: () {}, icon: Icon(Icons.add_circle)),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.add_circle)),
     );
   }
 
@@ -25,16 +26,37 @@ class PersonalPage extends StatelessWidget {
   }
 
   _buildBody(BuildContext context) {
-    return Center(
-        child: ListView.builder(
-      itemCount: personal_data_temp.length,
-      itemBuilder: (context, index) {
-        return _createPersonTile(personal_data_temp[index]);
+    return BlocBuilder<PersonalBloc, PersonalState>(
+      builder: (_, state) {
+        if (state is PersonalLoading) {
+          return Center(
+            child: IconButton(
+                onPressed: () {
+                  _onReloadButtonTapped(context);
+                },
+                icon: const Icon(Icons.refresh)),
+          );
+        }
+        if (state is PersonalDone) {
+          var persons = state.persons;
+          return Center(
+              child: ListView.builder(
+            itemCount: persons!.length,
+            itemBuilder: (context, index) {
+              return _createPersonTile(persons[index]);
+            },
+          ));
+        }
+
+        print("No bloc event catched");
+        return const FittedBox(
+          child: Icon(Icons.error),
+        );
       },
-    ));
+    );
   }
 
-  _createPersonTile(PersonModel person) {
+  _createPersonTile(PersonEntity person) {
     return ListTile(
         leading: Column(
           children: [
@@ -74,5 +96,9 @@ class PersonalPage extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  void _onReloadButtonTapped(BuildContext context) {
+    BlocProvider.of<PersonalBloc>(context).add(GetPersonal());
   }
 }
