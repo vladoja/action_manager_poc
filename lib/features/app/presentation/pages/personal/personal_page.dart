@@ -43,7 +43,7 @@ class PersonalPage extends StatelessWidget {
               child: ListView.builder(
             itemCount: persons!.length,
             itemBuilder: (context, index) {
-              return _createPersonTile(persons[index]);
+              return _createPersonTile(context, persons[index]);
             },
           ));
         }
@@ -56,7 +56,7 @@ class PersonalPage extends StatelessWidget {
     );
   }
 
-  _createPersonTile(PersonEntity person) {
+  _createPersonTile(BuildContext context, PersonEntity person) {
     return ListTile(
         leading: Column(
           children: [
@@ -77,7 +77,7 @@ class PersonalPage extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   print('Delete clicked');
-                  // userListBloc(context).add(DeleteUser(user: user));
+                  _onRemovePersonTapped(context, person);
                 },
                 icon: const Icon(
                   Icons.delete,
@@ -86,7 +86,9 @@ class PersonalPage extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  // _onRemovePersonTapped(context, person);
+                },
                 icon: const Icon(
                   Icons.edit,
                   size: 30,
@@ -98,7 +100,12 @@ class PersonalPage extends StatelessWidget {
         ));
   }
 
+  void _onRemovePersonTapped(BuildContext context, PersonEntity person) {
+    BlocProvider.of<PersonalBloc>(context)
+        .add(RemovePersonFromPersonal(person));
+  }
+
   void _onReloadButtonTapped(BuildContext context) {
-    BlocProvider.of<PersonalBloc>(context).add(GetPersonal());
+    BlocProvider.of<PersonalBloc>(context).add(const GetPersonal());
   }
 }

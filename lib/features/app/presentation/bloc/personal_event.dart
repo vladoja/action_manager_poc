@@ -8,3 +8,8 @@ abstract class PersonalEvent {
 class GetPersonal extends PersonalEvent {
   const GetPersonal();
 }
+
+class RemovePersonFromPersonal extends PersonalEvent {
+  final PersonEntity person;
+  const RemovePersonFromPersonal(this.person);
+}

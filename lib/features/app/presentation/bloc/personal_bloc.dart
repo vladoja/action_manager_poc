@@ -11,11 +11,26 @@ part 'personal_state.dart';
 class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
   PersonalBloc() : super(PersonalLoading()) {
     on<GetPersonal>(_onGetPersonal);
+    on<RemovePersonFromPersonal>(_onRemovePersonFromPersonal);
   }
 
   FutureOr<void> _onGetPersonal(
       GetPersonal event, Emitter<PersonalState> emit) {
     var personal = [...personal_data_temp];
     emit(PersonalDone(personal));
+  }
+
+  FutureOr<void> _onRemovePersonFromPersonal(
+      RemovePersonFromPersonal event, Emitter<PersonalState> emit) {
+    List<PersonEntity> persons;
+    if (state.persons == null) {
+      throw 'Personal is null';
+    }
+    if (state.persons!.isEmpty) {
+      throw 'Personal is empty';
+    }
+    persons = <PersonEntity>[...state.persons!].toList();
+    persons.removeWhere((element) => element.id == event.person.id);
+    emit(PersonalDone(persons));
   }
 }
