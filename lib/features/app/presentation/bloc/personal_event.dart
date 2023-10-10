@@ -18,3 +18,8 @@ class CreatePersonInPersonal extends PersonalEvent {
   final PersonEntity person;
   const CreatePersonInPersonal(this.person);
 }
+
+class UpdatePersonInPersonal extends PersonalEvent {
+  final PersonEntity person;
+  const UpdatePersonInPersonal(this.person);
+}

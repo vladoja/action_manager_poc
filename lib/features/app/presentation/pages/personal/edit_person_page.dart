@@ -25,9 +25,7 @@ class EditPersonPage extends StatelessWidget {
 
   _buildAppbar(BuildContext context) {
     return AppBar(
-      title: const Text(
-        'Create/Edit Person',
-      ),
+      title: Text((person == null) ? 'Create Person' : 'Edit Person'),
     );
   }
 
@@ -57,13 +55,22 @@ class EditPersonPage extends StatelessWidget {
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         print("Safely validated");
-                        int id = DateTime.now().millisecondsSinceEpoch;
-                        PersonEntity personNew = PersonEntity(
-                            id: id,
-                            firstName: firstName.text,
-                            lastName: lastName.text,
-                            role: role.text);
-                        _onCreateButtonTapped(context, personNew);
+                        if (person == null) {
+                          int id = DateTime.now().millisecondsSinceEpoch;
+                          PersonEntity personNew = PersonEntity(
+                              id: id,
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              role: role.text);
+                          _onCreateButtonTapped(context, personNew);
+                        } else {
+                          PersonEntity personAfterEdit = PersonEntity(
+                              id: person!.id,
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              role: role.text);
+                          _onEditButtonTapped(context, personAfterEdit);
+                        }
                         Navigator.of(context).pop();
                       }
                     },
@@ -105,5 +112,9 @@ class EditPersonPage extends StatelessWidget {
 
   void _onCreateButtonTapped(BuildContext context, PersonEntity person) {
     BlocProvider.of<PersonalBloc>(context).add(CreatePersonInPersonal(person));
+  }
+
+  void _onEditButtonTapped(BuildContext context, PersonEntity person) {
+    BlocProvider.of<PersonalBloc>(context).add(UpdatePersonInPersonal(person));
   }
 }
