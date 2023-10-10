@@ -9,9 +9,10 @@ part 'personal_event.dart';
 part 'personal_state.dart';
 
 class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
-  PersonalBloc() : super(PersonalLoading()) {
+  PersonalBloc() : super(const PersonalLoading()) {
     on<GetPersonal>(_onGetPersonal);
     on<RemovePersonFromPersonal>(_onRemovePersonFromPersonal);
+    on<CreatePersonInPersonal>(_onCreatePersonInPersonal);
   }
 
   FutureOr<void> _onGetPersonal(
@@ -31,6 +32,16 @@ class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
     }
     persons = <PersonEntity>[...state.persons!].toList();
     persons.removeWhere((element) => element.id == event.person.id);
+    emit(PersonalDone(persons));
+  }
+
+  FutureOr<void> _onCreatePersonInPersonal(
+      CreatePersonInPersonal event, Emitter<PersonalState> emit) {
+    List<PersonEntity> persons = [];
+    if (state.persons != null && state.persons!.isNotEmpty) {
+      persons.addAll(state.persons!.toList());
+    }
+    persons.add(event.person);
     emit(PersonalDone(persons));
   }
 }

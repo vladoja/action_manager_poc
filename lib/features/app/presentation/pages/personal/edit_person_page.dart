@@ -1,6 +1,7 @@
 import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditPersonPage extends StatelessWidget {
   final PersonEntity? person;
@@ -8,7 +9,7 @@ class EditPersonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     final nameController = TextEditingController();
     final lastNameController = TextEditingController();
     final roleController = TextEditingController();
@@ -30,7 +31,7 @@ class EditPersonPage extends StatelessWidget {
     );
   }
 
-  _buildBody(BuildContext context, GlobalKey formKey,
+  _buildBody(BuildContext context, GlobalKey<FormState> formKey,
       {required TextEditingController firstName,
       required TextEditingController lastName,
       required TextEditingController role}) {
@@ -43,9 +44,27 @@ class EditPersonPage extends StatelessWidget {
             Form(
               key: formKey,
               child: Column(children: [
-                _buildFormTextField(firstName!, "Meno"),
-                _buildFormTextField(lastName!, "Priezvisko"),
-                _buildFormTextField(role!, "Rola"),
+                _buildFormTextField(firstName, "Meno"),
+                _buildFormTextField(lastName, "Priezvisko"),
+                _buildFormTextField(role, "Rola"),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        print("Safely validated");
+                        int id = DateTime.now().millisecondsSinceEpoch;
+                        PersonEntity personNew = PersonEntity(
+                            id: id,
+                            firstName: firstName.text,
+                            lastName: lastName.text,
+                            role: role.text);
+                        _onCreateButtonTapped(context, personNew);
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: const Text('Submit')),
               ]),
             )
           ],
@@ -65,5 +84,19 @@ class EditPersonPage extends StatelessWidget {
         return null;
       },
     );
+  }
+
+  _buildSubmitButton(BuildContext context, GlobalKey<FormState> formKey) {
+    return ElevatedButton(
+        onPressed: () async {
+          if (formKey.currentState!.validate()) {
+            print("Safely validated");
+          }
+        },
+        child: const Text('Submit'));
+  }
+
+  void _onCreateButtonTapped(BuildContext context, PersonEntity person) {
+    BlocProvider.of<PersonalBloc>(context).add(CreatePersonInPersonal(person));
   }
 }

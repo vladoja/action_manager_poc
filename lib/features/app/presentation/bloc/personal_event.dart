@@ -13,3 +13,8 @@ class RemovePersonFromPersonal extends PersonalEvent {
   final PersonEntity person;
   const RemovePersonFromPersonal(this.person);
 }
+
+class CreatePersonInPersonal extends PersonalEvent {
+  final PersonEntity person;
+  const CreatePersonInPersonal(this.person);
+}
