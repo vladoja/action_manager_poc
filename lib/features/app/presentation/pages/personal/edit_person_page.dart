@@ -44,9 +44,12 @@ class EditPersonPage extends StatelessWidget {
             Form(
               key: formKey,
               child: Column(children: [
-                _buildFormTextField(firstName, "Meno"),
-                _buildFormTextField(lastName, "Priezvisko"),
-                _buildFormTextField(role, "Rola"),
+                _buildFormTextField(firstName, "Meno",
+                    value: (person != null) ? person!.firstName : null),
+                _buildFormTextField(lastName, "Priezvisko",
+                    value: (person != null) ? person!.lastName : null),
+                _buildFormTextField(role, "Rola",
+                    value: (person != null) ? person!.role : null),
                 const SizedBox(
                   height: 10,
                 ),
@@ -73,7 +76,11 @@ class EditPersonPage extends StatelessWidget {
     );
   }
 
-  _buildFormTextField(TextEditingController controller, String label) {
+  _buildFormTextField(TextEditingController controller, String label,
+      {String? value}) {
+    if (value != null && value.isNotEmpty) {
+      controller.text = value;
+    }
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(labelText: label),

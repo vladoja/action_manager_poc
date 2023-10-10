@@ -97,7 +97,7 @@ class PersonalPage extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  // _onRemovePersonTapped(context, person);
+                  _onEditPersonTapped(context, person);
                 },
                 icon: const Icon(
                   Icons.edit,
@@ -117,6 +117,10 @@ class PersonalPage extends StatelessWidget {
 
   void _onReloadButtonTapped(BuildContext context) {
     BlocProvider.of<PersonalBloc>(context).add(const GetPersonal());
+  }
+
+  void _onEditPersonTapped(BuildContext context, PersonEntity person) {
+    Navigator.pushNamed(context, '/Personal/Details', arguments: person);
   }
 
   void _onCreateNewPerson(BuildContext context) {
