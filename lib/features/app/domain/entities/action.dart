@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class UndertakingEntity extends Equatable {
+class ActionEntity extends Equatable {
   final int id;
   final String name;
   final String eventDate;
   final String licenceEvent;
 
-  const UndertakingEntity(
+  const ActionEntity(
       {required this.id,
       required this.name,
       required this.eventDate,
