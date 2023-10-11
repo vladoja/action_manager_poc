@@ -1,3 +1,4 @@
+import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
 import 'package:action_manager_poc/features/app/domain/entities/person.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class EditPersonPage extends StatelessWidget {
       {required TextEditingController firstName,
       required TextEditingController lastName,
       required TextEditingController role}) {
+    PersonalRole __role = PersonalRole.prisediaci;
     return Scrollbar(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(8),
@@ -48,6 +50,19 @@ class EditPersonPage extends StatelessWidget {
                     value: (person != null) ? person!.lastName : null),
                 _buildFormTextField(role, "Rola",
                     value: (person != null) ? person!.role : null),
+                const SizedBox(
+                  height: 10,
+                ),
+                DropdownButtonFormField<PersonalRole>(
+                    value: __role,
+                    onChanged: (PersonalRole? newValue) {
+                      debugPrint("New role: $newValue");
+                      __role = newValue!;
+                    },
+                    items: PersonalRole.values.map((PersonalRole role) {
+                      return DropdownMenuItem(
+                          value: role, child: Text(role.toString()));
+                    }).toList()),
                 const SizedBox(
                   height: 10,
                 ),
