@@ -1,15 +1,15 @@
 part of 'personal_bloc.dart';
 
 abstract class PersonalState extends Equatable {
-  final List<PersonEntity>? persons;
-  const PersonalState({this.persons});
+  final List<PersonEntity> persons;
+  const PersonalState({required this.persons});
 
   @override
-  List<Object> get props => [persons!];
+  List<Object> get props => [persons];
 }
 
 class PersonalLoading extends PersonalState {
-  const PersonalLoading();
+  PersonalLoading() : super(persons: <PersonEntity>[]);
 }
 
 class PersonalDone extends PersonalState {

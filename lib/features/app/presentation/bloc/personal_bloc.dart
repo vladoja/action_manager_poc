@@ -9,11 +9,18 @@ part 'personal_event.dart';
 part 'personal_state.dart';
 
 class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
-  PersonalBloc() : super(const PersonalLoading()) {
+  PersonalBloc() : super(PersonalLoading()) {
     on<GetPersonal>(_onGetPersonal);
     on<RemovePersonFromPersonal>(_onRemovePersonFromPersonal);
     on<CreatePersonInPersonal>(_onCreatePersonInPersonal);
     on<UpdatePersonInPersonal>(_onEditPersonInPersonal);
+  }
+
+  @override
+  onChange(Change<PersonalState> change) {
+    super.onChange(change);
+    // WATCH state change
+    // debugPrint(change.toString());
   }
 
   FutureOr<void> _onGetPersonal(
