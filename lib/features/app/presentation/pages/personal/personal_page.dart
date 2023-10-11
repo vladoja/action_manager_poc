@@ -43,7 +43,7 @@ class PersonalPage extends StatelessWidget {
         }
         if (state is PersonalDone) {
           var persons = state.persons;
-          if (persons!.isEmpty) {
+          if (persons.isEmpty) {
             return const Center(
               child: Text('Empty'),
             );
@@ -59,7 +59,7 @@ class PersonalPage extends StatelessWidget {
           }
         }
 
-        print("No bloc event catched");
+        debugPrint("No bloc event catched");
         return const FittedBox(
           child: Icon(Icons.error),
         );
@@ -76,7 +76,7 @@ class PersonalPage extends StatelessWidget {
               style: const TextStyle(color: Colors.black),
             ),
             Text(
-              person.role!.toString(),
+              person.role.toString(),
               style: const TextStyle(color: Colors.grey, fontSize: 14),
             )
           ],
@@ -87,7 +87,7 @@ class PersonalPage extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () async {
-                  print('Delete clicked');
+                  debugPrint('Delete clicked');
                   final confirmed = await showDialog(
                     context: context,
                     builder: (context) => const ConfirmationWidget(

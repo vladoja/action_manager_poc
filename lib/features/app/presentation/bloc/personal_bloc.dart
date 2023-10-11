@@ -32,13 +32,13 @@ class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
   FutureOr<void> _onRemovePersonFromPersonal(
       RemovePersonFromPersonal event, Emitter<PersonalState> emit) {
     List<PersonEntity> persons;
-    if (state.persons == null) {
-      throw 'Personal is null';
-    }
-    if (state.persons!.isEmpty) {
+    // if (state.persons == null) {
+    //   throw 'Personal is null';
+    // }
+    if (state.persons.isEmpty) {
       throw 'Personal is empty';
     }
-    persons = <PersonEntity>[...state.persons!].toList();
+    persons = <PersonEntity>[...state.persons].toList();
     persons.removeWhere((element) => element.id == event.person.id);
     emit(PersonalDone(persons));
   }
@@ -46,8 +46,8 @@ class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
   FutureOr<void> _onCreatePersonInPersonal(
       CreatePersonInPersonal event, Emitter<PersonalState> emit) {
     List<PersonEntity> persons = [];
-    if (state.persons != null && state.persons!.isNotEmpty) {
-      persons.addAll(state.persons!.toList());
+    if (state.persons.isNotEmpty) {
+      persons.addAll(state.persons.toList());
     }
     persons.add(event.person);
     emit(PersonalDone(persons));
@@ -55,7 +55,7 @@ class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
 
   FutureOr<void> _onEditPersonInPersonal(
       UpdatePersonInPersonal event, Emitter<PersonalState> emit) {
-    List<PersonEntity> persons = <PersonEntity>[...state.persons!].toList();
+    List<PersonEntity> persons = <PersonEntity>[...state.persons].toList();
     persons.removeWhere((element) => element.id == event.person.id);
     persons.add(event.person);
     emit(PersonalDone(persons));

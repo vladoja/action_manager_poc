@@ -67,7 +67,7 @@ class EditPersonPage extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        print("Safely validated");
+                        debugPrint("Safely validated");
                         if (person == null) {
                           int id = DateTime.now().millisecondsSinceEpoch;
                           PersonEntity personNew = PersonEntity(
@@ -117,7 +117,7 @@ class EditPersonPage extends StatelessWidget {
     return ElevatedButton(
         onPressed: () async {
           if (formKey.currentState!.validate()) {
-            print("Safely validated");
+            debugPrint("Safely validated");
           }
         },
         child: const Text('Submit'));
