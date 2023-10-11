@@ -34,7 +34,8 @@ class EditPersonPage extends StatelessWidget {
       {required TextEditingController firstName,
       required TextEditingController lastName,
       required TextEditingController role}) {
-    PersonalRole __role = PersonalRole.prisediaci;
+    PersonalRole? __role =
+        (person != null) ? person!.role : PersonalRole.prisediaci;
     return Scrollbar(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(8),
@@ -48,15 +49,12 @@ class EditPersonPage extends StatelessWidget {
                     value: (person != null) ? person!.firstName : null),
                 _buildFormTextField(lastName, "Priezvisko",
                     value: (person != null) ? person!.lastName : null),
-                _buildFormTextField(role, "Rola",
-                    value: (person != null) ? person!.role : null),
                 const SizedBox(
                   height: 10,
                 ),
                 DropdownButtonFormField<PersonalRole>(
                     value: __role,
                     onChanged: (PersonalRole? newValue) {
-                      debugPrint("New role: $newValue");
                       __role = newValue!;
                     },
                     items: PersonalRole.values.map((PersonalRole role) {
@@ -76,14 +74,14 @@ class EditPersonPage extends StatelessWidget {
                               id: id,
                               firstName: firstName.text,
                               lastName: lastName.text,
-                              role: role.text);
+                              role: __role!);
                           _onCreateButtonTapped(context, personNew);
                         } else {
                           PersonEntity personAfterEdit = PersonEntity(
                               id: person!.id,
                               firstName: firstName.text,
                               lastName: lastName.text,
-                              role: role.text);
+                              role: __role!);
                           _onEditButtonTapped(context, personAfterEdit);
                         }
                         Navigator.of(context).pop();

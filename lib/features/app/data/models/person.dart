@@ -1,3 +1,4 @@
+import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
 import 'package:action_manager_poc/features/app/domain/entities/person.dart';
 import 'package:floor/floor.dart';
 
@@ -8,7 +9,7 @@ class PersonModel extends PersonEntity {
     String? firstName,
     String? lastName,
     String? title,
-    String? role,
+    required PersonalRole role,
     String? status,
   }) : super(
             id: id,
@@ -22,7 +23,7 @@ class PersonModel extends PersonEntity {
         firstName: map['firstName'] ?? "",
         lastName: map['lastName'] ?? "",
         title: map['title'] ?? "",
-        role: map['role'] ?? "",
+        role: map['role'],
         status: map['status'] ?? "");
   }
 

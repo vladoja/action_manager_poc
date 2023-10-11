@@ -1,3 +1,4 @@
+import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
 import 'package:equatable/equatable.dart';
 
 class PersonEntity extends Equatable {
@@ -5,7 +6,7 @@ class PersonEntity extends Equatable {
   final String? firstName;
   final String? lastName;
   final String? title;
-  final String? role;
+  final PersonalRole role;
   final String? status;
 
   const PersonEntity(
@@ -13,7 +14,7 @@ class PersonEntity extends Equatable {
       this.firstName,
       this.lastName,
       this.title,
-      this.role,
+      required this.role,
       this.status});
 
   @override

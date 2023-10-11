@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `person` (`id` INTEGER, `firstName` TEXT, `lastName` TEXT, `title` TEXT, `role` TEXT, `status` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `person` (`id` INTEGER, `firstName` TEXT, `lastName` TEXT, `title` TEXT, `role` TEXT NOT NULL, `status` TEXT, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -119,7 +119,10 @@ class _$PersonDao extends PersonDao {
             firstName: row['firstName'] as String?,
             lastName: row['lastName'] as String?,
             title: row['title'] as String?,
-            role: row['role'] as String?,
+            role: _personalRoleConverter.decode(row['role'] as String),
             status: row['status'] as String?));
   }
 }
+
+// ignore_for_file: unused_element
+final _personalRoleConverter = PersonalRoleConverter();

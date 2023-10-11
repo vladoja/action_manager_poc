@@ -76,7 +76,7 @@ class PersonalPage extends StatelessWidget {
               style: const TextStyle(color: Colors.black),
             ),
             Text(
-              person.role!,
+              person.role!.toString(),
               style: const TextStyle(color: Colors.grey, fontSize: 14),
             )
           ],
