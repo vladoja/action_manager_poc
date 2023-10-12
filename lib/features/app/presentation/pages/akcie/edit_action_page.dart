@@ -40,6 +40,8 @@ class EditActionPage extends StatelessWidget {
               _buildFormTextFieldWithDatePicker(
                   context, actionDateController, "Dátum termínu"),
               _buildFormTextField(licenceEventController, "Etapa(s terminom)"),
+              _buildFormTextField(licenceCourseController, "Konanie"),
+              _buildFormTextField(licenceTypeController, "Oprávnenie"),
               const SizedBox(
                 height: 10,
               ),
