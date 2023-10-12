@@ -5,3 +5,8 @@ abstract class ActionEvent {
 }
 
 class GetActionsEvent extends ActionEvent {}
+
+class CreateActionEvent extends ActionEvent {
+  final ActionEntity action;
+  CreateActionEvent(this.action) : super();
+}

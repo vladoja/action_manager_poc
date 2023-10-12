@@ -1,5 +1,7 @@
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
+import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditActionPage extends StatelessWidget {
   final ActionEntity? action;
@@ -27,17 +29,34 @@ class EditActionPage extends StatelessWidget {
         child: SingleChildScrollView(
       padding: const EdgeInsets.all(8),
       child: Form(
+          key: formKey,
           child: Column(
-        children: [
-          _buildFormTextField(actionNameController, "Nazov terminu"),
-          _buildFormTextField(actionDateController, "Datum terminu"),
-          _buildFormTextField(licenceEventController, "Etapa(s terminom)"),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(onPressed: () {}, child: const Text('submit'))
-        ],
-      )),
+            children: [
+              _buildFormTextField(actionNameController, "Nazov terminu"),
+              _buildFormTextField(actionDateController, "Datum terminu"),
+              _buildFormTextField(licenceEventController, "Etapa(s terminom)"),
+              const SizedBox(
+                height: 10,
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      if (action == null) {
+                        // Vytvor novu akciu
+                        int id = DateTime.now().millisecondsSinceEpoch;
+                        ActionEntity actionNew = ActionEntity(
+                            id: id,
+                            name: actionNameController.text,
+                            eventDate: actionDateController.text,
+                            licenceEvent: licenceEventController.text);
+                        _triggerCreateActionEvent(context, actionNew);
+                      } else {}
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: const Text('submit'))
+            ],
+          )),
     ));
   }
 
@@ -56,5 +75,9 @@ class EditActionPage extends StatelessWidget {
         return null;
       },
     );
+  }
+
+  void _triggerCreateActionEvent(BuildContext context, ActionEntity actionNew) {
+    BlocProvider.of<ActionBloc>(context).add(CreateActionEvent(actionNew));
   }
 }
