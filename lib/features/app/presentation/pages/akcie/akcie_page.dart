@@ -1,5 +1,6 @@
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,12 +49,13 @@ class AkciePage extends StatelessWidget {
             );
           } else {
             return Center(
-              child: ListView.builder(
-                itemCount: actions.length,
-                itemBuilder: (context, index) {
-                  return _createPersonTile(context, actions[index]);
-                },
-              ),
+              // child: ListView.builder(
+              //   itemCount: actions.length,
+              //   itemBuilder: (context, index) {
+              //     return _createPersonTile(context, actions[index]);
+              //   },
+              // );
+              child: ActionTableWidget(actions: actions),
             );
           }
         }

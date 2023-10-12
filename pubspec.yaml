@@ -40,6 +40,10 @@ dependencies:
 
   #chached image 
   cached_network_image: ^3.2.0
+
+  #data table
+  data_table_2: 2.3.12
+
   json_serializable: ^6.5.4
 
   sqflite_common_ffi: ^2.2.5
