@@ -26,6 +26,8 @@ class EditActionPage extends StatelessWidget {
     TextEditingController actionNameController = TextEditingController();
     TextEditingController actionDateController = TextEditingController();
     TextEditingController licenceEventController = TextEditingController();
+    TextEditingController licenceTypeController = TextEditingController();
+    TextEditingController licenceCourseController = TextEditingController();
     return Scrollbar(
         child: SingleChildScrollView(
       padding: const EdgeInsets.all(8),
@@ -51,7 +53,9 @@ class EditActionPage extends StatelessWidget {
                             id: id,
                             name: actionNameController.text,
                             actionDate: actionDateController.text,
-                            licenceEvent: licenceEventController.text);
+                            licenceEvent: licenceEventController.text,
+                            licenceType: licenceTypeController.text,
+                            licenceCourse: licenceCourseController.text);
                         _triggerCreateActionEvent(context, actionNew);
                       } else {}
                       Navigator.of(context).pop();

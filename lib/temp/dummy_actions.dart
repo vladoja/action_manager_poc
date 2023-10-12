@@ -5,15 +5,21 @@ const actions_data_temp = <ActionEntity>[
       id: 1,
       name: "EK Doskolovaci Kurz",
       actionDate: "2024-02-31",
-      licenceEvent: "skolenie"),
+      licenceEvent: "termín školenia",
+      licenceType: "Emisná kontrola",
+      licenceCourse: "základné školenie"),
   ActionEntity(
       id: 1,
       name: "EK Doskolovaci Kurz",
       actionDate: "2024-02-14",
-      licenceEvent: "skolenie"),
+      licenceEvent: "termín školenia",
+      licenceType: "Emisná kontrola",
+      licenceCourse: "doškoľovací kurz"),
   ActionEntity(
       id: 2,
       name: "EK Doskolovaci Kurz",
       actionDate: "2024-02-28",
-      licenceEvent: "skuska")
+      licenceEvent: "termín skúšky",
+      licenceType: "Emisná kontrola",
+      licenceCourse: "základné školenie"),
 ];

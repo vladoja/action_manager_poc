@@ -5,13 +5,18 @@ class ActionEntity extends Equatable {
   final String name;
   final String actionDate;
   final String licenceEvent;
+  final String licenceType;
+  final String licenceCourse;
 
   const ActionEntity(
       {required this.id,
       required this.name,
       required this.actionDate,
-      required this.licenceEvent});
+      required this.licenceEvent,
+      required this.licenceType,
+      required this.licenceCourse});
 
   @override
-  List<Object?> get props => [id, name, actionDate, licenceEvent];
+  List<Object?> get props =>
+      [id, name, actionDate, licenceEvent, licenceCourse, licenceType];
 }
