@@ -5,7 +5,7 @@ abstract class ActionState extends Equatable {
   const ActionState({required this.actions});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [actions];
 }
 
 class ActionLoading extends ActionState {

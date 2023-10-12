@@ -1,6 +1,5 @@
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
-import 'package:action_manager_poc/temp/dummy_actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
