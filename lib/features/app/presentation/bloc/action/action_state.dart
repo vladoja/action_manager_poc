@@ -8,6 +8,10 @@ abstract class ActionState extends Equatable {
   List<Object> get props => [];
 }
 
+class ActionLoading extends ActionState {
+  ActionLoading() : super(actions: []);
+}
+
 class ActionInitial extends ActionState {
   ActionInitial() : super(actions: [...actions_data_temp]);
 }
