@@ -73,7 +73,7 @@ class AkciePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(action.name),
-          Text(action.eventDate),
+          Text(action.actionDate),
           Text(action.licenceEvent)
         ],
       ),

@@ -50,7 +50,7 @@ class EditActionPage extends StatelessWidget {
                         ActionEntity actionNew = ActionEntity(
                             id: id,
                             name: actionNameController.text,
-                            eventDate: actionDateController.text,
+                            actionDate: actionDateController.text,
                             licenceEvent: licenceEventController.text);
                         _triggerCreateActionEvent(context, actionNew);
                       } else {}
