@@ -2,6 +2,7 @@ import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class EditActionPage extends StatelessWidget {
   final ActionEntity? action;
@@ -33,7 +34,9 @@ class EditActionPage extends StatelessWidget {
           child: Column(
             children: [
               _buildFormTextField(actionNameController, "Nazov terminu"),
-              _buildFormTextField(actionDateController, "Datum terminu"),
+              // _buildFormTextField(actionDateController, "Datum terminu"),
+              _buildFormTextFieldWithDatePicker(
+                  context, actionDateController, "Dátum termínu"),
               _buildFormTextField(licenceEventController, "Etapa(s terminom)"),
               const SizedBox(
                 height: 10,
@@ -71,6 +74,41 @@ class EditActionPage extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter some text';
+        }
+        return null;
+      },
+    );
+  }
+
+  _buildFormTextFieldWithDatePicker(
+      BuildContext context, TextEditingController dateController, String label,
+      {String? value}) {
+    var dateFormatDay = DateFormat('yyyy-MM-dd');
+    return TextFormField(
+      controller: dateController,
+      decoration: InputDecoration(
+          labelText: label,
+          suffixIcon: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: IconButton(
+                onPressed: () async {
+                  DateTime now = (dateController.text.isNotEmpty)
+                      ? DateTime.parse(dateController.text)
+                      : DateTime.now();
+                  DateTime? selected = await showDatePicker(
+                      context: context,
+                      initialDate: now,
+                      firstDate: now.add(-const Duration(days: 30)),
+                      lastDate: now.add(const Duration(days: 365)));
+                  if (selected != null) {
+                    dateController.text = dateFormatDay.format(selected);
+                  }
+                },
+                icon: const Icon(Icons.edit_calendar)),
+          )),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter date';
         }
         return null;
       },
