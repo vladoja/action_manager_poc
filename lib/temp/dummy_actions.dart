@@ -4,7 +4,7 @@ const actions_data_temp = <ActionEntity>[
   ActionEntity(
       id: 1,
       name: "EK Doskolovaci Kurz",
-      eventDate: "2024-02-01-31",
+      eventDate: "2024-02-31",
       licenceEvent: "skolenie"),
   ActionEntity(
       id: 1,
