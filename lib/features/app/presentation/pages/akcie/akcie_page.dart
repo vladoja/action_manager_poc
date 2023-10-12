@@ -30,7 +30,6 @@ class AkciePage extends StatelessWidget {
   }
 
   _buildBody(BuildContext context) {
-    List<ActionEntity> actions = actions_data_temp.toList();
     return BlocBuilder<ActionBloc, ActionState>(
       builder: (_, state) {
         if (state is ActionLoading) {
