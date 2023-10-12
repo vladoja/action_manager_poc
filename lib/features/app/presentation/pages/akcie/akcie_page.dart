@@ -1,10 +1,7 @@
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:action_manager_poc/temp/dummy_actions.dart';
-import 'package:action_manager_poc/temp/dummy_personal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AkciePage extends StatelessWidget {
@@ -15,6 +12,11 @@ class AkciePage extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildBody(context),
+      floatingActionButton: IconButton(
+        icon: const Icon(Icons.add_rounded),
+        tooltip: "Pridaj Akciu",
+        onPressed: () => {Navigator.pushNamed(context, '/Akcie/New')},
+      ),
     );
   }
 
