@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_preview_widget.dart';
@@ -5,8 +7,15 @@ import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AkciePage extends StatelessWidget {
+class AkciePage extends StatefulWidget {
   const AkciePage({super.key});
+
+  @override
+  State<AkciePage> createState() => _AkciePageState();
+}
+
+class _AkciePageState extends State<AkciePage> {
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +58,7 @@ class AkciePage extends StatelessWidget {
               child: Text('No actions yet'),
             );
           } else {
-            ActionEntity previewedAction = actions[0];
+            ActionEntity previewedAction = actions[currentIndex];
             return Center(
               child: Column(
                 children: [
@@ -57,7 +66,11 @@ class AkciePage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Expanded(child: ActionTableWidget(actions: actions)),
+                  Expanded(
+                      child: ActionTableWidget(
+                    actions: actions,
+                    clickFunction: _clickFunction,
+                  )),
                 ],
               ),
             );
@@ -71,6 +84,12 @@ class AkciePage extends StatelessWidget {
         );
       },
     );
+  }
+
+  _clickFunction(int index) {
+    setState(() {
+      currentIndex = index;
+    });
   }
 
   _createPersonTile(BuildContext context, ActionEntity action) {
