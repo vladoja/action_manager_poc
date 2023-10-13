@@ -1,3 +1,4 @@
+import 'package:action_manager_poc/core/utils/action_utils.dart';
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:flutter/material.dart';
@@ -115,6 +116,9 @@ class EditActionPage extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please enter date';
+        }
+        if (isDate(value) == false) {
+          return 'Not valid date object';
         }
         return null;
       },
