@@ -1,5 +1,6 @@
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_preview_widget.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,10 +49,11 @@ class AkciePage extends StatelessWidget {
               child: Text('No actions yet'),
             );
           } else {
+            ActionEntity previewedAction = actions[0];
             return Center(
               child: Column(
                 children: [
-                  const Expanded(child: Text('DETAILY AKCIE')),
+                  ActionPreviewWidget(action: previewedAction),
                   const SizedBox(
                     height: 10,
                   ),
