@@ -14,17 +14,15 @@ class ActionPreviewWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
-              flex: 2,
-              child: Text('XXXX'),
-            ),
-            Expanded(
               flex: 3,
               child: _createTitleAndDate(action.name, action.actionDate),
             ),
-            const Icon(
-              Icons.more_vert,
-              size: 16.0,
+            Expanded(
+              flex: 3,
+              child: _createEventInfo(
+                  action.licenceType, action.licenceType, action.licenceCourse),
             ),
+            Expanded(flex: 0, child: _createIconPanel()),
           ],
         ),
       ),
@@ -49,11 +47,63 @@ class ActionPreviewWidget extends StatelessWidget {
             date,
             style: const TextStyle(fontSize: 10.0),
           ),
-          const Padding(padding: EdgeInsets.symmetric(vertical: 1.0)),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 1.0))
+        ],
+      ),
+    );
+  }
+
+  Widget _createEventInfo(
+      String licenceEvent, String licenceType, String licenceCourse) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
           Text(
-            'views',
-            style: const TextStyle(fontSize: 10.0),
+            licenceCourse,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14.0,
+            ),
           ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+          Text(
+            licenceType,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14.0,
+            ),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+          Text(
+            licenceEvent,
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _createIconPanel() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.edit),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.delete),
+          ),
+          const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
         ],
       ),
     );
