@@ -22,19 +22,29 @@ class HomePage extends StatelessWidget {
 
   _buildBody(BuildContext context) {
     return Center(
-        child: Row(
+        child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         InkWell(
           child: const Text('Personal'),
           onTap: () => _tapOnPersonal(context),
-        )
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        ElevatedButton(
+            onPressed: () => {_gotoPageAkce(context)},
+            child: const Text('Akcie'))
       ],
     ));
   }
 
   _tapOnPersonal(BuildContext context) {
     Navigator.pushNamed(context, '/Personal');
+  }
+
+  _gotoPageAkce(BuildContext context) {
+    Navigator.pushNamed(context, '/Akcie');
   }
 }

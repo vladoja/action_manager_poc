@@ -1,4 +1,6 @@
 import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/akcie/akcie_page.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/akcie/edit_action_page.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/home/home_page.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/personal/edit_person_page.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/personal/personal_page.dart';
@@ -19,6 +21,10 @@ class AppRoutes {
         return _materialRoute(EditPersonPage(
           person: person,
         ));
+      case '/Akcie':
+        return _materialRoute(const AkciePage());
+      case '/Akcie/New':
+        return _materialRoute(const EditActionPage());
       default:
         return _materialRoute(const HomePage());
     }

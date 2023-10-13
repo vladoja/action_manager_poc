@@ -35,10 +35,12 @@ class PersonalPage extends StatelessWidget {
         if (state is PersonalLoading) {
           return Center(
             child: IconButton(
-                onPressed: () {
-                  _onReloadButtonTapped(context);
-                },
-                icon: const Icon(Icons.refresh)),
+              onPressed: () {
+                _onReloadButtonTapped(context);
+              },
+              icon: const Icon(Icons.refresh),
+              tooltip: "Tap me",
+            ),
           );
         }
         if (state is PersonalDone) {
