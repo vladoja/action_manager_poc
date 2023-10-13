@@ -49,13 +49,15 @@ class AkciePage extends StatelessWidget {
             );
           } else {
             return Center(
-              // child: ListView.builder(
-              //   itemCount: actions.length,
-              //   itemBuilder: (context, index) {
-              //     return _createPersonTile(context, actions[index]);
-              //   },
-              // );
-              child: ActionTableWidget(actions: actions),
+              child: Column(
+                children: [
+                  const Expanded(child: Text('DETAILY AKCIE')),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Expanded(child: ActionTableWidget(actions: actions)),
+                ],
+              ),
             );
           }
         }
