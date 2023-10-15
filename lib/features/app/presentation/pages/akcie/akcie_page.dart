@@ -61,7 +61,9 @@ class _AkciePageState extends State<AkciePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ActionPreviewWidget(action: previewedAction),
+                  ActionPreviewWidget(
+                      action: previewedAction,
+                      deleteFunction: _triggerRemoveAction),
                   const SizedBox(
                     height: 10,
                   ),
@@ -95,5 +97,12 @@ class _AkciePageState extends State<AkciePage> {
 
   void _onReloadButtonTapped(BuildContext context) {
     BlocProvider.of<ActionBloc>(context).add(GetActionsEvent());
+  }
+
+  _triggerRemoveAction(BuildContext context, ActionEntity action) {
+    BlocProvider.of<ActionBloc>(context).add(RemoveActionEvent(action));
+    setState(() {
+      currentIndex = 0;
+    });
   }
 }

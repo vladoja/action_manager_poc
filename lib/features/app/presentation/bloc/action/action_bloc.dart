@@ -13,6 +13,7 @@ class ActionBloc extends Bloc<ActionEvent, ActionState> {
     on<GetActionsEvent>(_onGetActionsEvent);
     on<CreateActionEvent>(_onCreateActionEvent);
     on<UpdateActionEvent>(_updateActionEvent);
+    on<RemoveActionEvent>(_removeActionEvent);
   }
 
   FutureOr<void> _onGetActionsEvent(
@@ -37,6 +38,15 @@ class ActionBloc extends Bloc<ActionEvent, ActionState> {
         .where((element) => element.id != actionToUpdate.id)
         .toList();
     actions.add(actionToUpdate);
+    emit(ActionDone(actions));
+  }
+
+  FutureOr<void> _removeActionEvent(
+      RemoveActionEvent event, Emitter<ActionState> emit) {
+    ActionEntity actionToRemove = event.action;
+    List<ActionEntity> actions = [...state.actions]
+        .where((element) => element.id != actionToRemove.id)
+        .toList();
     emit(ActionDone(actions));
   }
 }

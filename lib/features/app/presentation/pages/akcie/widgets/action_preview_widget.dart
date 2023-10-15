@@ -1,11 +1,16 @@
 import 'dart:developer';
 
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
+import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
+import 'package:action_manager_poc/features/app/presentation/widgets/confirmation_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ActionPreviewWidget extends StatelessWidget {
   final ActionEntity action;
-  const ActionPreviewWidget({super.key, required this.action});
+  final Function deleteFunction;
+  const ActionPreviewWidget(
+      {super.key, required this.action, required this.deleteFunction});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +112,9 @@ class ActionPreviewWidget extends StatelessWidget {
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _deleteAction(context);
+            },
             icon: const Icon(Icons.delete),
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
@@ -119,5 +126,21 @@ class ActionPreviewWidget extends StatelessWidget {
   _goToActionDetails(BuildContext context) {
     log("Go to action details");
     Navigator.of(context).pushNamed('/Akcie/Details', arguments: action);
+  }
+
+  _deleteAction(BuildContext context) async {
+    final confirmed = await _showDeleteDialog(context);
+    if (confirmed == true) {
+      deleteFunction(context, action);
+    }
+  }
+
+  Future<bool> _showDeleteDialog(BuildContext context) async {
+    return await showDialog(
+      context: context,
+      builder: (context) => const ConfirmationWidget(
+          questionTitle: "Zmazat akciu?",
+          questionDescription: "Naozaj zmazat akciu?"),
+    );
   }
 }
