@@ -29,6 +29,13 @@ class EditActionPage extends StatelessWidget {
     TextEditingController licenceEventController = TextEditingController();
     TextEditingController licenceTypeController = TextEditingController();
     TextEditingController licenceCourseController = TextEditingController();
+    if (action != null) {
+      actionNameController.text = action!.name;
+      actionDateController.text = action!.actionDate;
+      licenceEventController.text = action!.licenceEvent;
+      licenceTypeController.text = action!.licenceType;
+      licenceCourseController.text = action!.licenceCourse;
+    }
     return Scrollbar(
         child: SingleChildScrollView(
       padding: const EdgeInsets.all(8),
@@ -60,7 +67,14 @@ class EditActionPage extends StatelessWidget {
                             licenceType: licenceTypeController.text,
                             licenceCourse: licenceCourseController.text);
                         _triggerCreateActionEvent(context, actionNew);
-                      } else {}
+                      } else {
+                        Action newAction = action!.copyWith(
+                            name: actionNameController.text,
+                            actionDate: actionDateController.text,
+                            licenceEvent: licenceEventController.text,
+                            licenceType: licenceTypeController.text,
+                            licenceCourse: licenceCourseController.text).;
+                      }
                       Navigator.of(context).pop();
                     }
                   },
