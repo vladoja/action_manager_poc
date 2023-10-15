@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_preview_widget.dart';
@@ -93,19 +91,6 @@ class _AkciePageState extends State<AkciePage> {
     setState(() {
       currentIndex = index;
     });
-  }
-
-  _createPersonTile(BuildContext context, ActionEntity action) {
-    return ListTile(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(action.name),
-          Text(action.actionDate),
-          Text(action.licenceEvent)
-        ],
-      ),
-    );
   }
 
   void _onReloadButtonTapped(BuildContext context) {

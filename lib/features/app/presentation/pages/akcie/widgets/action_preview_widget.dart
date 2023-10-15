@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +25,7 @@ class ActionPreviewWidget extends StatelessWidget {
               child: _createEventInfo(
                   action.licenceType, action.licenceType, action.licenceCourse),
             ),
-            Expanded(flex: 0, child: _createIconPanel()),
+            Expanded(flex: 0, child: _createIconPanel(context)),
           ],
         ),
       ),
@@ -91,14 +93,16 @@ class ActionPreviewWidget extends StatelessWidget {
     );
   }
 
-  Widget _createIconPanel() {
+  Widget _createIconPanel(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              _goToActionDetails(context);
+            },
             icon: const Icon(Icons.edit),
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
@@ -110,5 +114,10 @@ class ActionPreviewWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _goToActionDetails(BuildContext context) {
+    log("Go to action details");
+    Navigator.of(context).pushNamed('/Akcie/Details', arguments: action);
   }
 }
