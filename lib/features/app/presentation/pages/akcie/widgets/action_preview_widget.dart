@@ -7,10 +7,11 @@ class ActionPreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child: IntrinsicHeight(
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
@@ -34,6 +35,7 @@ class ActionPreviewWidget extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
             title,
@@ -59,6 +61,7 @@ class ActionPreviewWidget extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
             licenceCourse,

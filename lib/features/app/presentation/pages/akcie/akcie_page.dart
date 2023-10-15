@@ -61,16 +61,19 @@ class _AkciePageState extends State<AkciePage> {
             ActionEntity previewedAction = actions[currentIndex];
             return Center(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   ActionPreviewWidget(action: previewedAction),
                   const SizedBox(
                     height: 10,
                   ),
                   Expanded(
-                      child: ActionTableWidget(
-                    actions: actions,
-                    clickFunction: _clickFunction,
-                  )),
+                    child: ActionTableWidget(
+                      actions: actions,
+                      clickFunction: _clickFunction,
+                    ),
+                  ),
+                  // const Spacer(),
                 ],
               ),
             );
