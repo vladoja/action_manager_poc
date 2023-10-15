@@ -26,9 +26,9 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        InkWell(
+        ElevatedButton(
           child: const Text('Personal'),
-          onTap: () => _tapOnPersonal(context),
+          onPressed: () => _tapOnPersonal(context),
         ),
         const SizedBox(
           height: 20,

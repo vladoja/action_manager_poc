@@ -1,11 +1,19 @@
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_preview_widget.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AkciePage extends StatelessWidget {
+class AkciePage extends StatefulWidget {
   const AkciePage({super.key});
+
+  @override
+  State<AkciePage> createState() => _AkciePageState();
+}
+
+class _AkciePageState extends State<AkciePage> {
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +56,24 @@ class AkciePage extends StatelessWidget {
               child: Text('No actions yet'),
             );
           } else {
+            ActionEntity previewedAction = actions[currentIndex];
             return Center(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Expanded(child: Text('DETAILY AKCIE')),
+                  ActionPreviewWidget(
+                      action: previewedAction,
+                      deleteFunction: _triggerRemoveAction),
                   const SizedBox(
                     height: 10,
                   ),
-                  Expanded(child: ActionTableWidget(actions: actions)),
+                  Expanded(
+                    child: ActionTableWidget(
+                      actions: actions,
+                      clickFunction: _clickFunction,
+                    ),
+                  ),
+                  // const Spacer(),
                 ],
               ),
             );
@@ -71,20 +89,20 @@ class AkciePage extends StatelessWidget {
     );
   }
 
-  _createPersonTile(BuildContext context, ActionEntity action) {
-    return ListTile(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(action.name),
-          Text(action.actionDate),
-          Text(action.licenceEvent)
-        ],
-      ),
-    );
+  _clickFunction(int index) {
+    setState(() {
+      currentIndex = index;
+    });
   }
 
   void _onReloadButtonTapped(BuildContext context) {
     BlocProvider.of<ActionBloc>(context).add(GetActionsEvent());
+  }
+
+  _triggerRemoveAction(BuildContext context, ActionEntity action) {
+    BlocProvider.of<ActionBloc>(context).add(RemoveActionEvent(action));
+    setState(() {
+      currentIndex = 0;
+    });
   }
 }

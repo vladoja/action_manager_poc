@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 
 class ActionTableWidget extends StatelessWidget {
   final List<ActionEntity> actions;
-  ActionTableWidget({super.key, required this.actions});
+  final Function clickFunction;
+  ActionTableWidget(
+      {super.key, required this.actions, required this.clickFunction});
 
   final List<DataRow> tableRows = [];
 
@@ -48,6 +50,7 @@ class ActionTableWidget extends StatelessWidget {
 
   void handleClickOnRow(int rowIndex) {
     log("Row with id: $rowIndex clicked");
+    clickFunction(rowIndex);
   }
 
   List<DataRow> createTableRows(List<ActionEntity> actions) {
