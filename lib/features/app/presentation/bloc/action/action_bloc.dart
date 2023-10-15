@@ -12,6 +12,7 @@ class ActionBloc extends Bloc<ActionEvent, ActionState> {
   ActionBloc() : super(ActionLoading()) {
     on<GetActionsEvent>(_onGetActionsEvent);
     on<CreateActionEvent>(_onCreateActionEvent);
+    on<UpdateActionEvent>(_updateActionEvent);
   }
 
   FutureOr<void> _onGetActionsEvent(
@@ -26,6 +27,16 @@ class ActionBloc extends Bloc<ActionEvent, ActionState> {
     ActionEntity newAction = event.action;
     List<ActionEntity> actions = [...state.actions];
     actions.add(newAction);
+    emit(ActionDone(actions));
+  }
+
+  FutureOr<void> _updateActionEvent(
+      UpdateActionEvent event, Emitter<ActionState> emit) {
+    ActionEntity actionToUpdate = event.action;
+    List<ActionEntity> actions = [...state.actions]
+        .where((element) => element.id != actionToUpdate.id)
+        .toList();
+    actions.add(actionToUpdate);
     emit(ActionDone(actions));
   }
 }

@@ -68,12 +68,13 @@ class EditActionPage extends StatelessWidget {
                             licenceCourse: licenceCourseController.text);
                         _triggerCreateActionEvent(context, actionNew);
                       } else {
-                        Action newAction = action!.copyWith(
+                        ActionEntity newAction = action!.copyWith(
                             name: actionNameController.text,
                             actionDate: actionDateController.text,
                             licenceEvent: licenceEventController.text,
                             licenceType: licenceTypeController.text,
-                            licenceCourse: licenceCourseController.text).;
+                            licenceCourse: licenceCourseController.text);
+                        _triggerUpdateActionEvent(context, newAction);
                       }
                       Navigator.of(context).pop();
                     }
@@ -141,5 +142,9 @@ class EditActionPage extends StatelessWidget {
 
   void _triggerCreateActionEvent(BuildContext context, ActionEntity actionNew) {
     BlocProvider.of<ActionBloc>(context).add(CreateActionEvent(actionNew));
+  }
+
+  void _triggerUpdateActionEvent(BuildContext context, ActionEntity action) {
+    BlocProvider.of<ActionBloc>(context).add(UpdateActionEvent(action));
   }
 }
