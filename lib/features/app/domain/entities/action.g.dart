@@ -6,8 +6,8 @@ part of 'action.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ActionEntity _$$_ActionEntityFromJson(Map<String, dynamic> json) =>
-    _$_ActionEntity(
+_$ActionEntityImpl _$$ActionEntityImplFromJson(Map<String, dynamic> json) =>
+    _$ActionEntityImpl(
       id: json['id'] as int,
       name: json['name'] as String,
       actionDate: json['actionDate'] as String,
@@ -16,7 +16,7 @@ _$_ActionEntity _$$_ActionEntityFromJson(Map<String, dynamic> json) =>
       licenceCourse: json['licenceCourse'] as String,
     );
 
-Map<String, dynamic> _$$_ActionEntityToJson(_$_ActionEntity instance) =>
+Map<String, dynamic> _$$ActionEntityImplToJson(_$ActionEntityImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
