@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'action.dart';
 
@@ -98,11 +98,11 @@ class _$ActionEntityCopyWithImpl<$Res, $Val extends ActionEntity>
 }
 
 /// @nodoc
-abstract class _$$_ActionEntityCopyWith<$Res>
+abstract class _$$ActionEntityImplCopyWith<$Res>
     implements $ActionEntityCopyWith<$Res> {
-  factory _$$_ActionEntityCopyWith(
-          _$_ActionEntity value, $Res Function(_$_ActionEntity) then) =
-      __$$_ActionEntityCopyWithImpl<$Res>;
+  factory _$$ActionEntityImplCopyWith(
+          _$ActionEntityImpl value, $Res Function(_$ActionEntityImpl) then) =
+      __$$ActionEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -115,11 +115,11 @@ abstract class _$$_ActionEntityCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_ActionEntityCopyWithImpl<$Res>
-    extends _$ActionEntityCopyWithImpl<$Res, _$_ActionEntity>
-    implements _$$_ActionEntityCopyWith<$Res> {
-  __$$_ActionEntityCopyWithImpl(
-      _$_ActionEntity _value, $Res Function(_$_ActionEntity) _then)
+class __$$ActionEntityImplCopyWithImpl<$Res>
+    extends _$ActionEntityCopyWithImpl<$Res, _$ActionEntityImpl>
+    implements _$$ActionEntityImplCopyWith<$Res> {
+  __$$ActionEntityImplCopyWithImpl(
+      _$ActionEntityImpl _value, $Res Function(_$ActionEntityImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_ActionEntityCopyWithImpl<$Res>
     Object? licenceType = null,
     Object? licenceCourse = null,
   }) {
-    return _then(_$_ActionEntity(
+    return _then(_$ActionEntityImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -163,8 +163,8 @@ class __$$_ActionEntityCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_ActionEntity implements _ActionEntity {
-  const _$_ActionEntity(
+class _$ActionEntityImpl implements _ActionEntity {
+  const _$ActionEntityImpl(
       {required this.id,
       required this.name,
       required this.actionDate,
@@ -172,8 +172,8 @@ class _$_ActionEntity implements _ActionEntity {
       required this.licenceType,
       required this.licenceCourse});
 
-  factory _$_ActionEntity.fromJson(Map<String, dynamic> json) =>
-      _$$_ActionEntityFromJson(json);
+  factory _$ActionEntityImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ActionEntityImplFromJson(json);
 
   @override
   final int id;
@@ -197,7 +197,7 @@ class _$_ActionEntity implements _ActionEntity {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ActionEntity &&
+            other is _$ActionEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.actionDate, actionDate) ||
@@ -218,12 +218,12 @@ class _$_ActionEntity implements _ActionEntity {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ActionEntityCopyWith<_$_ActionEntity> get copyWith =>
-      __$$_ActionEntityCopyWithImpl<_$_ActionEntity>(this, _$identity);
+  _$$ActionEntityImplCopyWith<_$ActionEntityImpl> get copyWith =>
+      __$$ActionEntityImplCopyWithImpl<_$ActionEntityImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ActionEntityToJson(
+    return _$$ActionEntityImplToJson(
       this,
     );
   }
@@ -236,10 +236,10 @@ abstract class _ActionEntity implements ActionEntity {
       required final String actionDate,
       required final String licenceEvent,
       required final String licenceType,
-      required final String licenceCourse}) = _$_ActionEntity;
+      required final String licenceCourse}) = _$ActionEntityImpl;
 
   factory _ActionEntity.fromJson(Map<String, dynamic> json) =
-      _$_ActionEntity.fromJson;
+      _$ActionEntityImpl.fromJson;
 
   @override
   int get id;
@@ -255,6 +255,6 @@ abstract class _ActionEntity implements ActionEntity {
   String get licenceCourse;
   @override
   @JsonKey(ignore: true)
-  _$$_ActionEntityCopyWith<_$_ActionEntity> get copyWith =>
+  _$$ActionEntityImplCopyWith<_$ActionEntityImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
