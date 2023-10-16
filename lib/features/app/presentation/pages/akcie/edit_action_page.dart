@@ -1,6 +1,7 @@
 import 'package:action_manager_poc/core/utils/action_utils.dart';
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/akcie_personal_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -36,8 +37,11 @@ class EditActionPage extends StatelessWidget {
       licenceTypeController.text = action!.licenceType;
       licenceCourseController.text = action!.licenceCourse;
     }
+    // final ScrollController _scrollController = ScrollController();
     return Scrollbar(
+        // controller: _scrollController,
         child: SingleChildScrollView(
+      primary: true,
       padding: const EdgeInsets.all(8),
       child: Form(
           key: formKey,
@@ -50,6 +54,13 @@ class EditActionPage extends StatelessWidget {
               _buildFormTextField(licenceEventController, "Etapa(s terminom)"),
               _buildFormTextField(licenceCourseController, "Konanie"),
               _buildFormTextField(licenceTypeController, "Oprávnenie"),
+              const SizedBox(
+                height: 10,
+              ),
+              const SizedBox(
+                height: 300,
+                child: ActionPersonalWidget(),
+              ),
               const SizedBox(
                 height: 10,
               ),
