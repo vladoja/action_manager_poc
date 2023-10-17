@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 enum NavDestination {
+  nav0(
+    "Domov",
+    Icons.home,
+  ),
   nav1(
     "Personal",
     Icons.group,
