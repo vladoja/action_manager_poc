@@ -1,5 +1,7 @@
 import 'package:action_manager_poc/core/widgets/navigation/app_scaffold.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/akcie/akcie_page.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/home/home_page.dart';
+import 'package:action_manager_poc/features/app/presentation/pages/personal/personal_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -62,9 +64,7 @@ class AppGoRouter {
                 path: AppGoRouter.navPersonal,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: AppScaffold(
-                    body: Center(
-                      child: Text('Personal'),
-                    ),
+                    body: PersonalPage(),
                   ),
                 ),
               )
@@ -78,9 +78,7 @@ class AppGoRouter {
                 path: AppGoRouter.navAkcie,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: AppScaffold(
-                    body: Center(
-                      child: Text('Akcie'),
-                    ),
+                    body: AkciePage(),
                   ),
                 ),
               )
