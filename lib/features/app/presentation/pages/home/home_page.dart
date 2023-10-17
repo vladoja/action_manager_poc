@@ -22,22 +22,24 @@ class HomePage extends StatelessWidget {
 
   _buildBody(BuildContext context) {
     return Center(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-          child: const Text('Personal'),
-          onPressed: () => _tapOnPersonal(context),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        ElevatedButton(
-            onPressed: () => {_gotoPageAkce(context)},
-            child: const Text('Akcie'))
-      ],
-    ));
+      child: Text('Welcome to Action Manager'),
+      // child: Column(
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     ElevatedButton(
+      //       child: const Text('Personal'),
+      //       onPressed: () => _tapOnPersonal(context),
+      //     ),
+      //     const SizedBox(
+      //       height: 20,
+      //     ),
+      //     ElevatedButton(
+      //         onPressed: () => {_gotoPageAkce(context)},
+      //         child: const Text('Akcie'))
+      //   ],
+      // ),
+    );
   }
 
   _tapOnPersonal(BuildContext context) {

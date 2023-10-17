@@ -6,6 +6,9 @@ import 'package:go_router/go_router.dart';
 final _navPersonalNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'navPersonal');
 
+final _navAkcieNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'navPersonal');
+
 final _nav1NavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'nav1');
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -45,8 +48,35 @@ class AppGoRouter {
           StatefulShellBranch(
             initialLocation: navPersonal,
             navigatorKey: _navPersonalNavigatorKey,
-            routes: [],
-          )
+            routes: [
+              GoRoute(
+                path: AppGoRouter.navPersonal,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: AppScaffold(
+                    body: Center(
+                      child: Text('Personal'),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          StatefulShellBranch(
+            initialLocation: navAkcie,
+            navigatorKey: _navAkcieNavigatorKey,
+            routes: [
+              GoRoute(
+                path: AppGoRouter.navAkcie,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: AppScaffold(
+                    body: Center(
+                      child: Text('Akcie'),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
         ],
       )
     ],
