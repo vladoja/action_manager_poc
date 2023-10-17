@@ -90,7 +90,9 @@ class AppGoRouter {
                           child: AppScaffold(
                         body: AkciePage(),
                         secondaryBody: EditActionPage(
-                          action: state.extra as ActionEntity,
+                          action: (state.extra is ActionEntity)
+                              ? state.extra as ActionEntity
+                              : null,
                         ),
                       )),
                     )
