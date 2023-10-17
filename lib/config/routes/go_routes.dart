@@ -33,9 +33,10 @@ class AppGoRouter {
       GoRoute(
         path: RoutePath.root.path,
         // redirect: (_, __) => RoutePath.personal.path,
-        builder: (context, state) {
-          return const HomePage();
-        },
+        redirect: (_, __) => AppGoRouter.navPersonal,
+        // builder: (context, state) {
+        //   return const HomePage();
+        // },
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
