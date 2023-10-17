@@ -1,9 +1,13 @@
+import 'dart:developer';
+
+import 'package:action_manager_poc/config/routes/go_routes.dart';
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_preview_widget.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class AkciePage extends StatefulWidget {
   const AkciePage({super.key});
@@ -61,16 +65,22 @@ class _AkciePageState extends State<AkciePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ActionPreviewWidget(
-                      action: previewedAction,
-                      deleteFunction: _triggerRemoveAction),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  // ActionPreviewWidget(
+                  //     action: previewedAction,
+                  //     deleteFunction: _triggerRemoveAction),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
                   Expanded(
                     child: ActionTableWidget(
                       actions: actions,
-                      clickFunction: _clickFunction,
+                      // clickFunction: _clickFunction,
+                      clickFunction: (int id) {
+                        log("Clicked  Action: $id");
+                        context.go("${AppGoRouter.navAkcie}/$id",
+                            extra: actions[id]);
+                        // context.go("${AppGoRouter.navAkcie}/$id", extra: id);
+                      },
                     ),
                   ),
                   // const Spacer(),
@@ -90,9 +100,9 @@ class _AkciePageState extends State<AkciePage> {
   }
 
   _clickFunction(int index) {
-    setState(() {
-      currentIndex = index;
-    });
+    // setState(() {
+    //   currentIndex = index;
+    // });
   }
 
   void _onReloadButtonTapped(BuildContext context) {

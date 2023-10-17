@@ -56,7 +56,7 @@ class ActionTableWidget extends StatelessWidget {
   List<DataRow> createTableRows(List<ActionEntity> actions) {
     List<DataRow> tableRows = [];
     for (var i = 0; i < actions.length; i++) {
-      log(actions[i].toJson().toString());
+      // log(actions[i].toJson().toString());
       tableRows.add(
           ActionTableRowMapper.actionEntityToRow(actions[i], columnValues, (b) {
         handleClickOnRow(i);
