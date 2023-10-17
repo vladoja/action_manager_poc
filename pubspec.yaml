@@ -52,6 +52,8 @@ dependencies:
 
   go_router: ^9.0.0
 
+  flutter_adaptive_scaffold: ^0.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
