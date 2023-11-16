@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData theme() {
   return ThemeData(
+      useMaterial3: true,
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Muli',
       appBarTheme: appBarTheme());

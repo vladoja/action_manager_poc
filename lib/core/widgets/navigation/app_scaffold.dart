@@ -16,6 +16,7 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveLayout(
+      // bodyRatio: (secondaryBody == null) ? 1 : 0.5,
       body: SlotLayout(
         config: <Breakpoint, SlotLayoutConfig>{
           Breakpoints.small: SlotLayout.from(
