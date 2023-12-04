@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../config/routes/app_routes.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../utils/router_transition_factory.dart';
+import '../widgets/adaptive_layout_widget.dart';
 import '../widgets/dummy_screen.dart';
 import '../widgets/scaffold_with_nested_navigation.dart';
 
@@ -51,15 +52,15 @@ class AppRouter {
                     routes: [
                       GoRoute(
                         path: AppRoutes.navZoznamyOsoby,
-                        pageBuilder: (context, state) =>
-                            RouterTransitionFactory.getTransitionPage(
-                                context: context,
-                                state: state,
-                                child: const DummyScreen(
-                                    label: 'Osoby',
-                                    detailsPath:
-                                        '${AppRoutes.navZoznamyOsoby}/details'),
-                                type: 'scale'),
+                        pageBuilder: (context, state) => const NoTransitionPage(
+                          child: AdaptiveLayoutWidget(
+                            body: DummyScreen(
+                              label: 'Osoby',
+                              detailsPath:
+                                  '${AppRoutes.navZoznamyOsoby}/details',
+                            ),
+                          ),
+                        ),
                         routes: [
                           GoRoute(
                             path: 'details',
@@ -67,9 +68,17 @@ class AppRouter {
                                 RouterTransitionFactory.getTransitionPage(
                               context: context,
                               state: state,
-                              child:
-                                  const DetailsScreen(label: 'Osoby Detaily'),
-                              type: 'scale', // fade|rotation|scale|size
+                              child: const AdaptiveLayoutWidget(
+                                body: DummyScreen(
+                                  label: 'Osoby',
+                                  detailsPath:
+                                      '${AppRoutes.navZoznamyOsoby}/details',
+                                ),
+                                secondaryBody:
+                                    DetailsScreen(label: 'Osoby Detaily'),
+                                showSecondaryBody: true,
+                              ),
+                              type: 'size', // fade|rotation|scale|size
                             ),
                           ),
                         ],
