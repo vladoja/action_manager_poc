@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
+import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../utils/router_transition_factory.dart';
 import '../widgets/dummy_screen.dart';
 import '../widgets/scaffold_with_nested_navigation.dart';
@@ -114,24 +115,9 @@ class AppRouter {
                             RouterTransitionFactory.getTransitionPage(
                                 context: context,
                                 state: state,
-                                child: const DummyScreen(
-                                    label: 'Personál',
-                                    detailsPath:
-                                        '${AppRoutes.navZoznamyPersonal}/details'),
+                                child: const PersonalPage(),
                                 type: 'scale'),
-                        routes: [
-                          GoRoute(
-                            path: 'details',
-                            pageBuilder: (context, state) =>
-                                RouterTransitionFactory.getTransitionPage(
-                              context: context,
-                              state: state,
-                              child: const DetailsScreen(
-                                  label: 'Personál Detaily'),
-                              type: 'scale', // fade|rotation|scale|size
-                            ),
-                          ),
-                        ],
+                        routes: [],
                       ),
                     ],
                   ),
