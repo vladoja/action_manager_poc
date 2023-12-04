@@ -105,6 +105,36 @@ class AppRouter {
                       ),
                     ],
                   ),
+                  StatefulShellBranch(
+                    navigatorKey: _nkZoznamyPersonal,
+                    routes: [
+                      GoRoute(
+                        path: AppRoutes.navZoznamyPersonal,
+                        pageBuilder: (context, state) =>
+                            RouterTransitionFactory.getTransitionPage(
+                                context: context,
+                                state: state,
+                                child: const DummyScreen(
+                                    label: 'Personál',
+                                    detailsPath:
+                                        '${AppRoutes.navZoznamyPersonal}/details'),
+                                type: 'scale'),
+                        routes: [
+                          GoRoute(
+                            path: 'details',
+                            pageBuilder: (context, state) =>
+                                RouterTransitionFactory.getTransitionPage(
+                              context: context,
+                              state: state,
+                              child: const DetailsScreen(
+                                  label: 'Personál Detaily'),
+                              type: 'scale', // fade|rotation|scale|size
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ],
