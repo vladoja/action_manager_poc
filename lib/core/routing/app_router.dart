@@ -56,6 +56,30 @@ class AppRouter {
                   ),
                 ],
               ),
+              GoRoute(
+                path: AppRoutes.navZoznamyPersonal,
+                pageBuilder: (context, state) =>
+                    RouterTransitionFactory.getTransitionPage(
+                        context: context,
+                        state: state,
+                        child: const DummyScreen(
+                            label: 'Personal',
+                            detailsPath:
+                                '${AppRoutes.navZoznamyOsoby}/details'),
+                        type: 'scale'),
+                routes: [
+                  GoRoute(
+                    path: 'details',
+                    pageBuilder: (context, state) =>
+                        RouterTransitionFactory.getTransitionPage(
+                      context: context,
+                      state: state,
+                      child: const DetailsScreen(label: 'Personal Detaily'),
+                      type: 'scale', // fade|rotation|scale|size
+                    ),
+                  ),
+                ],
+              ),
             ],
           )
         ],

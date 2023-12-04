@@ -9,7 +9,12 @@ final mainDestinations = [
 ];
 
 class AppRoutes {
-  static const String navZoznamyOsoby = 'Osoby';
-  static const String navZoznamyPracoviska = 'Pracoviska';
-  static const String navZoznamyPersonal = 'Personal';
+  static const String navZoznamy = '/Zoznamy';
+  static const String navTerminy = '/Termíny';
+  static const String navPracovisko = '/Pracovisko';
+  static const String navOsoba = '/Osoba';
+
+  static const String navZoznamyOsoby = '$navZoznamy/Osoby';
+  static const String navZoznamyPracoviska = '$navZoznamy/Pracoviska';
+  static const String navZoznamyPersonal = '$navZoznamy/Personal';
 }
