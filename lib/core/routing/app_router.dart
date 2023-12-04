@@ -15,6 +15,10 @@ final _nkPracovisko = GlobalKey<NavigatorState>(debugLabel: 'nkPracovisko');
 final _nkOsoba = GlobalKey<NavigatorState>(debugLabel: 'nkOsoba');
 
 final _nkZoznamyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyOsoby');
+final _nkZoznamyPracoviska =
+    GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyPracoviska');
+final _nkZoznamyPersonal =
+    GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyPersonal');
 
 class AppRouter {
   static final router = GoRouter(
@@ -71,33 +75,38 @@ class AppRouter {
                       ),
                     ],
                   ),
+                  StatefulShellBranch(
+                    navigatorKey: _nkZoznamyPracoviska,
+                    routes: [
+                      GoRoute(
+                        path: AppRoutes.navZoznamyPracoviska,
+                        pageBuilder: (context, state) =>
+                            RouterTransitionFactory.getTransitionPage(
+                                context: context,
+                                state: state,
+                                child: const DummyScreen(
+                                    label: 'Pracoviská',
+                                    detailsPath:
+                                        '${AppRoutes.navZoznamyPracoviska}/details'),
+                                type: 'scale'),
+                        routes: [
+                          GoRoute(
+                            path: 'details',
+                            pageBuilder: (context, state) =>
+                                RouterTransitionFactory.getTransitionPage(
+                              context: context,
+                              state: state,
+                              child: const DetailsScreen(
+                                  label: 'Pracoviská Detaily'),
+                              type: 'scale', // fade|rotation|scale|size
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               ),
-
-              // GoRoute(
-              //   path: AppRoutes.navZoznamyPersonal,
-              //   pageBuilder: (context, state) =>
-              //       RouterTransitionFactory.getTransitionPage(
-              //           context: context,
-              //           state: state,
-              //           child: const DummyScreen(
-              //               label: 'Personal',
-              //               detailsPath:
-              //                   '${AppRoutes.navZoznamyOsoby}/details'),
-              //           type: 'scale'),
-              //   routes: [
-              //     GoRoute(
-              //       path: 'details',
-              //       pageBuilder: (context, state) =>
-              //           RouterTransitionFactory.getTransitionPage(
-              //         context: context,
-              //         state: state,
-              //         child: const DetailsScreen(label: 'Personal Detaily'),
-              //         type: 'scale', // fade|rotation|scale|size
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
           StatefulShellBranch(
