@@ -140,7 +140,36 @@ class AppRouter {
                 ],
               ),
             ],
-          )
+          ),
+          StatefulShellBranch(
+            navigatorKey: _nkOsoba,
+            initialLocation: AppRoutes.navOsoba,
+            routes: [
+              GoRoute(
+                path: AppRoutes.navOsoba,
+                pageBuilder: (context, state) =>
+                    RouterTransitionFactory.getTransitionPage(
+                        context: context,
+                        state: state,
+                        child: const DummyScreen(
+                            label: 'Osoby',
+                            detailsPath: '${AppRoutes.navOsoba}/details'),
+                        type: 'scale'),
+                routes: [
+                  GoRoute(
+                    path: 'details',
+                    pageBuilder: (context, state) =>
+                        RouterTransitionFactory.getTransitionPage(
+                      context: context,
+                      state: state,
+                      child: const DetailsScreen(label: 'Osoby Detaily'),
+                      type: 'scale', // fade|rotation|scale|size
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ],
       )
     ],
