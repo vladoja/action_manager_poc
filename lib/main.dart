@@ -1,7 +1,7 @@
-import 'package:action_manager_poc/config/theme/app_themes.dart';
-import 'package:action_manager_poc/core/routing/app_router.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
+import 'config/theme/app_themes.dart';
+import 'core/routing/app_router.dart';
+import 'features/app/presentation/bloc/action/action_bloc.dart';
+import 'features/app/presentation/bloc/personal_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
