@@ -14,6 +14,8 @@ final _nkTerminy = GlobalKey<NavigatorState>(debugLabel: 'nkTerminy');
 final _nkPracovisko = GlobalKey<NavigatorState>(debugLabel: 'nkPracovisko');
 final _nkOsoba = GlobalKey<NavigatorState>(debugLabel: 'nkOsoba');
 
+final _nkZoznamyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyOsoby');
+
 class AppRouter {
   static final router = GoRouter(
     errorBuilder: (context, state) => Container(color: Colors.red),
@@ -32,30 +34,46 @@ class AppRouter {
           StatefulShellBranch(
             navigatorKey: _nkZoznamy,
             routes: [
-              GoRoute(
-                path: AppRoutes.navZoznamyOsoby,
-                pageBuilder: (context, state) =>
-                    RouterTransitionFactory.getTransitionPage(
-                        context: context,
-                        state: state,
-                        child: const DummyScreen(
-                            label: 'Osoby',
-                            detailsPath:
-                                '${AppRoutes.navZoznamyOsoby}/details'),
-                        type: 'scale'),
-                routes: [
-                  GoRoute(
-                    path: 'details',
-                    pageBuilder: (context, state) =>
-                        RouterTransitionFactory.getTransitionPage(
-                      context: context,
-                      state: state,
-                      child: const DetailsScreen(label: 'Osoby Detaily'),
-                      type: 'scale', // fade|rotation|scale|size
-                    ),
+              StatefulShellRoute.indexedStack(
+                builder: (context, state, navigationShell) =>
+                    ScaffoldWithNestedNavigation(
+                        key: const ValueKey('StatefulShellRoute Zoznamy'),
+                        navigationShell: navigationShell,
+                        navDestinations: destinationsZoznamy),
+                branches: <StatefulShellBranch>[
+                  StatefulShellBranch(
+                    navigatorKey: _nkZoznamyOsoby,
+                    routes: [
+                      GoRoute(
+                        path: AppRoutes.navZoznamyOsoby,
+                        pageBuilder: (context, state) =>
+                            RouterTransitionFactory.getTransitionPage(
+                                context: context,
+                                state: state,
+                                child: const DummyScreen(
+                                    label: 'Osoby',
+                                    detailsPath:
+                                        '${AppRoutes.navZoznamyOsoby}/details'),
+                                type: 'scale'),
+                        routes: [
+                          GoRoute(
+                            path: 'details',
+                            pageBuilder: (context, state) =>
+                                RouterTransitionFactory.getTransitionPage(
+                              context: context,
+                              state: state,
+                              child:
+                                  const DetailsScreen(label: 'Osoby Detaily'),
+                              type: 'scale', // fade|rotation|scale|size
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
+
               // GoRoute(
               //   path: AppRoutes.navZoznamyPersonal,
               //   pageBuilder: (context, state) =>
