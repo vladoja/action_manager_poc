@@ -111,6 +111,35 @@ class AppRouter {
                 ],
               ),
             ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _nkPracovisko,
+            initialLocation: AppRoutes.navPracovisko,
+            routes: [
+              GoRoute(
+                path: AppRoutes.navPracovisko,
+                pageBuilder: (context, state) =>
+                    RouterTransitionFactory.getTransitionPage(
+                        context: context,
+                        state: state,
+                        child: const DummyScreen(
+                            label: 'Pracovisko',
+                            detailsPath: '${AppRoutes.navPracovisko}/details'),
+                        type: 'scale'),
+                routes: [
+                  GoRoute(
+                    path: 'details',
+                    pageBuilder: (context, state) =>
+                        RouterTransitionFactory.getTransitionPage(
+                      context: context,
+                      state: state,
+                      child: const DetailsScreen(label: 'Pracovisko Detaily'),
+                      type: 'scale', // fade|rotation|scale|size
+                    ),
+                  ),
+                ],
+              ),
+            ],
           )
         ],
       )
