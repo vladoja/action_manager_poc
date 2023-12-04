@@ -10,7 +10,7 @@ final _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'rootNavigatorKey');
 
 final _nkZoznamy = GlobalKey<NavigatorState>(debugLabel: 'nkZoznamy');
-final _nkTerminu = GlobalKey<NavigatorState>(debugLabel: 'nkTerminu');
+final _nkTerminy = GlobalKey<NavigatorState>(debugLabel: 'nkTerminy');
 final _nkPracovisko = GlobalKey<NavigatorState>(debugLabel: 'nkPracovisko');
 final _nkOsoba = GlobalKey<NavigatorState>(debugLabel: 'nkOsoba');
 
@@ -24,7 +24,7 @@ class AppRouter {
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) =>
             ScaffoldWithNestedNavigation(
-          key: const ValueKey('StatefulShellRoute A'),
+          key: const ValueKey('StatefulShellRoute Root'),
           navigationShell: navigationShell,
           navDestinations: mainDestinations,
         ),
@@ -56,16 +56,45 @@ class AppRouter {
                   ),
                 ],
               ),
+              // GoRoute(
+              //   path: AppRoutes.navZoznamyPersonal,
+              //   pageBuilder: (context, state) =>
+              //       RouterTransitionFactory.getTransitionPage(
+              //           context: context,
+              //           state: state,
+              //           child: const DummyScreen(
+              //               label: 'Personal',
+              //               detailsPath:
+              //                   '${AppRoutes.navZoznamyOsoby}/details'),
+              //           type: 'scale'),
+              //   routes: [
+              //     GoRoute(
+              //       path: 'details',
+              //       pageBuilder: (context, state) =>
+              //           RouterTransitionFactory.getTransitionPage(
+              //         context: context,
+              //         state: state,
+              //         child: const DetailsScreen(label: 'Personal Detaily'),
+              //         type: 'scale', // fade|rotation|scale|size
+              //       ),
+              //     ),
+              //   ],
+              // ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _nkTerminy,
+            initialLocation: AppRoutes.navTerminy,
+            routes: [
               GoRoute(
-                path: AppRoutes.navZoznamyPersonal,
+                path: AppRoutes.navTerminy,
                 pageBuilder: (context, state) =>
                     RouterTransitionFactory.getTransitionPage(
                         context: context,
                         state: state,
                         child: const DummyScreen(
-                            label: 'Personal',
-                            detailsPath:
-                                '${AppRoutes.navZoznamyOsoby}/details'),
+                            label: 'Terminy Osoby',
+                            detailsPath: '${AppRoutes.navTerminy}/details'),
                         type: 'scale'),
                 routes: [
                   GoRoute(
@@ -74,7 +103,8 @@ class AppRouter {
                         RouterTransitionFactory.getTransitionPage(
                       context: context,
                       state: state,
-                      child: const DetailsScreen(label: 'Personal Detaily'),
+                      child:
+                          const DetailsScreen(label: 'Terminy Osoby Detaily'),
                       type: 'scale', // fade|rotation|scale|size
                     ),
                   ),
