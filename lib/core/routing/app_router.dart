@@ -1,8 +1,8 @@
-import '../../features/app/domain/entities/person.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
+import '../../features/app/domain/entities/person.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../utils/router_transition_factory.dart';
@@ -23,6 +23,10 @@ final _nkZoznamyPracoviska =
     GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyPracoviska');
 final _nkZoznamyPersonal =
     GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyPersonal');
+
+final _nkTerminyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkTerminyOsoby');
+final _nkTerminyPracoviska =
+    GlobalKey<NavigatorState>(debugLabel: 'nkTerminyPracoviska');
 
 class AppRouter {
   static final router = GoRouter(
@@ -169,29 +173,41 @@ class AppRouter {
           ),
           StatefulShellBranch(
             navigatorKey: _nkTerminy,
-            initialLocation: AppRoutes.navTerminy,
             routes: [
-              GoRoute(
-                path: AppRoutes.navTerminy,
-                pageBuilder: (context, state) =>
-                    RouterTransitionFactory.getTransitionPage(
-                        context: context,
-                        state: state,
-                        child: const DummyScreen(
-                            label: 'Terminy Osoby',
-                            detailsPath: '${AppRoutes.navTerminy}/details'),
-                        type: 'scale'),
-                routes: [
-                  GoRoute(
-                    path: 'details',
-                    pageBuilder: (context, state) =>
-                        RouterTransitionFactory.getTransitionPage(
-                      context: context,
-                      state: state,
-                      child:
-                          const DetailsScreen(label: 'Terminy Osoby Detaily'),
-                      type: 'scale', // fade|rotation|scale|size
-                    ),
+              StatefulShellRoute.indexedStack(
+                builder: (context, state, navigationShell) =>
+                    ScaffoldWithNestedNavigation(
+                        key: const ValueKey('StatefulShellRoute Terminy'),
+                        navigationShell: navigationShell,
+                        navDestinations: destinationsTerminy),
+                branches: <StatefulShellBranch>[
+                  StatefulShellBranch(
+                    navigatorKey: _nkTerminyOsoby,
+                    routes: [
+                      GoRoute(
+                        path: AppRoutes.navTerminyOsoby,
+                        pageBuilder: (context, state) => const NoTransitionPage(
+                          child: AdaptiveLayoutWidget(
+                            body: DummyScreen(
+                              label: 'Terminy Osoby',
+                              detailsPath:
+                                  '${AppRoutes.navTerminyOsoby}/details',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  StatefulShellBranch(
+                    navigatorKey: _nkTerminyPracoviska,
+                    routes: [
+                      GoRoute(
+                        path: AppRoutes.navTerminyPracoviska,
+                        pageBuilder: (context, state) => const NoTransitionPage(
+                          child: SimpleScreen(label: 'Not Implemented Yet'),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

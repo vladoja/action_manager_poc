@@ -78,3 +78,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 }
+
+class SimpleScreen extends StatelessWidget {
+  const SimpleScreen({super.key, required this.label});
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Simple Screen - $label')),
+      body: Center(
+        child: Text('Screen $label',
+            style: Theme.of(context).textTheme.titleLarge),
+      ),
+    );
+  }
+}

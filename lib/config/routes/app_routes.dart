@@ -15,6 +15,12 @@ final destinationsZoznamy = [
   const NavigationDestination(label: 'Personal', icon: Icon(Icons.face_2)),
 ];
 
+final destinationsTerminy = [
+  const NavigationDestination(label: 'Osoby', icon: Icon(Icons.group)),
+  const NavigationDestination(
+      label: 'Pracoviská', icon: Icon(Icons.car_repair)),
+];
+
 class AppRoutes {
   static const String navZoznamy = '/Zoznamy';
   static const String navTerminy = '/Terminy';
