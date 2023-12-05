@@ -130,7 +130,17 @@ class AppRouter {
                         routes: [
                           GoRoute(
                             path: 'New',
-                            builder: (context, state) => const EditPersonPage(),
+                            // builder: (context, state) => const EditPersonPage(),
+                            pageBuilder: (context, state) =>
+                                RouterTransitionFactory.getTransitionPage(
+                                    context: context,
+                                    state: state,
+                                    child: const AdaptiveLayoutWidget(
+                                      body: PersonalPage(),
+                                      secondaryBody: EditPersonPage(),
+                                      showSecondaryBody: true,
+                                    ),
+                                    type: 'size'),
                           )
                         ],
                       ),
