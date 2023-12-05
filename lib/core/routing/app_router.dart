@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
+import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../utils/router_transition_factory.dart';
 import '../widgets/adaptive_layout_widget.dart';
@@ -126,7 +127,12 @@ class AppRouter {
                                 state: state,
                                 child: const PersonalPage(),
                                 type: 'scale'),
-                        routes: [],
+                        routes: [
+                          GoRoute(
+                            path: 'New',
+                            builder: (context, state) => const EditPersonPage(),
+                          )
+                        ],
                       ),
                     ],
                   ),

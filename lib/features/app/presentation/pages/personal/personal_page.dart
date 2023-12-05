@@ -1,8 +1,10 @@
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
-import 'package:action_manager_poc/features/app/presentation/widgets/confirmation_widget.dart';
+import '../../../../../config/routes/app_routes.dart';
+import '../../../domain/entities/person.dart';
+import '../../bloc/personal_bloc.dart';
+import '../../widgets/confirmation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class PersonalPage extends StatelessWidget {
   const PersonalPage({Key? key}) : super(key: key);
@@ -136,6 +138,6 @@ class PersonalPage extends StatelessWidget {
   }
 
   void _onCreateNewPerson(BuildContext context) {
-    Navigator.pushNamed(context, '/Personal/New');
+    GoRouter.of(context).go('${AppRoutes.navZoznamyPersonal}/New');
   }
 }
