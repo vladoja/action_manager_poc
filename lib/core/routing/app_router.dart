@@ -1,3 +1,4 @@
+import '../../features/app/domain/entities/person.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -138,6 +139,22 @@ class AppRouter {
                                     child: const AdaptiveLayoutWidget(
                                       body: PersonalPage(),
                                       secondaryBody: EditPersonPage(),
+                                      showSecondaryBody: true,
+                                    ),
+                                    type: 'size'),
+                          ),
+                          GoRoute(
+                            path: 'Details',
+                            // builder: (context, state) => const EditPersonPage(),
+                            pageBuilder: (context, state) =>
+                                RouterTransitionFactory.getTransitionPage(
+                                    context: context,
+                                    state: state,
+                                    child: AdaptiveLayoutWidget(
+                                      body: const PersonalPage(),
+                                      secondaryBody: EditPersonPage(
+                                        person: state.extra as PersonEntity,
+                                      ),
                                       showSecondaryBody: true,
                                     ),
                                     type: 'size'),

@@ -134,7 +134,9 @@ class PersonalPage extends StatelessWidget {
   }
 
   void _onEditPersonTapped(BuildContext context, PersonEntity person) {
-    Navigator.pushNamed(context, '/Personal/Details', arguments: person);
+    // Navigator.pushNamed(context, '/Personal/Details', arguments: person);
+    GoRouter.of(context)
+        .go('${AppRoutes.navZoznamyPersonal}/Details', extra: person);
   }
 
   void _onCreateNewPerson(BuildContext context) {
