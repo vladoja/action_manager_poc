@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/person.dart';
+import '../../features/app/presentation/pages/akcie/akcie_page.dart';
+import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../utils/router_transition_factory.dart';
@@ -185,17 +187,29 @@ class AppRouter {
                     navigatorKey: _nkTerminyOsoby,
                     routes: [
                       GoRoute(
-                        path: AppRoutes.navTerminyOsoby,
-                        pageBuilder: (context, state) => const NoTransitionPage(
-                          child: AdaptiveLayoutWidget(
-                            body: DummyScreen(
-                              label: 'Terminy Osoby',
-                              detailsPath:
-                                  '${AppRoutes.navTerminyOsoby}/details',
-                            ),
-                          ),
-                        ),
-                      ),
+                          path: AppRoutes.navTerminyOsoby,
+                          pageBuilder: (context, state) =>
+                              const NoTransitionPage(
+                                child: AdaptiveLayoutWidget(
+                                  body: AkciePage(),
+                                ),
+                              ),
+                          routes: [
+                            GoRoute(
+                              path: 'New',
+                              pageBuilder: (context, state) =>
+                                  RouterTransitionFactory.getTransitionPage(
+                                      context: context,
+                                      state: state,
+                                      child: const AdaptiveLayoutWidget(
+                                        body: AkciePage(),
+                                        secondaryBody: EditActionPage(),
+                                        showSecondaryBody: true,
+                                        secondaryBodyRatio: 0.7,
+                                      ),
+                                      type: 'size'),
+                            )
+                          ]),
                     ],
                   ),
                   StatefulShellBranch(
