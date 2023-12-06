@@ -1,7 +1,6 @@
 import '../../../../../config/routes/app_routes.dart';
 import '../../../domain/entities/action.dart';
 import '../../bloc/action/action_bloc.dart';
-import 'widgets/action_preview_widget.dart';
 import 'widgets/action_table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +71,13 @@ class _AkciePageState extends State<AkciePage> {
                   Expanded(
                     child: ActionTableWidget(
                       actions: actions,
-                      clickFunction: _clickFunction,
+                      clickFunction: (int id) {
+                        // print('clicked action: ${previewedAction.id}');
+                        _clickFunction(id);
+                        GoRouter.of(context).go(
+                            '${AppRoutes.navTerminyOsoby}/Details',
+                            extra: previewedAction);
+                      },
                     ),
                   ),
                   // const Spacer(),

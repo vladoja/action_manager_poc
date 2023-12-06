@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
+import '../../features/app/domain/entities/action.dart';
 import '../../features/app/domain/entities/person.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
@@ -208,7 +209,23 @@ class AppRouter {
                                         secondaryBodyRatio: 0.7,
                                       ),
                                       type: 'size'),
-                            )
+                            ),
+                            GoRoute(
+                              path: 'Details',
+                              pageBuilder: (context, state) =>
+                                  RouterTransitionFactory.getTransitionPage(
+                                      context: context,
+                                      state: state,
+                                      child: AdaptiveLayoutWidget(
+                                        body: const AkciePage(),
+                                        secondaryBody: EditActionPage(
+                                            action:
+                                                state.extra as ActionEntity),
+                                        showSecondaryBody: true,
+                                        secondaryBodyRatio: 0.7,
+                                      ),
+                                      type: 'size'),
+                            ),
                           ]),
                     ],
                   ),
