@@ -212,19 +212,24 @@ class AppRouter {
                             ),
                             GoRoute(
                               path: 'Details',
-                              pageBuilder: (context, state) =>
-                                  RouterTransitionFactory.getTransitionPage(
-                                      context: context,
-                                      state: state,
-                                      child: AdaptiveLayoutWidget(
-                                        body: const AkciePage(),
-                                        secondaryBody: EditActionPage(
-                                            action:
-                                                state.extra as ActionEntity),
-                                        showSecondaryBody: true,
-                                        secondaryBodyRatio: 0.7,
-                                      ),
-                                      type: 'size'),
+                              pageBuilder: (context, state) {
+                                final selectedAction =
+                                    state.extra as ActionEntity;
+                                return RouterTransitionFactory
+                                    .getTransitionPage(
+                                        context: context,
+                                        state: state,
+                                        child: AdaptiveLayoutWidget(
+                                          body: AkciePage(
+                                              selectedActionId:
+                                                  selectedAction.id),
+                                          secondaryBody: EditActionPage(
+                                              action: selectedAction),
+                                          showSecondaryBody: true,
+                                          secondaryBodyRatio: 0.7,
+                                        ),
+                                        type: 'size');
+                              },
                             ),
                           ]),
                     ],

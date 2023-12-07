@@ -8,8 +8,12 @@ import 'package:flutter/material.dart';
 class ActionTableWidget extends StatelessWidget {
   final List<ActionEntity> actions;
   final Function clickFunction;
+  final int? highLighted;
   ActionTableWidget(
-      {super.key, required this.actions, required this.clickFunction});
+      {super.key,
+      required this.actions,
+      required this.clickFunction,
+      this.highLighted});
 
   final List<DataRow> tableRows = [];
 
@@ -50,31 +54,38 @@ class ActionTableWidget extends StatelessWidget {
 
   void handleClickOnRow(int rowIndex) {
     log("Row with id: $rowIndex clicked");
+    // tableRows[rowIndex]
     clickFunction(rowIndex);
   }
 
-  List<DataRow> createTableRows(List<ActionEntity> actions) {
+  List<DataRow> createTableRows(List<ActionEntity> actions,
+      {int? highlightedRow}) {
+    print('createTableRows()');
     List<DataRow> tableRows = [];
     for (var i = 0; i < actions.length; i++) {
       log(actions[i].toJson().toString());
       tableRows.add(
-          ActionTableRowMapper.actionEntityToRow(actions[i], columnValues, (b) {
-        handleClickOnRow(i);
-      }));
+        ActionTableRowMapper.actionEntityToRow(actions[i], columnValues, (b) {
+          handleClickOnRow(i);
+        },
+            isHighLighted:
+                (highlightedRow != null && highlightedRow == i) ? true : false),
+      );
     }
     return tableRows;
   }
 
   @override
   Widget build(BuildContext context) {
-    tableRows.addAll(createTableRows(actions));
+    tableRows.addAll(createTableRows(actions, highlightedRow: highLighted));
     return TableWidget(columns: tableColumns, rows: tableRows);
   }
 }
 
 class ActionTableRowMapper {
   static DataRow actionEntityToRow(
-      ActionEntity model, List<String> columns, void Function(bool?)? onTap) {
+      ActionEntity model, List<String> columns, void Function(bool?)? onTap,
+      {bool isHighLighted = false}) {
     List<DataCell> cells = List<DataCell>.empty(growable: true);
     Map<String, dynamic> actionJSON = model.toJson();
     for (var columnValue in columns) {
@@ -84,8 +95,10 @@ class ActionTableRowMapper {
       cells.add(DataCell(Text(actionJSON[columnValue])));
     }
 
-    DataRow row =
-        DataRow(onSelectChanged: (onTap != null) ? onTap : null, cells: cells);
+    DataRow row = DataRow(
+        onSelectChanged: (onTap != null) ? onTap : null,
+        cells: cells,
+        selected: isHighLighted);
     return row;
   }
 }

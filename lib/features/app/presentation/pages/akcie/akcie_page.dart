@@ -7,7 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AkciePage extends StatefulWidget {
-  const AkciePage({super.key});
+  final int? selectedActionId;
+  const AkciePage({super.key, this.selectedActionId});
 
   @override
   State<AkciePage> createState() => _AkciePageState();
@@ -15,6 +16,7 @@ class AkciePage extends StatefulWidget {
 
 class _AkciePageState extends State<AkciePage> {
   int currentIndex = 0;
+  ActionEntity? previewedAction;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,14 @@ class _AkciePageState extends State<AkciePage> {
               child: Text('No actions yet'),
             );
           } else {
-            ActionEntity previewedAction = actions[currentIndex];
+            // ActionEntity previewedAction = actions[currentIndex];
+            int? selectedRowId;
+            for (int i = 0; i < actions.length; i++) {
+              if (actions[i].id == widget.selectedActionId) {
+                selectedRowId = i;
+                break;
+              }
+            }
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -74,10 +83,13 @@ class _AkciePageState extends State<AkciePage> {
                       clickFunction: (int id) {
                         // print('clicked action: ${previewedAction.id}');
                         _clickFunction(id);
+                        previewedAction = actions[id];
                         GoRouter.of(context).go(
                             '${AppRoutes.navTerminyOsoby}/Details',
                             extra: previewedAction);
+                        // _clickFunction(id);
                       },
+                      highLighted: selectedRowId,
                     ),
                   ),
                   // const Spacer(),
