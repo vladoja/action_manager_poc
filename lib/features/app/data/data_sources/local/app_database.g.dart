@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `person` (`id` INTEGER, `firstName` TEXT, `lastName` TEXT, `title` TEXT, `role` TEXT NOT NULL, `status` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `person` (`id` INTEGER NOT NULL, `firstName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `title` TEXT, `role` TEXT NOT NULL, `status` TEXT, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -115,9 +115,9 @@ class _$PersonDao extends PersonDao {
   Future<List<PersonModel>> getPersons() async {
     return _queryAdapter.queryList('SELECT * FROM person',
         mapper: (Map<String, Object?> row) => PersonModel(
-            id: row['id'] as int?,
-            firstName: row['firstName'] as String?,
-            lastName: row['lastName'] as String?,
+            id: row['id'] as int,
+            firstName: row['firstName'] as String,
+            lastName: row['lastName'] as String,
             title: row['title'] as String?,
             role: _personalRoleConverter.decode(row['role'] as String),
             status: row['status'] as String?));

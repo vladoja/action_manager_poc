@@ -5,9 +5,9 @@ import 'package:floor/floor.dart';
 @Entity(tableName: 'person', primaryKeys: ['id'])
 class PersonModel extends PersonEntity {
   const PersonModel({
-    int? id,
-    String? firstName,
-    String? lastName,
+    required int id,
+    required String firstName,
+    required String lastName,
     String? title,
     required PersonalRole role,
     String? status,
@@ -20,6 +20,7 @@ class PersonModel extends PersonEntity {
 
   factory PersonModel.fromJson(Map<String, dynamic> map) {
     return PersonModel(
+        id: map['id'] ?? "",
         firstName: map['firstName'] ?? "",
         lastName: map['lastName'] ?? "",
         title: map['title'] ?? "",
