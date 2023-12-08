@@ -1,5 +1,5 @@
-import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import '../../../../config/enums/personal_roles_enum.dart';
+import '../../domain/entities/person/person.dart';
 import 'package:floor/floor.dart';
 
 @Entity(tableName: 'person', primaryKeys: ['id'])

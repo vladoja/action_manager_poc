@@ -1,5 +1,5 @@
 import '../../../../../config/routes/app_routes.dart';
-import '../../../domain/entities/person.dart';
+import '../../../domain/entities/person/person.dart';
 import '../../bloc/personal_bloc.dart';
 import '../../widgets/confirmation_widget.dart';
 import 'package:flutter/material.dart';

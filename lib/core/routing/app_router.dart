@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/action.dart';
-import '../../features/app/domain/entities/person.dart';
+import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';

@@ -1,5 +1,5 @@
 import 'package:action_manager_poc/features/app/domain/entities/action.dart';
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import 'package:action_manager_poc/features/app/domain/entities/person/person.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/akcie_page.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/akcie/edit_action_page.dart';
 import 'package:action_manager_poc/features/app/presentation/pages/home/home_page.dart';

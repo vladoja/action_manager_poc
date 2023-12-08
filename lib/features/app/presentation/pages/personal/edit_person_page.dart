@@ -1,5 +1,5 @@
 import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import 'package:action_manager_poc/features/app/domain/entities/person/person.dart';
 import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

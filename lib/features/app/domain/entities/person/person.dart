@@ -1,5 +1,9 @@
 import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
 import 'package:equatable/equatable.dart';
+// import 'package:freezed_annotation/freezed_annotation.dart';
+
+// part 'person.freezed.dart';
+// part 'person.g.dart';
 
 class PersonEntity extends Equatable {
   final int? id;

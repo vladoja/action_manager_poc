@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import 'package:action_manager_poc/features/app/domain/entities/person/person.dart';
 import 'package:action_manager_poc/temp/dummy_personal.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
