@@ -1,3 +1,5 @@
+import 'widgets/personal_table_widget.dart';
+
 import '../../../../../config/routes/app_routes.dart';
 import '../../../domain/entities/person/person.dart';
 import '../../bloc/personal_bloc.dart';
@@ -53,11 +55,16 @@ class PersonalPage extends StatelessWidget {
             );
           } else {
             return Center(
-              child: ListView.builder(
-                itemCount: persons.length,
-                itemBuilder: (context, index) {
-                  return _createPersonTile(context, persons[index]);
-                },
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: PersonalTableWidget(
+                      persons: persons,
+                      clickFunction: (int id) {},
+                    ),
+                  )
+                ],
               ),
             );
           }

@@ -75,7 +75,7 @@ class PersonalTableRowMapper {
       if (personJSON.containsKey(columnValue) == false) {
         throw "PersonEntity object doesnt contains key:'$columnValue'";
       }
-      cells.add(DataCell(Text(personJSON[columnValue])));
+      cells.add(DataCell(Text(personJSON[columnValue] ?? 'N/A')));
     }
 
     DataRow row = DataRow(
