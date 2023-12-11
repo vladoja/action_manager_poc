@@ -52,8 +52,12 @@ class PersonalTableWidget extends StatelessWidget {
   List<DataRow> _createTableRows(List personal, {int? highlightedRow}) {
     List<DataRow> tableRows = [];
     for (var i = 0; i < personal.length; i++) {
-      tableRows.add(PersonalTableRowMapper.personEntityToRow(
-          personal[i], columnValues, (b) => handleClickOnRow(i)));
+      tableRows.add(
+        PersonalTableRowMapper.personEntityToRow(
+            personal[i], columnValues, (b) => handleClickOnRow(i),
+            isHighLighted:
+                (highlightedRow != null && highlightedRow == i) ? true : false),
+      );
     }
     return tableRows;
   }

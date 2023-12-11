@@ -9,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class PersonalPage extends StatelessWidget {
-  const PersonalPage({Key? key}) : super(key: key);
+  final int? selectedPersonId;
+  const PersonalPage({Key? key, this.selectedPersonId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +55,13 @@ class PersonalPage extends StatelessWidget {
               child: Text('Empty'),
             );
           } else {
+            int? selectedRowId;
+            for (int i = 0; i < persons.length; i++) {
+              if (persons[i].id == this.selectedPersonId) {
+                selectedRowId = i;
+                break;
+              }
+            }
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -67,8 +75,9 @@ class PersonalPage extends StatelessWidget {
                             '${AppRoutes.navZoznamyPersonal}/Details',
                             extra: previewedPerson);
                       },
+                      highLighted: selectedRowId,
                     ),
-                  )
+                  ),
                 ],
               ),
             );

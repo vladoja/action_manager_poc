@@ -153,19 +153,23 @@ class AppRouter {
                           GoRoute(
                             path: 'Details',
                             // builder: (context, state) => const EditPersonPage(),
-                            pageBuilder: (context, state) =>
-                                RouterTransitionFactory.getTransitionPage(
-                                    context: context,
-                                    state: state,
-                                    child: AdaptiveLayoutWidget(
-                                      body: const PersonalPage(),
-                                      secondaryBody: EditPersonPage(
-                                        person: state.extra as PersonEntity,
-                                      ),
-                                      showSecondaryBody: true,
-                                      secondaryBodyRatio: 0.6,
+                            pageBuilder: (context, state) {
+                              final selectedPerson =
+                                  state.extra as PersonEntity;
+                              return RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: AdaptiveLayoutWidget(
+                                    body: PersonalPage(
+                                        selectedPersonId: selectedPerson.id),
+                                    secondaryBody: EditPersonPage(
+                                      person: selectedPerson,
                                     ),
-                                    type: 'size'),
+                                    showSecondaryBody: true,
+                                    secondaryBodyRatio: 0.6,
+                                  ),
+                                  type: 'size');
+                            },
                           )
                         ],
                       ),
