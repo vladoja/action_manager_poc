@@ -1,8 +1,12 @@
-import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
-import 'package:action_manager_poc/features/app/domain/entities/person/person.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../config/enums/personal_roles_enum.dart';
+import '../../../../../config/routes/app_routes.dart';
+import '../../../../../core/widgets/delete_alert.dart';
+import '../../../domain/entities/person/person.dart';
+import '../../bloc/personal_bloc.dart';
 
 class EditPersonPage extends StatelessWidget {
   final PersonEntity? person;
@@ -32,6 +36,23 @@ class EditPersonPage extends StatelessWidget {
   _buildAppbar(BuildContext context) {
     return AppBar(
       title: Text((person == null) ? 'Create Person' : 'Edit Person'),
+      actions: (person != null)
+          ? [
+              IconButton(
+                  onPressed: () async {
+                    bool result = await showDialog(
+                      context: context,
+                      builder: (ctx) => createDeleteDialog(ctx),
+                    );
+                    if (result) {
+                      _onDeleteButtonTapped(context, person!);
+                      GoRouter.of(context).go(AppRoutes.navZoznamyPersonal);
+                    }
+                  },
+                  icon: const Icon(Icons.delete,
+                      color: Color.fromARGB(255, 212, 34, 22)))
+            ]
+          : [],
     );
   }
 
@@ -145,5 +166,10 @@ class EditPersonPage extends StatelessWidget {
 
   void _onEditButtonTapped(BuildContext context, PersonEntity person) {
     BlocProvider.of<PersonalBloc>(context).add(UpdatePersonInPersonal(person));
+  }
+
+  void _onDeleteButtonTapped(BuildContext context, PersonEntity person) {
+    BlocProvider.of<PersonalBloc>(context)
+        .add(RemovePersonFromPersonal(person));
   }
 }

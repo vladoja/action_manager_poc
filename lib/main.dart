@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
 import 'config/theme/app_themes.dart';
 import 'core/routing/app_router.dart';
 import 'features/app/presentation/bloc/action/action_bloc.dart';
 import 'features/app/presentation/bloc/personal_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 final GoRouter router = AppRouter.router;
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       // ),
       child: MaterialApp.router(
         theme: theme(),
+        debugShowCheckedModeBanner: false,
         routeInformationParser: router.routeInformationParser,
         routeInformationProvider: router.routeInformationProvider,
         routerDelegate: router.routerDelegate,
