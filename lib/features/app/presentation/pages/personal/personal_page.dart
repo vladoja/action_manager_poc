@@ -61,7 +61,12 @@ class PersonalPage extends StatelessWidget {
                   Expanded(
                     child: PersonalTableWidget(
                       persons: persons,
-                      clickFunction: (int id) {},
+                      clickFunction: (int id) {
+                        final previewedPerson = persons[id];
+                        GoRouter.of(context).go(
+                            '${AppRoutes.navZoznamyPersonal}/Details',
+                            extra: previewedPerson);
+                      },
                     ),
                   )
                 ],

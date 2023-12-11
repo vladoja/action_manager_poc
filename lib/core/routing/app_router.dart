@@ -163,6 +163,7 @@ class AppRouter {
                                         person: state.extra as PersonEntity,
                                       ),
                                       showSecondaryBody: true,
+                                      secondaryBodyRatio: 0.6,
                                     ),
                                     type: 'size'),
                           )
