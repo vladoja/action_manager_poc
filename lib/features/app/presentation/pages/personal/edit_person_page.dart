@@ -8,6 +8,8 @@ import '../../../../../core/widgets/delete_alert.dart';
 import '../../../domain/entities/person/person.dart';
 import '../../bloc/personal_bloc.dart';
 
+final scaffoldKey = GlobalKey<ScaffoldState>();
+
 class EditPersonPage extends StatelessWidget {
   final PersonEntity? person;
   const EditPersonPage({Key? key, this.person}) : super(key: key);
@@ -22,6 +24,7 @@ class EditPersonPage extends StatelessWidget {
 
     return Scaffold(
       appBar: _buildAppbar(context),
+      key: scaffoldKey,
       body: _buildBody(
         context,
         _formKey,
@@ -45,8 +48,10 @@ class EditPersonPage extends StatelessWidget {
                       builder: (ctx) => createDeleteDialog(ctx),
                     );
                     if (result) {
-                      _onDeleteButtonTapped(context, person!);
-                      GoRouter.of(context).go(AppRoutes.navZoznamyPersonal);
+                      _onDeleteButtonTapped(
+                          scaffoldKey.currentContext!, person!);
+                      GoRouter.of(scaffoldKey.currentContext!)
+                          .go(AppRoutes.navZoznamyPersonal);
                     }
                   },
                   icon: const Icon(Icons.delete,
