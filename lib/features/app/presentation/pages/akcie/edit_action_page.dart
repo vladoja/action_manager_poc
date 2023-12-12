@@ -60,12 +60,14 @@ class EditActionPage extends StatelessWidget {
                         // Vytvor novu akciu
                         int id = DateTime.now().millisecondsSinceEpoch;
                         ActionEntity actionNew = ActionEntity(
-                            id: id,
-                            name: actionNameController.text,
-                            actionDate: actionDateController.text,
-                            licenceEvent: licenceEventController.text,
-                            licenceType: licenceTypeController.text,
-                            licenceCourse: licenceCourseController.text);
+                          id: id,
+                          name: actionNameController.text,
+                          actionDate: actionDateController.text,
+                          licenceEvent: licenceEventController.text,
+                          licenceType: licenceTypeController.text,
+                          licenceCourse: licenceCourseController.text,
+                          personal: [],
+                        );
                         _triggerCreateActionEvent(context, actionNew);
                       } else {
                         ActionEntity newAction = action!.copyWith(

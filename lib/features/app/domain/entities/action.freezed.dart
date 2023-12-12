@@ -26,6 +26,7 @@ mixin _$ActionEntity {
   String get licenceEvent => throw _privateConstructorUsedError;
   String get licenceType => throw _privateConstructorUsedError;
   String get licenceCourse => throw _privateConstructorUsedError;
+  List<PersonEntity> get personal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $ActionEntityCopyWith<$Res> {
       String actionDate,
       String licenceEvent,
       String licenceType,
-      String licenceCourse});
+      String licenceCourse,
+      List<PersonEntity> personal});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$ActionEntityCopyWithImpl<$Res, $Val extends ActionEntity>
     Object? licenceEvent = null,
     Object? licenceType = null,
     Object? licenceCourse = null,
+    Object? personal = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -93,6 +96,10 @@ class _$ActionEntityCopyWithImpl<$Res, $Val extends ActionEntity>
           ? _value.licenceCourse
           : licenceCourse // ignore: cast_nullable_to_non_nullable
               as String,
+      personal: null == personal
+          ? _value.personal
+          : personal // ignore: cast_nullable_to_non_nullable
+              as List<PersonEntity>,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$ActionEntityImplCopyWith<$Res>
       String actionDate,
       String licenceEvent,
       String licenceType,
-      String licenceCourse});
+      String licenceCourse,
+      List<PersonEntity> personal});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$ActionEntityImplCopyWithImpl<$Res>
     Object? licenceEvent = null,
     Object? licenceType = null,
     Object? licenceCourse = null,
+    Object? personal = null,
   }) {
     return _then(_$ActionEntityImpl(
       id: null == id
@@ -157,6 +166,10 @@ class __$$ActionEntityImplCopyWithImpl<$Res>
           ? _value.licenceCourse
           : licenceCourse // ignore: cast_nullable_to_non_nullable
               as String,
+      personal: null == personal
+          ? _value._personal
+          : personal // ignore: cast_nullable_to_non_nullable
+              as List<PersonEntity>,
     ));
   }
 }
@@ -170,7 +183,9 @@ class _$ActionEntityImpl implements _ActionEntity {
       required this.actionDate,
       required this.licenceEvent,
       required this.licenceType,
-      required this.licenceCourse});
+      required this.licenceCourse,
+      required final List<PersonEntity> personal})
+      : _personal = personal;
 
   factory _$ActionEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$ActionEntityImplFromJson(json);
@@ -187,10 +202,17 @@ class _$ActionEntityImpl implements _ActionEntity {
   final String licenceType;
   @override
   final String licenceCourse;
+  final List<PersonEntity> _personal;
+  @override
+  List<PersonEntity> get personal {
+    if (_personal is EqualUnmodifiableListView) return _personal;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_personal);
+  }
 
   @override
   String toString() {
-    return 'ActionEntity(id: $id, name: $name, actionDate: $actionDate, licenceEvent: $licenceEvent, licenceType: $licenceType, licenceCourse: $licenceCourse)';
+    return 'ActionEntity(id: $id, name: $name, actionDate: $actionDate, licenceEvent: $licenceEvent, licenceType: $licenceType, licenceCourse: $licenceCourse, personal: $personal)';
   }
 
   @override
@@ -207,13 +229,21 @@ class _$ActionEntityImpl implements _ActionEntity {
             (identical(other.licenceType, licenceType) ||
                 other.licenceType == licenceType) &&
             (identical(other.licenceCourse, licenceCourse) ||
-                other.licenceCourse == licenceCourse));
+                other.licenceCourse == licenceCourse) &&
+            const DeepCollectionEquality().equals(other._personal, _personal));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, actionDate,
-      licenceEvent, licenceType, licenceCourse);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      actionDate,
+      licenceEvent,
+      licenceType,
+      licenceCourse,
+      const DeepCollectionEquality().hash(_personal));
 
   @JsonKey(ignore: true)
   @override
@@ -236,7 +266,8 @@ abstract class _ActionEntity implements ActionEntity {
       required final String actionDate,
       required final String licenceEvent,
       required final String licenceType,
-      required final String licenceCourse}) = _$ActionEntityImpl;
+      required final String licenceCourse,
+      required final List<PersonEntity> personal}) = _$ActionEntityImpl;
 
   factory _ActionEntity.fromJson(Map<String, dynamic> json) =
       _$ActionEntityImpl.fromJson;
@@ -253,6 +284,8 @@ abstract class _ActionEntity implements ActionEntity {
   String get licenceType;
   @override
   String get licenceCourse;
+  @override
+  List<PersonEntity> get personal;
   @override
   @JsonKey(ignore: true)
   _$$ActionEntityImplCopyWith<_$ActionEntityImpl> get copyWith =>
