@@ -1,12 +1,13 @@
-import 'widgets/personal_table_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../config/routes/app_routes.dart';
 import '../../../domain/entities/person/person.dart';
 import '../../bloc/personal_bloc.dart';
 import '../../widgets/confirmation_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'widgets/personal_table_widget.dart';
+import 'widgets/search_person_widget.dart';
 
 class PersonalPage extends StatelessWidget {
   final int? selectedPersonId;
@@ -66,6 +67,7 @@ class PersonalPage extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  SearchPersonWidget(),
                   Expanded(
                     child: PersonalTableWidget(
                       persons: persons,
