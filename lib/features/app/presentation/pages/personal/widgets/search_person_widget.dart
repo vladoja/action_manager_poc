@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/personal_search/personal_search_bloc.dart';
+import '../../../bloc/personal/personal_search/personal_search_bloc.dart';
 
 class SearchPersonWidget extends StatelessWidget {
   const SearchPersonWidget({super.key});
