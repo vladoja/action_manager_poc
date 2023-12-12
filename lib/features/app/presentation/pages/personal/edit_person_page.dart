@@ -6,7 +6,7 @@ import '../../../../../config/enums/personal_roles_enum.dart';
 import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/widgets/delete_alert.dart';
 import '../../../domain/entities/person/person.dart';
-import '../../bloc/personal_bloc.dart';
+import '../../bloc/personal/personal/personal_bloc.dart';
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
 

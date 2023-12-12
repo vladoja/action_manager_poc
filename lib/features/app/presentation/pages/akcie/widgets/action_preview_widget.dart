@@ -1,10 +1,9 @@
 import 'dart:developer';
 
-import 'package:action_manager_poc/features/app/domain/entities/action.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
-import 'package:action_manager_poc/features/app/presentation/widgets/confirmation_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../domain/entities/action.dart';
+import '../../../widgets/confirmation_widget.dart';
 
 class ActionPreviewWidget extends StatelessWidget {
   final ActionEntity action;
