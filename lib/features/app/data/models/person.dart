@@ -15,6 +15,7 @@ class PersonModel extends PersonEntity {
             id: id,
             firstName: firstName,
             lastName: lastName,
+            title: title,
             role: role,
             status: status);
 
@@ -33,6 +34,7 @@ class PersonModel extends PersonEntity {
         id: entity.id,
         firstName: entity.firstName,
         lastName: entity.lastName,
+        title: entity.title,
         role: entity.role,
         status: entity.status);
   }
