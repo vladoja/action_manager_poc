@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../config/routes/app_routes.dart';
 import '../../../domain/entities/person/person.dart';
+import '../../bloc/personal/personal_filtered/personal_filtered_bloc.dart';
 import '../../bloc/personal_bloc.dart';
+import '../../bloc/personal_search/personal_search_bloc.dart';
 import '../../widgets/confirmation_widget.dart';
 import 'widgets/personal_table_widget.dart';
 import 'widgets/search_person_widget.dart';
@@ -36,6 +38,64 @@ class PersonalPage extends StatelessWidget {
   }
 
   _buildBody(BuildContext context) {
+    final persons =
+        context.watch<PersonalFilteredBloc>().state.filteredPersonal;
+    int? selectedRowId;
+    for (int i = 0; i < persons.length; i++) {
+      if (persons[i].id == this.selectedPersonId) {
+        selectedRowId = i;
+        break;
+      }
+    }
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<PersonalBloc, PersonalState>(
+          listener: (context, state) {
+            List<PersonEntity> _filteredPersonal =
+                PersonalFilteredBloc.setFilteredPersonal(state.persons,
+                    context.read<PersonalSearchBloc>().state.searchTerm);
+            context.read<PersonalFilteredBloc>().add(
+                CalculateFilteredPersonalEvent(
+                    filteredPersonal: _filteredPersonal));
+          },
+        ),
+        BlocListener<PersonalSearchBloc, PersonalSearchState>(
+          listener: (context, state) {
+            List<PersonEntity> _filteredPersonal =
+                PersonalFilteredBloc.setFilteredPersonal(
+                    context.read<PersonalBloc>().state.persons,
+                    state.searchTerm);
+            context.read<PersonalFilteredBloc>().add(
+                CalculateFilteredPersonalEvent(
+                    filteredPersonal: _filteredPersonal));
+          },
+          child: Container(),
+        )
+      ],
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SearchPersonWidget(),
+            Expanded(
+              child: PersonalTableWidget(
+                persons: persons,
+                clickFunction: (int id) {
+                  final previewedPerson = persons[id];
+                  GoRouter.of(context).go(
+                      '${AppRoutes.navZoznamyPersonal}/Details',
+                      extra: previewedPerson);
+                },
+                highLighted: selectedRowId,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  _buildBody2(BuildContext context) {
     return BlocBuilder<PersonalBloc, PersonalState>(
       builder: (_, state) {
         if (state is PersonalLoading) {

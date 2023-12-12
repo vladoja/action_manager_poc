@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'config/theme/app_themes.dart';
 import 'core/routing/app_router.dart';
 import 'features/app/presentation/bloc/action/action_bloc.dart';
+import 'features/app/presentation/bloc/personal/personal_filtered/personal_filtered_bloc.dart';
 import 'features/app/presentation/bloc/personal_bloc.dart';
 import 'features/app/presentation/bloc/personal_search/personal_search_bloc.dart';
 
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PersonalSearchBloc(),
+        ),
+        BlocProvider(
+          create: (context) => PersonalFilteredBloc(
+              initialPersons: context.read<PersonalBloc>().state.persons),
         ),
         BlocProvider(
           create: (context) => ActionBloc(),
