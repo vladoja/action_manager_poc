@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/action.dart';
-import '../../features/app/domain/entities/person.dart';
+import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
@@ -153,18 +153,23 @@ class AppRouter {
                           GoRoute(
                             path: 'Details',
                             // builder: (context, state) => const EditPersonPage(),
-                            pageBuilder: (context, state) =>
-                                RouterTransitionFactory.getTransitionPage(
-                                    context: context,
-                                    state: state,
-                                    child: AdaptiveLayoutWidget(
-                                      body: const PersonalPage(),
-                                      secondaryBody: EditPersonPage(
-                                        person: state.extra as PersonEntity,
-                                      ),
-                                      showSecondaryBody: true,
+                            pageBuilder: (context, state) {
+                              final selectedPerson =
+                                  state.extra as PersonEntity;
+                              return RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: AdaptiveLayoutWidget(
+                                    body: PersonalPage(
+                                        selectedPersonId: selectedPerson.id),
+                                    secondaryBody: EditPersonPage(
+                                      person: selectedPerson,
                                     ),
-                                    type: 'size'),
+                                    showSecondaryBody: true,
+                                    secondaryBodyRatio: 0.6,
+                                  ),
+                                  type: 'size');
+                            },
                           )
                         ],
                       ),

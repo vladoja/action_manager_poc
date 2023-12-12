@@ -1,8 +1,14 @@
-import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/personal_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../config/enums/personal_roles_enum.dart';
+import '../../../../../config/routes/app_routes.dart';
+import '../../../../../core/widgets/delete_alert.dart';
+import '../../../domain/entities/person/person.dart';
+import '../../bloc/personal/personal/personal_bloc.dart';
+
+final scaffoldKey = GlobalKey<ScaffoldState>();
 
 class EditPersonPage extends StatelessWidget {
   final PersonEntity? person;
@@ -14,27 +20,53 @@ class EditPersonPage extends StatelessWidget {
     final nameController = TextEditingController();
     final lastNameController = TextEditingController();
     final roleController = TextEditingController();
+    final titleController = TextEditingController();
 
     return Scaffold(
       appBar: _buildAppbar(context),
-      body: _buildBody(context, _formKey,
-          firstName: nameController,
-          lastName: lastNameController,
-          role: roleController),
+      key: scaffoldKey,
+      body: _buildBody(
+        context,
+        _formKey,
+        firstName: nameController,
+        lastName: lastNameController,
+        role: roleController,
+        title: titleController,
+      ),
     );
   }
 
   _buildAppbar(BuildContext context) {
     return AppBar(
       title: Text((person == null) ? 'Create Person' : 'Edit Person'),
+      actions: (person != null)
+          ? [
+              IconButton(
+                  onPressed: () async {
+                    bool result = await showDialog(
+                      context: context,
+                      builder: (ctx) => createDeleteDialog(ctx),
+                    );
+                    if (result) {
+                      _onDeleteButtonTapped(
+                          scaffoldKey.currentContext!, person!);
+                      GoRouter.of(scaffoldKey.currentContext!)
+                          .go(AppRoutes.navZoznamyPersonal);
+                    }
+                  },
+                  icon: const Icon(Icons.delete,
+                      color: Color.fromARGB(255, 212, 34, 22)))
+            ]
+          : [],
     );
   }
 
   _buildBody(BuildContext context, GlobalKey<FormState> formKey,
       {required TextEditingController firstName,
       required TextEditingController lastName,
-      required TextEditingController role}) {
-    PersonalRole? __role =
+      required TextEditingController role,
+      required TextEditingController title}) {
+    PersonalRole? role =
         (person != null) ? person!.role : PersonalRole.prisediaci;
     return Scrollbar(
       child: SingleChildScrollView(
@@ -47,15 +79,23 @@ class EditPersonPage extends StatelessWidget {
               child: Column(children: [
                 _buildFormTextField(firstName, "Meno",
                     value: (person != null) ? person!.firstName : null),
+                const SizedBox(
+                  height: 5,
+                ),
                 _buildFormTextField(lastName, "Priezvisko",
                     value: (person != null) ? person!.lastName : null),
+                const SizedBox(
+                  height: 5,
+                ),
+                _buildFormTextField(title, "Titul",
+                    value: (person != null) ? person!.title : null),
                 const SizedBox(
                   height: 10,
                 ),
                 DropdownButtonFormField<PersonalRole>(
-                    value: __role,
+                    value: role,
                     onChanged: (PersonalRole? newValue) {
-                      __role = newValue!;
+                      role = newValue!;
                     },
                     items: PersonalRole.values.map((PersonalRole role) {
                       return DropdownMenuItem(
@@ -74,14 +114,16 @@ class EditPersonPage extends StatelessWidget {
                               id: id,
                               firstName: firstName.text,
                               lastName: lastName.text,
-                              role: __role!);
+                              title: title.text,
+                              role: role!);
                           _onCreateButtonTapped(context, personNew);
                         } else {
                           PersonEntity personAfterEdit = PersonEntity(
                               id: person!.id,
                               firstName: firstName.text,
                               lastName: lastName.text,
-                              role: __role!);
+                              title: title.text,
+                              role: role!);
                           _onEditButtonTapped(context, personAfterEdit);
                         }
                         Navigator.of(context).pop();
@@ -129,5 +171,10 @@ class EditPersonPage extends StatelessWidget {
 
   void _onEditButtonTapped(BuildContext context, PersonEntity person) {
     BlocProvider.of<PersonalBloc>(context).add(UpdatePersonInPersonal(person));
+  }
+
+  void _onDeleteButtonTapped(BuildContext context, PersonEntity person) {
+    BlocProvider.of<PersonalBloc>(context)
+        .add(RemovePersonFromPersonal(person));
   }
 }

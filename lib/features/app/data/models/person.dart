@@ -1,13 +1,13 @@
-import 'package:action_manager_poc/config/enums/personal_roles_enum.dart';
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
+import '../../../../config/enums/personal_roles_enum.dart';
+import '../../domain/entities/person/person.dart';
 import 'package:floor/floor.dart';
 
 @Entity(tableName: 'person', primaryKeys: ['id'])
 class PersonModel extends PersonEntity {
   const PersonModel({
-    int? id,
-    String? firstName,
-    String? lastName,
+    required int id,
+    required String firstName,
+    required String lastName,
     String? title,
     required PersonalRole role,
     String? status,
@@ -15,11 +15,13 @@ class PersonModel extends PersonEntity {
             id: id,
             firstName: firstName,
             lastName: lastName,
+            title: title,
             role: role,
             status: status);
 
   factory PersonModel.fromJson(Map<String, dynamic> map) {
     return PersonModel(
+        id: map['id'] ?? "",
         firstName: map['firstName'] ?? "",
         lastName: map['lastName'] ?? "",
         title: map['title'] ?? "",
@@ -32,6 +34,7 @@ class PersonModel extends PersonEntity {
         id: entity.id,
         firstName: entity.firstName,
         lastName: entity.lastName,
+        title: entity.title,
         role: entity.role,
         status: entity.status);
   }
