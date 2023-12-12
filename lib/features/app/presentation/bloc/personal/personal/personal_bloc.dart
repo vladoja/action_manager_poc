@@ -1,15 +1,16 @@
 import 'dart:async';
 
-import 'package:action_manager_poc/features/app/domain/entities/person.dart';
-import 'package:action_manager_poc/temp/dummy_personal.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../../../../temp/dummy_personal.dart';
+import '../../../../domain/entities/person/person.dart';
 
 part 'personal_event.dart';
 part 'personal_state.dart';
 
 class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
-  PersonalBloc() : super(PersonalLoading()) {
+  PersonalBloc() : super(const PersonalDone(personal_data_temp)) {
     on<GetPersonal>(_onGetPersonal);
     on<RemovePersonFromPersonal>(_onRemovePersonFromPersonal);
     on<CreatePersonInPersonal>(_onCreatePersonInPersonal);

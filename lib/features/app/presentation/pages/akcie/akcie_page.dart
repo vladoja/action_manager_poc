@@ -1,12 +1,14 @@
-import 'package:action_manager_poc/features/app/domain/entities/action.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
-import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_preview_widget.dart';
-import 'package:action_manager_poc/features/app/presentation/pages/akcie/widgets/action_table_widget.dart';
+import '../../../../../config/routes/app_routes.dart';
+import '../../../domain/entities/action.dart';
+import '../../bloc/action/action_bloc.dart';
+import 'widgets/action_table_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class AkciePage extends StatefulWidget {
-  const AkciePage({super.key});
+  final int? selectedActionId;
+  const AkciePage({super.key, this.selectedActionId});
 
   @override
   State<AkciePage> createState() => _AkciePageState();
@@ -14,6 +16,7 @@ class AkciePage extends StatefulWidget {
 
 class _AkciePageState extends State<AkciePage> {
   int currentIndex = 0;
+  ActionEntity? previewedAction;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class _AkciePageState extends State<AkciePage> {
       floatingActionButton: IconButton(
         icon: const Icon(Icons.add_rounded),
         tooltip: "Pridaj Akciu",
-        onPressed: () => {Navigator.pushNamed(context, '/Akcie/New')},
+        onPressed: () => {_onCreateNewPersonAction(context)},
       ),
     );
   }
@@ -56,21 +59,37 @@ class _AkciePageState extends State<AkciePage> {
               child: Text('No actions yet'),
             );
           } else {
-            ActionEntity previewedAction = actions[currentIndex];
+            // ActionEntity previewedAction = actions[currentIndex];
+            int? selectedRowId;
+            for (int i = 0; i < actions.length; i++) {
+              if (actions[i].id == widget.selectedActionId) {
+                selectedRowId = i;
+                break;
+              }
+            }
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ActionPreviewWidget(
-                      action: previewedAction,
-                      deleteFunction: _triggerRemoveAction),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  // ActionPreviewWidget(
+                  //     action: previewedAction,
+                  //     deleteFunction: _triggerRemoveAction),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
                   Expanded(
                     child: ActionTableWidget(
                       actions: actions,
-                      clickFunction: _clickFunction,
+                      clickFunction: (int id) {
+                        // print('clicked action: ${previewedAction.id}');
+                        _clickFunction(id);
+                        previewedAction = actions[id];
+                        GoRouter.of(context).go(
+                            '${AppRoutes.navTerminyOsoby}/Details',
+                            extra: previewedAction);
+                        // _clickFunction(id);
+                      },
+                      highLighted: selectedRowId,
                     ),
                   ),
                   // const Spacer(),
@@ -104,5 +123,9 @@ class _AkciePageState extends State<AkciePage> {
     setState(() {
       currentIndex = 0;
     });
+  }
+
+  void _onCreateNewPersonAction(BuildContext context) {
+    GoRouter.of(context).go('${AppRoutes.navTerminyOsoby}/New');
   }
 }
