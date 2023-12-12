@@ -10,7 +10,7 @@ part 'personal_event.dart';
 part 'personal_state.dart';
 
 class PersonalBloc extends Bloc<PersonalEvent, PersonalState> {
-  PersonalBloc() : super(PersonalLoading()) {
+  PersonalBloc() : super(const PersonalDone(personal_data_temp)) {
     on<GetPersonal>(_onGetPersonal);
     on<RemovePersonFromPersonal>(_onRemovePersonFromPersonal);
     on<CreatePersonInPersonal>(_onCreatePersonInPersonal);
