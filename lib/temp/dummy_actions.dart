@@ -26,6 +26,6 @@ const actions_data_temp = <ActionEntity>[
     licenceEvent: "termín skúšky",
     licenceType: "Emisná kontrola",
     licenceCourse: "základné školenie",
-    personal: [],
+    personal: [1, 3],
   )
 ];

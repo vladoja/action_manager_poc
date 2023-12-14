@@ -14,9 +14,8 @@ _$ActionEntityImpl _$$ActionEntityImplFromJson(Map<String, dynamic> json) =>
       licenceEvent: json['licenceEvent'] as String,
       licenceType: json['licenceType'] as String,
       licenceCourse: json['licenceCourse'] as String,
-      personal: (json['personal'] as List<dynamic>)
-          .map((e) => PersonEntity.fromJson(e as String))
-          .toList(),
+      personal:
+          (json['personal'] as List<dynamic>).map((e) => e as int).toList(),
     );
 
 Map<String, dynamic> _$$ActionEntityImplToJson(_$ActionEntityImpl instance) =>

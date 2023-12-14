@@ -26,7 +26,7 @@ mixin _$ActionEntity {
   String get licenceEvent => throw _privateConstructorUsedError;
   String get licenceType => throw _privateConstructorUsedError;
   String get licenceCourse => throw _privateConstructorUsedError;
-  List<PersonEntity> get personal => throw _privateConstructorUsedError;
+  List<int> get personal => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +47,7 @@ abstract class $ActionEntityCopyWith<$Res> {
       String licenceEvent,
       String licenceType,
       String licenceCourse,
-      List<PersonEntity> personal});
+      List<int> personal});
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ class _$ActionEntityCopyWithImpl<$Res, $Val extends ActionEntity>
       personal: null == personal
           ? _value.personal
           : personal // ignore: cast_nullable_to_non_nullable
-              as List<PersonEntity>,
+              as List<int>,
     ) as $Val);
   }
 }
@@ -119,7 +119,7 @@ abstract class _$$ActionEntityImplCopyWith<$Res>
       String licenceEvent,
       String licenceType,
       String licenceCourse,
-      List<PersonEntity> personal});
+      List<int> personal});
 }
 
 /// @nodoc
@@ -169,7 +169,7 @@ class __$$ActionEntityImplCopyWithImpl<$Res>
       personal: null == personal
           ? _value._personal
           : personal // ignore: cast_nullable_to_non_nullable
-              as List<PersonEntity>,
+              as List<int>,
     ));
   }
 }
@@ -184,7 +184,7 @@ class _$ActionEntityImpl implements _ActionEntity {
       required this.licenceEvent,
       required this.licenceType,
       required this.licenceCourse,
-      required final List<PersonEntity> personal})
+      required final List<int> personal})
       : _personal = personal;
 
   factory _$ActionEntityImpl.fromJson(Map<String, dynamic> json) =>
@@ -202,9 +202,9 @@ class _$ActionEntityImpl implements _ActionEntity {
   final String licenceType;
   @override
   final String licenceCourse;
-  final List<PersonEntity> _personal;
+  final List<int> _personal;
   @override
-  List<PersonEntity> get personal {
+  List<int> get personal {
     if (_personal is EqualUnmodifiableListView) return _personal;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_personal);
@@ -267,7 +267,7 @@ abstract class _ActionEntity implements ActionEntity {
       required final String licenceEvent,
       required final String licenceType,
       required final String licenceCourse,
-      required final List<PersonEntity> personal}) = _$ActionEntityImpl;
+      required final List<int> personal}) = _$ActionEntityImpl;
 
   factory _ActionEntity.fromJson(Map<String, dynamic> json) =
       _$ActionEntityImpl.fromJson;
@@ -285,7 +285,7 @@ abstract class _ActionEntity implements ActionEntity {
   @override
   String get licenceCourse;
   @override
-  List<PersonEntity> get personal;
+  List<int> get personal;
   @override
   @JsonKey(ignore: true)
   _$$ActionEntityImplCopyWith<_$ActionEntityImpl> get copyWith =>

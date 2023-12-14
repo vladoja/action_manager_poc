@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/entities/action.dart';
+import '../../../domain/entities/person/person.dart';
+import '../../bloc/personal/personal/personal_bloc.dart';
 import 'widgets/action_show_personal_widget.dart';
 
 class ActionPersonalPage extends StatelessWidget {
@@ -9,7 +12,8 @@ class ActionPersonalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final personal = action.personal;
+    final pesons = context.read<PersonalBloc>().state.persons;
+    final personal = getPersonsById(pesons, action.personal);
     return Column(
       children: [
         const Text(
@@ -34,5 +38,13 @@ class ActionPersonalPage extends StatelessWidget {
         )
       ],
     );
+  }
+
+  List<PersonEntity> getPersonsById(
+      List<PersonEntity> persons, List<int> personsIds) {
+    List<PersonEntity> filtered = persons
+        .where((personElement) => personsIds.contains(personElement.id))
+        .toList();
+    return filtered;
   }
 }

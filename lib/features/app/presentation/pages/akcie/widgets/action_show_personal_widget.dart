@@ -62,16 +62,6 @@ class ActionShowPersonalWidget extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  // _onEditPersonTapped(context, person);
-                },
-                icon: const Icon(
-                  Icons.edit,
-                  size: 30,
-                  color: Colors.green,
-                ),
-              )
             ],
           ),
         ));
