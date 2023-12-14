@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/action.dart';
 import '../../features/app/domain/entities/person/person.dart';
+import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
@@ -242,9 +243,13 @@ class AppRouter {
                                   context: context,
                                   state: state,
                                   child: AdaptiveLayoutWidget(
-                                      body: EditActionPage(
-                                    action: selectedAction,
-                                  )),
+                                    body: EditActionPage(
+                                      action: selectedAction,
+                                    ),
+                                    secondaryBody: ActionPersonalPage(
+                                        action: selectedAction),
+                                    showSecondaryBody: true,
+                                  ),
                                   type: 'size');
                             },
                           )

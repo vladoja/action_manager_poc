@@ -10,7 +10,17 @@ class ActionShowPersonalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [Text('Personal: ${personal.length}')],
+      children: [
+        Text('Personal: ${personal.length}'),
+        ListView.builder(
+          itemCount: personal.length,
+          physics: const ScrollPhysics(), // add this
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return _createPersonTile(context, personal[index]);
+          },
+        )
+      ],
     );
   }
 
