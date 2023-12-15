@@ -1,11 +1,18 @@
-import '../../../../domain/entities/person/person.dart';
-import '../../../widgets/confirmation_widget.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../domain/entities/action.dart';
+import '../../../../domain/entities/person/person.dart';
+import '../../../bloc/action/action_bloc.dart';
+import '../../../widgets/confirmation_widget.dart';
 
 class ActionShowPersonalWidget extends StatelessWidget {
+  final ActionEntity action;
   final List<PersonEntity> personal;
-  const ActionShowPersonalWidget({super.key, required this.personal});
+  const ActionShowPersonalWidget(
+      {super.key, required this.personal, required this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -67,5 +74,10 @@ class ActionShowPersonalWidget extends StatelessWidget {
         ));
   }
 
-  void _onRemovePersonTapped(BuildContext context, PersonEntity person) {}
+  void _onRemovePersonTapped(BuildContext context, PersonEntity person) {
+    // log('Removing person from action: Person: ${person}');
+    context
+        .read<ActionBloc>()
+        .add(RemovePersonalFromActionEvent(action: action, person: person));
+  }
 }

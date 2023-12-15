@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/entities/action.dart';
 import '../../../domain/entities/person/person.dart';
+import '../../bloc/action/action_bloc.dart';
 import '../../bloc/personal/personal/personal_bloc.dart';
 import 'widgets/action_show_personal_widget.dart';
 
 class ActionPersonalPage extends StatelessWidget {
-  final ActionEntity action;
-  const ActionPersonalPage({super.key, required this.action});
+  final int actionId;
+  const ActionPersonalPage({super.key, required this.actionId});
 
   @override
   Widget build(BuildContext context) {
+    final action = context
+        .watch<ActionBloc>()
+        .state
+        .actions
+        .firstWhere((element) => element.id == actionId);
     final pesons = context.read<PersonalBloc>().state.persons;
     final personal = getPersonsById(pesons, action.personal);
     return Column(
@@ -23,7 +28,10 @@ class ActionPersonalPage extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        ActionShowPersonalWidget(personal: personal),
+        ActionShowPersonalWidget(
+          personal: personal,
+          action: action,
+        ),
         const SizedBox(
           height: 10,
         ),

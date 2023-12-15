@@ -247,7 +247,7 @@ class AppRouter {
                                       action: selectedAction,
                                     ),
                                     secondaryBody: ActionPersonalPage(
-                                        action: selectedAction),
+                                        actionId: selectedAction.id),
                                     showSecondaryBody: true,
                                   ),
                                   type: 'size');
