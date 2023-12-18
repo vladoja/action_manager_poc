@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/person/person.dart';
 import '../../bloc/action/action_bloc.dart';
 import '../../bloc/personal/personal/personal_bloc.dart';
+import 'widgets/action_add_person_table_widget.dart';
 import 'widgets/action_show_personal_widget.dart';
 
 class ActionPersonalPage extends StatelessWidget {
@@ -17,8 +18,8 @@ class ActionPersonalPage extends StatelessWidget {
         .state
         .actions
         .firstWhere((element) => element.id == actionId);
-    final pesons = context.read<PersonalBloc>().state.persons;
-    final personal = getPersonsById(pesons, action.personal);
+    final persons = context.read<PersonalBloc>().state.persons;
+    final personal = getPersonsById(persons, action.personal);
     return Column(
       children: [
         const Text(
@@ -36,7 +37,30 @@ class ActionPersonalPage extends StatelessWidget {
           height: 10,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () async {
+            return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Pridaj personal'),
+                    content: ConstrainedBox(
+                        constraints: BoxConstraints.expand(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            height: MediaQuery.of(context).size.height * 0.9),
+                        child: ActionAddPersonalTableWidget(persons: persons)),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text('NO'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: const Text('YES'),
+                      ),
+                    ],
+                  );
+                });
+          },
           child: const Text('Pridaj personál'),
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(

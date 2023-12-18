@@ -20,4 +20,28 @@ const personal_data_temp = <PersonModel>[
       lastName: "Skinner",
       title: "DIR",
       role: PersonalRole.predseda),
+  PersonModel(
+      id: 4,
+      firstName: "Daniela",
+      lastName: "Hantuchová",
+      title: "MVDR",
+      role: PersonalRole.prisediaci),
+  PersonModel(
+      id: 5,
+      firstName: "Petra",
+      lastName: "Vlhová",
+      title: "MGR",
+      role: PersonalRole.predseda),
+  PersonModel(
+      id: 6,
+      firstName: "Paulína",
+      lastName: "Fialková",
+      title: "Judr",
+      role: PersonalRole.skusajuci),
+  PersonModel(
+      id: 7,
+      firstName: "Vladimír",
+      lastName: "Weiss",
+      title: "Bc",
+      role: PersonalRole.predseda),
 ];
