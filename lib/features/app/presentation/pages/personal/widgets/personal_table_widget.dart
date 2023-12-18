@@ -65,7 +65,11 @@ class PersonalTableWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     tableRows.addAll(_createTableRows(persons, highlightedRow: highLighted));
-    return TableWidget(columns: tableColumns, rows: tableRows);
+    return TableWidget(
+      columns: tableColumns,
+      rows: tableRows,
+      showCheckboxColumn: true,
+    );
   }
 }
 
@@ -83,9 +87,10 @@ class PersonalTableRowMapper {
     }
 
     DataRow row = DataRow(
-        onSelectChanged: (onTap != null) ? onTap : null,
-        cells: cells,
-        selected: isHighLighted);
+      onSelectChanged: (onTap != null) ? onTap : null,
+      cells: cells,
+      selected: false,
+    );
     return row;
   }
 }
