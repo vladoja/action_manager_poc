@@ -1,10 +1,9 @@
-import 'dart:developer';
+import 'package:flutter/material.dart';
 
 import '../../../../domain/entities/person/person.dart';
 import '../../personal/widgets/personal_table_widget.dart';
-import 'package:flutter/material.dart';
 
-class ActionAddPersonalTableWidget extends StatelessWidget {
+class ActionAddPersonalTableWidget extends StatefulWidget {
   final List<PersonEntity> persons;
   final List<int> selectedPersonIds;
 
@@ -12,16 +11,23 @@ class ActionAddPersonalTableWidget extends StatelessWidget {
       {super.key, required this.persons, required this.selectedPersonIds});
 
   @override
+  State<ActionAddPersonalTableWidget> createState() =>
+      _ActionAddPersonalTableWidgetState();
+}
+
+class _ActionAddPersonalTableWidgetState
+    extends State<ActionAddPersonalTableWidget> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Vybranych: ${selectedPersonIds.length}'),
+        Text('Vybraných: ${widget.selectedPersonIds.length}'),
         const SizedBox(
           height: 10,
         ),
         Expanded(
           child: PersonalTableWidget(
-            persons: persons,
+            persons: widget.persons,
             clickFunction: selectedPersons,
           ),
         ),
@@ -30,14 +36,13 @@ class ActionAddPersonalTableWidget extends StatelessWidget {
   }
 
   selectedPersons(List<bool> selected) {
-    selectedPersonIds.clear();
-    selected.asMap().forEach((key, value) {
-      if (value == true) {
-        selectedPersonIds.add(key);
-      }
-    })
-        // selectedPersonIds.addAll((selected.map((e) => null) );
-        ;
-    log('Selected persons: ${selectedPersonIds}');
+    setState(() {
+      widget.selectedPersonIds.clear();
+      selected.asMap().forEach((key, value) {
+        if (value == true) {
+          widget.selectedPersonIds.add(widget.persons[key].id);
+        }
+      });
+    });
   }
 }
