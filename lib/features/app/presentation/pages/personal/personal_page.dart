@@ -76,7 +76,7 @@ class PersonalPage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SearchPersonWidget(),
+            const SearchPersonWidget(),
             Expanded(
               child: PersonalTableWidget(
                 persons: persons,

@@ -47,7 +47,18 @@ class ActionPersonalPage extends StatelessWidget {
                         constraints: BoxConstraints.expand(
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: MediaQuery.of(context).size.height * 0.9),
-                        child: ActionAddPersonalTableWidget(persons: persons)),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('Vybranych: 0'),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Expanded(
+                                child: ActionAddPersonalTableWidget(
+                                    persons: persons)),
+                          ],
+                        )),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
