@@ -41,24 +41,18 @@ class ActionPersonalPage extends StatelessWidget {
             return showDialog(
                 context: context,
                 builder: (context) {
+                  List<int> selectedPersonIds = [];
                   return AlertDialog(
                     title: const Text('Pridaj personal'),
                     content: ConstrainedBox(
-                        constraints: BoxConstraints.expand(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.9),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text('Vybranych: 0'),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Expanded(
-                                child: ActionAddPersonalTableWidget(
-                                    persons: persons)),
-                          ],
-                        )),
+                      constraints: BoxConstraints.expand(
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: MediaQuery.of(context).size.height * 0.9),
+                      child: ActionAddPersonalTableWidget(
+                        persons: persons,
+                        selectedPersonIds: selectedPersonIds,
+                      ),
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),

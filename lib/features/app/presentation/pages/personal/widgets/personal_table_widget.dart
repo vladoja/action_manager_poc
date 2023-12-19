@@ -59,7 +59,7 @@ class _PersonalTableWidgetState extends State<PersonalTableWidget> {
     log("Row with id: $rowIndex clicked");
     // tableRows[rowIndex]
     onSelectChanged(rowIndex);
-    widget.clickFunction(rowIndex);
+    widget.clickFunction(selected);
   }
 
   List<DataRow> _createTableRows(List personal, {int? highlightedRow}) {
