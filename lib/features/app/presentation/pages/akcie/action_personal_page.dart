@@ -21,6 +21,8 @@ class ActionPersonalPage extends StatelessWidget {
         .firstWhere((element) => element.id == actionId);
     final persons = context.read<PersonalBloc>().state.persons;
     final personal = getPersonsById(persons, action.personal);
+    final personsAvailable =
+        _filterPersonsNotAddedToAction(persons, action.personal);
     return Column(
       children: [
         const Text(
@@ -50,7 +52,7 @@ class ActionPersonalPage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: MediaQuery.of(context).size.height * 0.9),
                     child: ActionAddPersonalTableWidget(
-                      persons: persons,
+                      persons: personsAvailable,
                       selectedPersonIds: selectedPersonIds,
                     ),
                   ),
@@ -76,12 +78,12 @@ class ActionPersonalPage extends StatelessWidget {
               // print('Nikto nebol pridany');
             }
           },
-          child: const Text('Pridaj personál'),
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12), // <-- Radius
             ),
           ),
+          child: const Text('Pridaj personál'),
         )
       ],
     );
@@ -93,6 +95,16 @@ class ActionPersonalPage extends StatelessWidget {
         .where((personElement) => personsIds.contains(personElement.id))
         .toList();
     return filtered;
+  }
+
+  List<PersonEntity> _filterPersonsNotAddedToAction(
+      List<PersonEntity> personsAll, List<int> personsIdsAlreadyAdded) {
+    List<PersonEntity> personsAvailable = personsAll
+        .where(
+          (element) => (personsIdsAlreadyAdded.contains(element.id) == false),
+        )
+        .toList();
+    return personsAvailable;
   }
 
   void _emitAddPersonalToActionEvent(BuildContext context, List<int> personsIds,

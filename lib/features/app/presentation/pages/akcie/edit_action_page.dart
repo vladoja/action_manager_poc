@@ -93,7 +93,7 @@ class EditActionPage extends StatelessWidget {
                         Navigator.of(context).pop();
                       }
                     },
-                    child: const Text('submit'),
+                    child: const Text('Uložiť'),
                   ),
                 ],
               ),
