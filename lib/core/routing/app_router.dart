@@ -207,8 +207,8 @@ class AppRouter {
                                 RouterTransitionFactory.getTransitionPage(
                                     context: context,
                                     state: state,
-                                    child: const AdaptiveLayoutWidget(
-                                      body: AkciePage(),
+                                    child: AdaptiveLayoutWidget(
+                                      body: const AkciePage(),
                                       secondaryBody: EditActionPage(),
                                       showSecondaryBody: true,
                                       secondaryBodyRatio: 0.7,
@@ -245,6 +245,7 @@ class AppRouter {
                                   child: AdaptiveLayoutWidget(
                                     body: EditActionPage(
                                       action: selectedAction,
+                                      showGoToEditPageButton: false,
                                     ),
                                     secondaryBody: ActionPersonalPage(
                                         actionId: selectedAction.id),

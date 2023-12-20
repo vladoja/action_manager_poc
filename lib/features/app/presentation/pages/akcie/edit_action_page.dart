@@ -10,7 +10,8 @@ import '../../bloc/action/action_bloc.dart';
 
 class EditActionPage extends StatelessWidget {
   final ActionEntity? action;
-  const EditActionPage({super.key, this.action});
+  bool? showGoToEditPageButton;
+  EditActionPage({super.key, this.action, this.showGoToEditPageButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class EditActionPage extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        (action != null)
+        (action != null && showGoToEditPageButton!)
             ? FilledButton(
                 onPressed: () {
                   _goToEditActionPage(context, action!);
