@@ -10,11 +10,13 @@ class PersonalTableWidget extends StatefulWidget {
   final List<PersonEntity> persons;
   final Function clickFunction;
   final int? highLighted;
+  final bool? showCheckboxColumnInTable;
   const PersonalTableWidget(
       {super.key,
       required this.persons,
       required this.clickFunction,
-      this.highLighted});
+      this.highLighted,
+      this.showCheckboxColumnInTable = false});
 
   @override
   State<PersonalTableWidget> createState() => _PersonalTableWidgetState();
@@ -92,7 +94,7 @@ class _PersonalTableWidgetState extends State<PersonalTableWidget> {
     return TableWidget(
       columns: tableColumns,
       rows: tableRows,
-      showCheckboxColumn: false,
+      showCheckboxColumn: widget.showCheckboxColumnInTable!,
     );
   }
 }

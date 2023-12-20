@@ -29,6 +29,7 @@ class _ActionAddPersonalTableWidgetState
           child: PersonalTableWidget(
             persons: widget.persons,
             clickFunction: selectedPersons,
+            showCheckboxColumnInTable: true,
           ),
         ),
       ],
