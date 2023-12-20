@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/action.dart';
 import '../../features/app/domain/entities/person/person.dart';
+import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
@@ -193,50 +194,68 @@ class AppRouter {
                     navigatorKey: _nkTerminyOsoby,
                     routes: [
                       GoRoute(
-                          path: AppRoutes.navTerminyOsoby,
-                          pageBuilder: (context, state) =>
-                              const NoTransitionPage(
-                                child: AdaptiveLayoutWidget(
-                                  body: AkciePage(),
-                                ),
-                              ),
-                          routes: [
-                            GoRoute(
-                              path: 'New',
-                              pageBuilder: (context, state) =>
-                                  RouterTransitionFactory.getTransitionPage(
-                                      context: context,
-                                      state: state,
-                                      child: const AdaptiveLayoutWidget(
-                                        body: AkciePage(),
-                                        secondaryBody: EditActionPage(),
-                                        showSecondaryBody: true,
-                                        secondaryBodyRatio: 0.7,
-                                      ),
-                                      type: 'size'),
-                            ),
-                            GoRoute(
-                              path: 'Details',
-                              pageBuilder: (context, state) {
-                                final selectedAction =
-                                    state.extra as ActionEntity;
-                                return RouterTransitionFactory
-                                    .getTransitionPage(
-                                        context: context,
-                                        state: state,
-                                        child: AdaptiveLayoutWidget(
-                                          body: AkciePage(
-                                              selectedActionId:
-                                                  selectedAction.id),
-                                          secondaryBody: EditActionPage(
-                                              action: selectedAction),
-                                          showSecondaryBody: true,
-                                          secondaryBodyRatio: 0.7,
-                                        ),
-                                        type: 'size');
-                              },
-                            ),
-                          ]),
+                        path: AppRoutes.navTerminyOsoby,
+                        pageBuilder: (context, state) => const NoTransitionPage(
+                          child: AdaptiveLayoutWidget(
+                            body: AkciePage(),
+                          ),
+                        ),
+                        routes: [
+                          GoRoute(
+                            path: 'New',
+                            pageBuilder: (context, state) =>
+                                RouterTransitionFactory.getTransitionPage(
+                                    context: context,
+                                    state: state,
+                                    child: const AdaptiveLayoutWidget(
+                                      body: AkciePage(),
+                                      secondaryBody: EditActionPage(),
+                                      showSecondaryBody: true,
+                                      secondaryBodyRatio: 0.7,
+                                    ),
+                                    type: 'size'),
+                          ),
+                          GoRoute(
+                            path: 'Details',
+                            pageBuilder: (context, state) {
+                              final selectedAction =
+                                  state.extra as ActionEntity;
+                              return RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: AdaptiveLayoutWidget(
+                                    body: AkciePage(
+                                        selectedActionId: selectedAction.id),
+                                    secondaryBody:
+                                        EditActionPage(action: selectedAction),
+                                    showSecondaryBody: true,
+                                    secondaryBodyRatio: 0.7,
+                                  ),
+                                  type: 'size');
+                            },
+                          ),
+                          GoRoute(
+                            path: 'Edit',
+                            pageBuilder: (context, state) {
+                              final selectedAction =
+                                  state.extra as ActionEntity;
+                              return RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: AdaptiveLayoutWidget(
+                                    body: EditActionPage(
+                                      action: selectedAction,
+                                      showGoToEditPageButton: false,
+                                    ),
+                                    secondaryBody: ActionPersonalPage(
+                                        actionId: selectedAction.id),
+                                    showSecondaryBody: true,
+                                  ),
+                                  type: 'size');
+                            },
+                          )
+                        ],
+                      ),
                     ],
                   ),
                   StatefulShellBranch(

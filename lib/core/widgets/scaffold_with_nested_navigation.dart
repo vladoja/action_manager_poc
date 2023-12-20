@@ -17,7 +17,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
 
   void _goBranch(int index) {
     debugPrint(
-        'goBranch: ${index}, Route branches total: ${(navigationShell.route.branches.isEmpty) ? "NEEXISTUJE" : navigationShell.route.branches.length}');
+        'goBranch: $index, Route branches total: ${(navigationShell.route.branches.isEmpty) ? "NEEXISTUJE" : navigationShell.route.branches.length}');
 
     navigationShell.goBranch(
       index,

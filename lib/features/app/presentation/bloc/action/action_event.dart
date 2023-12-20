@@ -20,3 +20,17 @@ class RemoveActionEvent extends ActionEvent {
   final ActionEntity action;
   RemoveActionEvent(this.action);
 }
+
+class AddPersonalToActionEvent extends ActionEvent {
+  final ActionEntity action;
+  final List<PersonEntity> persons;
+
+  AddPersonalToActionEvent({required this.action, required this.persons});
+}
+
+class RemovePersonalFromActionEvent extends ActionEvent {
+  final ActionEntity action;
+  final PersonEntity person;
+
+  RemovePersonalFromActionEvent({required this.action, required this.person});
+}

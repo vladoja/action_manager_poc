@@ -11,7 +11,8 @@ class ActionEntity with _$ActionEntity {
       required String actionDate,
       required String licenceEvent,
       required String licenceType,
-      required String licenceCourse}) = _ActionEntity;
+      required String licenceCourse,
+      required List<int> personal}) = _ActionEntity;
 
   factory ActionEntity.fromJson(Map<String, Object?> json) =>
       _$ActionEntityFromJson(json);

@@ -1,13 +1,18 @@
-import 'package:action_manager_poc/core/utils/action_utils.dart';
-import 'package:action_manager_poc/features/app/domain/entities/action.dart';
-import 'package:action_manager_poc/features/app/presentation/bloc/action/action_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../../config/routes/app_routes.dart';
+import '../../../../../core/utils/action_utils.dart';
+import '../../../domain/entities/action.dart';
+import '../../bloc/action/action_bloc.dart';
 
 class EditActionPage extends StatelessWidget {
   final ActionEntity? action;
-  const EditActionPage({super.key, this.action});
+  final bool? showGoToEditPageButton;
+  const EditActionPage(
+      {super.key, this.action, this.showGoToEditPageButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -36,53 +41,83 @@ class EditActionPage extends StatelessWidget {
       licenceTypeController.text = action!.licenceType;
       licenceCourseController.text = action!.licenceCourse;
     }
-    return Scrollbar(
-        child: SingleChildScrollView(
-      padding: const EdgeInsets.all(8),
-      child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              _buildFormTextField(actionNameController, "Nazov terminu"),
-              // _buildFormTextField(actionDateController, "Datum terminu"),
-              _buildFormTextFieldWithDatePicker(
-                  context, actionDateController, "Dátum termínu"),
-              _buildFormTextField(licenceEventController, "Etapa(s terminom)"),
-              _buildFormTextField(licenceCourseController, "Konanie"),
-              _buildFormTextField(licenceTypeController, "Oprávnenie"),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      if (action == null) {
-                        // Vytvor novu akciu
-                        int id = DateTime.now().millisecondsSinceEpoch;
-                        ActionEntity actionNew = ActionEntity(
+    return Column(
+      children: [
+        Scrollbar(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(8),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  _buildFormTextField(actionNameController, "Nazov terminu"),
+                  // _buildFormTextField(actionDateController, "Datum terminu"),
+                  _buildFormTextFieldWithDatePicker(
+                      context, actionDateController, "Dátum termínu"),
+                  _buildFormTextField(
+                      licenceEventController, "Etapa(s terminom)"),
+                  _buildFormTextField(licenceCourseController, "Konanie"),
+                  _buildFormTextField(licenceTypeController, "Oprávnenie"),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  (action != null)
+                      ? Text('Personal: ${action!.personal.length}')
+                      : const SizedBox.shrink(),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        if (action == null) {
+                          // Vytvor novu akciu
+                          int id = DateTime.now().millisecondsSinceEpoch;
+                          ActionEntity actionNew = ActionEntity(
                             id: id,
                             name: actionNameController.text,
                             actionDate: actionDateController.text,
                             licenceEvent: licenceEventController.text,
                             licenceType: licenceTypeController.text,
-                            licenceCourse: licenceCourseController.text);
-                        _triggerCreateActionEvent(context, actionNew);
-                      } else {
-                        ActionEntity newAction = action!.copyWith(
-                            name: actionNameController.text,
-                            actionDate: actionDateController.text,
-                            licenceEvent: licenceEventController.text,
-                            licenceType: licenceTypeController.text,
-                            licenceCourse: licenceCourseController.text);
-                        _triggerUpdateActionEvent(context, newAction);
+                            licenceCourse: licenceCourseController.text,
+                            personal: [],
+                          );
+                          _triggerCreateActionEvent(context, actionNew);
+                        } else {
+                          ActionEntity newAction = action!.copyWith(
+                              name: actionNameController.text,
+                              actionDate: actionDateController.text,
+                              licenceEvent: licenceEventController.text,
+                              licenceType: licenceTypeController.text,
+                              licenceCourse: licenceCourseController.text);
+                          _triggerUpdateActionEvent(context, newAction);
+                        }
+                        Navigator.of(context).pop();
                       }
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  child: const Text('submit'))
-            ],
-          )),
-    ));
+                    },
+                    child: const Text('Uložiť'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        (action != null && showGoToEditPageButton!)
+            ? FilledButton(
+                onPressed: () {
+                  _goToEditActionPage(context, action!);
+                },
+                child: const Text(
+                  'Edituj',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              )
+            : const SizedBox.shrink()
+      ],
+    );
   }
 
   _buildFormTextField(TextEditingController controller, String label,
@@ -146,5 +181,9 @@ class EditActionPage extends StatelessWidget {
 
   void _triggerUpdateActionEvent(BuildContext context, ActionEntity action) {
     BlocProvider.of<ActionBloc>(context).add(UpdateActionEvent(action));
+  }
+
+  void _goToEditActionPage(BuildContext context, ActionEntity action) {
+    GoRouter.of(context).go('${AppRoutes.navTerminyOsoby}/Edit', extra: action);
   }
 }
