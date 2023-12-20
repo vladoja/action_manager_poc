@@ -92,7 +92,7 @@ class _PersonalTableWidgetState extends State<PersonalTableWidget> {
     return TableWidget(
       columns: tableColumns,
       rows: tableRows,
-      showCheckboxColumn: true,
+      showCheckboxColumn: false,
     );
   }
 }
