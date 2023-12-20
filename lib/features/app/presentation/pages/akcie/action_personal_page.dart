@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../domain/entities/action.dart';
 import '../../../domain/entities/person/person.dart';
 import '../../bloc/action/action_bloc.dart';
 import '../../bloc/personal/personal/personal_bloc.dart';
@@ -23,7 +24,7 @@ class ActionPersonalPage extends StatelessWidget {
     return Column(
       children: [
         const Text(
-          'Personal',
+          'Personál',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         const SizedBox(
@@ -38,33 +39,42 @@ class ActionPersonalPage extends StatelessWidget {
         ),
         ElevatedButton(
           onPressed: () async {
-            return showDialog(
-                context: context,
-                builder: (context) {
-                  List<int> selectedPersonIds = [];
-                  return AlertDialog(
-                    title: const Text('Pridaj personal'),
-                    content: ConstrainedBox(
-                      constraints: BoxConstraints.expand(
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          height: MediaQuery.of(context).size.height * 0.9),
-                      child: ActionAddPersonalTableWidget(
-                        persons: persons,
-                        selectedPersonIds: selectedPersonIds,
-                      ),
+            List<int> personIdsToAdd = await showDialog(
+              context: context,
+              builder: (context) {
+                List<int> selectedPersonIds = [];
+                return AlertDialog(
+                  title: const Text('Pridaj personál'),
+                  content: ConstrainedBox(
+                    constraints: BoxConstraints.expand(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.9),
+                    child: ActionAddPersonalTableWidget(
+                      persons: persons,
+                      selectedPersonIds: selectedPersonIds,
                     ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, false),
-                        child: const Text('NO'),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, true),
-                        child: const Text('YES'),
-                      ),
-                    ],
-                  );
-                });
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, <int>[]),
+                      child: const Text('Zrušiť'),
+                    ),
+                    TextButton(
+                      onPressed: () =>
+                          Navigator.pop(context, selectedPersonIds),
+                      child: const Text('Pridať'),
+                    ),
+                  ],
+                );
+              },
+            );
+            if (personIdsToAdd.isNotEmpty) {
+              // print('Pridany personal: $personIdsToAdd');
+              _emitAddPersonalToActionEvent(
+                  context, personIdsToAdd, persons, action);
+            } else {
+              // print('Nikto nebol pridany');
+            }
           },
           child: const Text('Pridaj personál'),
           style: ElevatedButton.styleFrom(
@@ -83,5 +93,12 @@ class ActionPersonalPage extends StatelessWidget {
         .where((personElement) => personsIds.contains(personElement.id))
         .toList();
     return filtered;
+  }
+
+  void _emitAddPersonalToActionEvent(BuildContext context, List<int> personsIds,
+      List<PersonEntity> allPersons, ActionEntity action) {
+    List<PersonEntity> personsToAdd = getPersonsById(allPersons, personsIds);
+    BlocProvider.of<ActionBloc>(context)
+        .add(AddPersonalToActionEvent(action: action, persons: personsToAdd));
   }
 }

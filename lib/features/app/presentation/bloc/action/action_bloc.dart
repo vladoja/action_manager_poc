@@ -56,10 +56,12 @@ class ActionBloc extends Bloc<ActionEvent, ActionState> {
 
   FutureOr<void> _onAddPersonalToActionEvent(
       AddPersonalToActionEvent event, Emitter<ActionState> emit) {
-    PersonEntity personToAdd = event.person;
+    List<PersonEntity> personsToAdd = event.persons;
+    List<int> personsToAddIds = personsToAdd.map((e) => e.id).toList();
     ActionEntity updatedAction = event.action;
     List<int> personsIds = [...updatedAction.personal];
-    personsIds.add(personToAdd.id);
+
+    personsIds.addAll(personsToAddIds);
 
     updatedAction = updatedAction.copyWith(personal: personsIds);
     List<ActionEntity> updateActionList =
