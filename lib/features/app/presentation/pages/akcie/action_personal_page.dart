@@ -72,6 +72,7 @@ class ActionPersonalPage extends StatelessWidget {
             );
             if (personIdsToAdd.isNotEmpty) {
               // print('Pridany personal: $personIdsToAdd');
+              if (!context.mounted) return;
               _emitAddPersonalToActionEvent(
                   context, personIdsToAdd, persons, action);
             } else {

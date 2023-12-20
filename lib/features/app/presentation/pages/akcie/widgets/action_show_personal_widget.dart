@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,7 +34,7 @@ class ActionShowPersonalWidget extends StatelessWidget {
         leading: Column(
           children: [
             Text(
-              "${person.firstName!} ${person.lastName}",
+              "${person.firstName} ${person.lastName}",
               style: const TextStyle(color: Colors.black),
             ),
             Text(
