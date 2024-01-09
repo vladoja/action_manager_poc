@@ -17,4 +17,12 @@ const zoznamy_osoby_dummy = [
       phone: "+421789159",
       city: "Paríž",
       employer: "Paris Stg."),
+  OsobaEntity(
+      id: 3,
+      firstName: "Stanislav",
+      lastName: "Lobotka",
+      title: "cdm",
+      phone: "+421100100",
+      city: "Neapol",
+      employer: "SSC Neapol"),
 ];

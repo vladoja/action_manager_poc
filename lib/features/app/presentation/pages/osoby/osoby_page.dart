@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/osoby/osoby/osoby_bloc.dart';
+import 'widgets/osoby_table_widget.dart';
 
 class OsobyPage extends StatelessWidget {
   final int? selectedPersonId;
@@ -38,8 +39,20 @@ class OsobyPage extends StatelessWidget {
     }
 
     return Center(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-      const Text('Search osoby'),
-    ]));
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Search osoby'),
+          Expanded(
+            child: OsobyTableWidget(
+              persons: persons,
+              clickFunction: (int id) {
+                print('Osoby Table. Clicked id: $id');
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
