@@ -7,6 +7,7 @@ import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
+import '../../features/app/presentation/pages/osoby/osoby_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../utils/router_transition_factory.dart';
@@ -62,15 +63,12 @@ class AppRouter {
                     routes: [
                       GoRoute(
                         path: AppRoutes.navZoznamyOsoby,
-                        pageBuilder: (context, state) => const NoTransitionPage(
-                          child: AdaptiveLayoutWidget(
-                            body: DummyScreen(
-                              label: 'Osoby',
-                              detailsPath:
-                                  '${AppRoutes.navZoznamyOsoby}/details',
-                            ),
-                          ),
-                        ),
+                        pageBuilder: (context, state) =>
+                            RouterTransitionFactory.getTransitionPage(
+                                context: context,
+                                state: state,
+                                child: const OsobyPage(),
+                                type: 'scale'),
                         routes: [
                           GoRoute(
                             path: 'details',
