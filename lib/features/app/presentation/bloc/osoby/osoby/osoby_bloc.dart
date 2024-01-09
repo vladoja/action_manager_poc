@@ -10,7 +10,7 @@ part 'osoby_event.dart';
 part 'osoby_state.dart';
 
 class OsobyBloc extends Bloc<OsobyEvent, OsobyState> {
-  OsobyBloc() : super(OsobyState.initial()) {
+  OsobyBloc() : super(OsobyState(osoby: zoznamy_osoby_dummy)) {
     on<GetOsoby>(_onGetOsoby);
   }
 

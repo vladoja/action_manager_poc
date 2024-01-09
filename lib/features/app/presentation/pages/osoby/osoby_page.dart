@@ -27,6 +27,7 @@ class OsobyPage extends StatelessWidget {
   _buildBody(BuildContext context) {
     // watch
     final persons = context.read<OsobyBloc>().state.osoby;
+    print('Osoby total: ${persons.length}');
 
     int? selectedRowId;
     for (int i = 0; i < persons.length; i++) {
