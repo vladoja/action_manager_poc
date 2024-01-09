@@ -215,6 +215,13 @@ class AppRouter {
                           ),
                           GoRoute(
                             path: 'Details',
+                            redirect: (context, state) {
+                              if (state.extra == null) {
+                                return AppRoutes.navTerminyOsoby;
+                              } else {
+                                return null;
+                              }
+                            },
                             pageBuilder: (context, state) {
                               final selectedAction =
                                   state.extra as ActionEntity;
