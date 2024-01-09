@@ -9,6 +9,10 @@ class OsobyTableWidget extends StatefulWidget {
   final Function clickFunction;
   final int? highLighted;
   final bool? showCheckboxColumnInTable;
+
+  ///
+  /// @showCheckboxColumnInTable - if true, shows checkboxes and sends to the clickFunction List<bool>, otherwise int
+  ///
   const OsobyTableWidget(
       {super.key,
       required this.persons,
@@ -58,8 +62,12 @@ class _OsobyTableWidgetState extends State<OsobyTableWidget> {
   void handleClickOnRow(int rowIndex) {
     print("Row with id: $rowIndex clicked");
     // tableRows[rowIndex]
-    onSelectChanged(rowIndex);
-    widget.clickFunction(selected);
+    if (widget.showCheckboxColumnInTable == true) {
+      onSelectChanged(rowIndex);
+      widget.clickFunction(selected);
+    } else {
+      widget.clickFunction(rowIndex);
+    }
   }
 
   void onSelectChanged(int index) {

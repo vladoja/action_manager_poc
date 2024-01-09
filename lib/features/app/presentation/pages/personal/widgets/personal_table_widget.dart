@@ -11,6 +11,10 @@ class PersonalTableWidget extends StatefulWidget {
   final Function clickFunction;
   final int? highLighted;
   final bool? showCheckboxColumnInTable;
+
+  ///
+  /// @showCheckboxColumnInTable - if true, shows checkboxes and sends to the clickFunction List<bool>, otherwise int
+  ///
   const PersonalTableWidget(
       {super.key,
       required this.persons,
@@ -59,9 +63,12 @@ class _PersonalTableWidgetState extends State<PersonalTableWidget> {
 
   void handleClickOnRow(int rowIndex) {
     log("Row with id: $rowIndex clicked");
-    // tableRows[rowIndex]
-    onSelectChanged(rowIndex);
-    widget.clickFunction(selected);
+    if (widget.showCheckboxColumnInTable == true) {
+      onSelectChanged(rowIndex);
+      widget.clickFunction(selected);
+    } else {
+      widget.clickFunction(rowIndex);
+    }
   }
 
   List<DataRow> _createTableRows(List personal, {int? highlightedRow}) {
