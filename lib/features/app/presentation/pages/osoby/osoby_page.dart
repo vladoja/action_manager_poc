@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../config/routes/app_routes.dart';
 import '../../bloc/osoby/osoby/osoby_bloc.dart';
 import 'widgets/osoby_table_widget.dart';
 
@@ -48,6 +50,9 @@ class OsobyPage extends StatelessWidget {
               persons: persons,
               clickFunction: (int id) {
                 print('Osoby Table. Clicked id: $id');
+                final previewedPerson = persons[id];
+                GoRouter.of(context).go('${AppRoutes.navZoznamyOsoby}/Details',
+                    extra: previewedPerson);
               },
             ),
           ),

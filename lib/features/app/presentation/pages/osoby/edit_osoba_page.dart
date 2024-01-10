@@ -1,0 +1,149 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../../config/routes/app_routes.dart';
+import '../../../../../core/widgets/delete_alert.dart';
+import '../../../../../core/widgets/widget_utils.dart';
+import '../../../domain/entities/osoba/osoba.dart';
+
+final scaffoldKey = GlobalKey<ScaffoldState>();
+
+class EditOsobaPage extends StatelessWidget {
+  final OsobaEntity? person;
+  const EditOsobaPage({super.key, this.person});
+
+  @override
+  Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final nameController = TextEditingController();
+    final lastNameController = TextEditingController();
+    final employerController = TextEditingController();
+    final titleController = TextEditingController();
+    return Scaffold(
+      appBar: _buildAppbar(context),
+      key: scaffoldKey,
+      body: _buildBody(
+        context,
+        formKey,
+        firstName: nameController,
+        lastName: lastNameController,
+        employer: employerController,
+        title: titleController,
+      ),
+    );
+  }
+
+  _buildAppbar(BuildContext context) {
+    return AppBar(
+      title: Text((person == null) ? 'Vytvor osobu' : 'Edituj osobu'),
+      actions: (person != null)
+          ? [
+              IconButton(
+                  onPressed: () async {
+                    bool result = await showDialog(
+                      context: context,
+                      builder: (ctx) => createDeleteDialog(ctx),
+                    );
+                    if (result) {
+                      _onDeleteButtonTapped(
+                          scaffoldKey.currentContext!, person!);
+                      GoRouter.of(scaffoldKey.currentContext!)
+                          .go(AppRoutes.navZoznamyPersonal);
+                    }
+                  },
+                  icon: const Icon(Icons.delete,
+                      color: Color.fromARGB(255, 212, 34, 22)))
+            ]
+          : [],
+    );
+  }
+
+  _buildBody(
+    BuildContext context,
+    GlobalKey<FormState> formKey, {
+    required TextEditingController firstName,
+    required TextEditingController lastName,
+    required TextEditingController title,
+    required TextEditingController employer,
+  }) {
+    return Scrollbar(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Form(
+              key: formKey,
+              child: Column(children: [
+                buildFormTextField(firstName, "Meno",
+                    value: (person != null) ? person!.firstName : null),
+                const SizedBox(
+                  height: 5,
+                ),
+                buildFormTextField(lastName, "Priezvisko",
+                    value: (person != null) ? person!.lastName : null),
+                const SizedBox(
+                  height: 5,
+                ),
+                buildFormTextField(title, "Titul",
+                    value: (person != null) ? person!.title : null),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildFormTextField(title, "Zamestnávateľ",
+                    value: (employer != null) ? person!.employer : null),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      if (formKey.currentState!.validate()) {
+                        debugPrint("Safely validated");
+                        if (person == null) {
+                          int id = DateTime.now().millisecondsSinceEpoch;
+                          OsobaEntity personNew = OsobaEntity(
+                              id: id,
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              title: title.text,
+                              employer: employer.text,
+                              city: 'Nitra',
+                              phone: '0901555666');
+                          _onCreateButtonTapped(context, personNew);
+                        } else {
+                          OsobaEntity personAfterEdit = OsobaEntity(
+                              id: person!.id,
+                              firstName: firstName.text,
+                              lastName: lastName.text,
+                              title: title.text,
+                              employer: employer.text,
+                              city: 'Nitra',
+                              phone: '0901555666');
+                          _onEditButtonTapped(context, personAfterEdit);
+                        }
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    child: const Text('Submit')),
+              ]),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _onCreateButtonTapped(BuildContext context, OsobaEntity person) {
+    // BlocProvider.of<PersonalBloc>(context).add(CreatePersonInPersonal(person));
+  }
+
+  void _onEditButtonTapped(BuildContext context, OsobaEntity person) {
+    // BlocProvider.of<PersonalBloc>(context).add(UpdatePersonInPersonal(person));
+  }
+
+  void _onDeleteButtonTapped(BuildContext context, OsobaEntity Osoba) {
+    print('Removing osoba: $person');
+    // BlocProvider.of<OsobaBloc>(context)
+    //     .add(RemoveOsobaFromOsobaal(person));
+  }
+}
