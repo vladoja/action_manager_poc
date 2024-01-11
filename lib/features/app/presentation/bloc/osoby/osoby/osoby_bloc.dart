@@ -14,6 +14,7 @@ class OsobyBloc extends Bloc<OsobyEvent, OsobyState> {
     on<GetOsoby>(_onGetOsoby);
     on<CreateOsobaInOsoby>(_onCreateOsobaInOsoby);
     on<UpdateOsobaInOsoby>(_onUpdateOsobaInOsoby);
+    on<RemoveOsobaInOsoby>(_onRemoveOsobaInOsoby);
   }
 
   FutureOr<void> _onGetOsoby(GetOsoby event, Emitter<OsobyState> emit) {
@@ -38,6 +39,15 @@ class OsobyBloc extends Bloc<OsobyEvent, OsobyState> {
       (element) => element.id == event.osoba.id,
     );
     osoby.add(event.osoba);
+    emit(OsobyState(osoby: osoby));
+  }
+
+  FutureOr<void> _onRemoveOsobaInOsoby(
+      RemoveOsobaInOsoby event, Emitter<OsobyState> emit) {
+    List<OsobaEntity> osoby = <OsobaEntity>[...state.osoby].toList();
+    osoby.removeWhere(
+      (element) => element.id == event.osoba.id,
+    );
     emit(OsobyState(osoby: osoby));
   }
 }

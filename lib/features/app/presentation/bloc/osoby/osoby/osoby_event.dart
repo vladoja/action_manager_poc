@@ -17,3 +17,8 @@ class UpdateOsobaInOsoby extends OsobyEvent {
   final OsobaEntity osoba;
   const UpdateOsobaInOsoby(this.osoba);
 }
+
+class RemoveOsobaInOsoby extends OsobyEvent {
+  final OsobaEntity osoba;
+  const RemoveOsobaInOsoby(this.osoba);
+}

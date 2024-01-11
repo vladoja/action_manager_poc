@@ -54,7 +54,7 @@ class EditOsobaPage extends StatelessWidget {
                       _onDeleteButtonTapped(
                           scaffoldKey.currentContext!, person!);
                       GoRouter.of(scaffoldKey.currentContext!)
-                          .go(AppRoutes.navZoznamyPersonal);
+                          .go(AppRoutes.navZoznamyOsoby);
                     }
                   },
                   icon: const Icon(Icons.delete,
@@ -159,9 +159,7 @@ class EditOsobaPage extends StatelessWidget {
     BlocProvider.of<OsobyBloc>(context).add(UpdateOsobaInOsoby(person));
   }
 
-  void _onDeleteButtonTapped(BuildContext context, OsobaEntity Osoba) {
-    print('Removing osoba: $person');
-    // BlocProvider.of<OsobaBloc>(context)
-    //     .add(RemoveOsobaFromOsobaal(person));
+  void _onDeleteButtonTapped(BuildContext context, OsobaEntity person) {
+    BlocProvider.of<OsobyBloc>(context).add(RemoveOsobaInOsoby(person));
   }
 }
