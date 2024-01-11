@@ -29,8 +29,7 @@ class OsobyPage extends StatelessWidget {
 
   _buildBody(BuildContext context) {
     // watch
-    final persons = context.read<OsobyBloc>().state.osoby;
-    print('Osoby total: ${persons.length}');
+    final persons = context.watch<OsobyBloc>().state.osoby;
 
     int? selectedRowId;
     for (int i = 0; i < persons.length; i++) {
@@ -54,6 +53,7 @@ class OsobyPage extends StatelessWidget {
                 GoRouter.of(context).go('${AppRoutes.navZoznamyOsoby}/Details',
                     extra: previewedPerson);
               },
+              highLighted: selectedRowId,
             ),
           ),
         ],
