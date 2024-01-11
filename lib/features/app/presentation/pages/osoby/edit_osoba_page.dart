@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/widgets/delete_alert.dart';
 import '../../../../../core/widgets/widget_utils.dart';
 import '../../../domain/entities/osoba/osoba.dart';
+import '../../bloc/osoby/osoby/osoby_bloc.dart';
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -150,11 +152,11 @@ class EditOsobaPage extends StatelessWidget {
   }
 
   void _onCreateButtonTapped(BuildContext context, OsobaEntity person) {
-    // BlocProvider.of<PersonalBloc>(context).add(CreatePersonInPersonal(person));
+    BlocProvider.of<OsobyBloc>(context).add(CreateOsobaInOsoby(person));
   }
 
   void _onEditButtonTapped(BuildContext context, OsobaEntity person) {
-    // BlocProvider.of<PersonalBloc>(context).add(UpdatePersonInPersonal(person));
+    BlocProvider.of<OsobyBloc>(context).add(UpdateOsobaInOsoby(person));
   }
 
   void _onDeleteButtonTapped(BuildContext context, OsobaEntity Osoba) {
