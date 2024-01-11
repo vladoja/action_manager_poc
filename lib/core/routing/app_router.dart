@@ -74,6 +74,13 @@ class AppRouter {
                         routes: [
                           GoRoute(
                             path: 'Details',
+                            redirect: (context, state) {
+                              if (state.extra == null) {
+                                return AppRoutes.navZoznamyOsoby;
+                              } else {
+                                return null;
+                              }
+                            },
                             pageBuilder: (context, state) {
                               final selectedPerson = state.extra as OsobaEntity;
                               return RouterTransitionFactory.getTransitionPage(
