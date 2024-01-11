@@ -19,6 +19,8 @@ class EditOsobaPage extends StatelessWidget {
     final lastNameController = TextEditingController();
     final employerController = TextEditingController();
     final titleController = TextEditingController();
+    final cityController = TextEditingController();
+    final phoneController = TextEditingController();
     return Scaffold(
       appBar: _buildAppbar(context),
       key: scaffoldKey,
@@ -29,6 +31,8 @@ class EditOsobaPage extends StatelessWidget {
         lastName: lastNameController,
         employer: employerController,
         title: titleController,
+        city: cityController,
+        phone: phoneController,
       ),
     );
   }
@@ -65,6 +69,8 @@ class EditOsobaPage extends StatelessWidget {
     required TextEditingController lastName,
     required TextEditingController title,
     required TextEditingController employer,
+    required TextEditingController city,
+    required TextEditingController phone,
   }) {
     return Scrollbar(
       child: SingleChildScrollView(
@@ -90,8 +96,18 @@ class EditOsobaPage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                buildFormTextField(title, "Zamestnávateľ",
-                    value: (employer != null) ? person!.employer : null),
+                buildFormTextField(employer, "Zamestnávateľ",
+                    value: (person != null) ? person!.employer : null),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildFormTextField(city, "Mesto",
+                    value: (person != null) ? person!.city : null),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildFormTextField(phone, "Telefon",
+                    value: (person != null) ? person!.phone : null),
                 const SizedBox(
                   height: 10,
                 ),
@@ -107,8 +123,8 @@ class EditOsobaPage extends StatelessWidget {
                               lastName: lastName.text,
                               title: title.text,
                               employer: employer.text,
-                              city: 'Nitra',
-                              phone: '0901555666');
+                              city: city.text,
+                              phone: phone.text);
                           _onCreateButtonTapped(context, personNew);
                         } else {
                           OsobaEntity personAfterEdit = OsobaEntity(
@@ -117,14 +133,14 @@ class EditOsobaPage extends StatelessWidget {
                               lastName: lastName.text,
                               title: title.text,
                               employer: employer.text,
-                              city: 'Nitra',
-                              phone: '0901555666');
+                              city: city.text,
+                              phone: phone.text);
                           _onEditButtonTapped(context, personAfterEdit);
                         }
                         Navigator.of(context).pop();
                       }
                     },
-                    child: const Text('Submit')),
+                    child: const Text('Ulož')),
               ]),
             )
           ],
