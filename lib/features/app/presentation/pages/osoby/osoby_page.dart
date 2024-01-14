@@ -15,7 +15,16 @@ class OsobyPage extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildBody(context),
+      floatingActionButton: IconButton(
+          onPressed: () {
+            _onCreateNewOsoba(context);
+          },
+          icon: const Icon(Icons.add_circle_outline_sharp)),
     );
+  }
+
+  void _onCreateNewOsoba(BuildContext context) {
+    GoRouter.of(context).go('${AppRoutes.navZoznamyOsoby}/New');
   }
 
   _buildAppBar(BuildContext context) {
@@ -38,7 +47,6 @@ class OsobyPage extends StatelessWidget {
         break;
       }
     }
-
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,

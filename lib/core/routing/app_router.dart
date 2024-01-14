@@ -97,7 +97,20 @@ class AppRouter {
                                   ),
                                   type: 'size');
                             },
-                          )
+                          ),
+                          GoRoute(
+                            path: 'New',
+                            pageBuilder: (context, state) =>
+                                RouterTransitionFactory.getTransitionPage(
+                                    context: context,
+                                    state: state,
+                                    child: const AdaptiveLayoutWidget(
+                                      body: OsobyPage(),
+                                      secondaryBody: EditOsobaPage(),
+                                      showSecondaryBody: true,
+                                    ),
+                                    type: 'size'),
+                          ),
                         ],
                       ),
                     ],
