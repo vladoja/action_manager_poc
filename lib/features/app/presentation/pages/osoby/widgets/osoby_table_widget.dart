@@ -60,7 +60,7 @@ class OsobyTableWidget extends StatelessWidget {
   }
 
   void onSelectChanged(int index) {
-    selected![index] = !selected![index];
+    selected[index] = !selected[index];
     // log('Row $index has new checked value: ${selected![index]}');
   }
 
@@ -72,7 +72,7 @@ class OsobyTableWidget extends StatelessWidget {
             personal[i], columnValues, (b) => handleClickOnRow(i),
             isHighLighted:
                 (highlightedRow != null && highlightedRow == i) ? true : false,
-            selected: selected![i]),
+            selected: selected[i]),
       );
     }
     return tableRows;

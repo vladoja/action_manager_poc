@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../domain/entities/person/person.dart';
 import '../../../widgets/table_widget.dart';
 
-class PersonalTableWidget extends StatefulWidget {
+class PersonalTableWidget extends StatelessWidget {
   final List<PersonEntity> persons;
   final Function clickFunction;
   final int? highLighted;
@@ -15,26 +15,17 @@ class PersonalTableWidget extends StatefulWidget {
   ///
   /// @showCheckboxColumnInTable - if true, shows checkboxes and sends to the clickFunction List<bool>, otherwise int
   ///
-  const PersonalTableWidget(
+  PersonalTableWidget(
       {super.key,
       required this.persons,
       required this.clickFunction,
       this.highLighted,
-      this.showCheckboxColumnInTable = false});
-
-  @override
-  State<PersonalTableWidget> createState() => _PersonalTableWidgetState();
-}
-
-class _PersonalTableWidgetState extends State<PersonalTableWidget> {
-  List<DataRow> tableRows = [];
-  List<bool>? selected;
-
-  @override
-  void initState() {
-    super.initState();
-    selected = List<bool>.generate(widget.persons.length, (int index) => false);
+      this.showCheckboxColumnInTable = false}) {
+    selected.addAll(List<bool>.generate(persons.length, (int index) => false));
   }
+
+  final List<DataRow> tableRows = [];
+  final List<bool> selected = [];
 
   final List<DataColumn2> tableColumns = const [
     DataColumn2(
@@ -63,11 +54,11 @@ class _PersonalTableWidgetState extends State<PersonalTableWidget> {
 
   void handleClickOnRow(int rowIndex) {
     log("Row with id: $rowIndex clicked");
-    if (widget.showCheckboxColumnInTable == true) {
+    if (showCheckboxColumnInTable == true) {
       onSelectChanged(rowIndex);
-      widget.clickFunction(selected);
+      clickFunction(selected);
     } else {
-      widget.clickFunction(rowIndex);
+      clickFunction(rowIndex);
     }
   }
 
@@ -86,22 +77,21 @@ class _PersonalTableWidgetState extends State<PersonalTableWidget> {
   }
 
   void onSelectChanged(int index) {
-    setState(() {
-      selected![index] = !selected![index];
-      // log('Row $index has new checked value: ${selected![index]}');
-    });
+    selected![index] = !selected![index];
   }
 
   @override
   Widget build(BuildContext context) {
-    tableRows = _createTableRows(
-      widget.persons,
-      highlightedRow: widget.highLighted,
+    tableRows.addAll(
+      _createTableRows(
+        persons,
+        highlightedRow: highLighted,
+      ),
     );
     return TableWidget(
       columns: tableColumns,
       rows: tableRows,
-      showCheckboxColumn: widget.showCheckboxColumnInTable!,
+      showCheckboxColumn: showCheckboxColumnInTable!,
     );
   }
 }
