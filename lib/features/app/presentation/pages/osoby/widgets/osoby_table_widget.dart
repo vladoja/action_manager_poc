@@ -4,34 +4,23 @@ import 'package:flutter/material.dart';
 import '../../../../domain/entities/osoba/osoba.dart';
 import '../../../widgets/table_widget.dart';
 
-class OsobyTableWidget extends StatefulWidget {
+class OsobyTableWidget extends StatelessWidget {
   final List<OsobaEntity> persons;
   final Function clickFunction;
   final int? highLighted;
   final bool? showCheckboxColumnInTable;
 
-  ///
-  /// @showCheckboxColumnInTable - if true, shows checkboxes and sends to the clickFunction List<bool>, otherwise int
-  ///
-  const OsobyTableWidget(
+  final List<DataRow> tableRows = [];
+  final List<bool> selected = [];
+
+  OsobyTableWidget(
       {super.key,
       required this.persons,
       required this.clickFunction,
       this.highLighted,
-      this.showCheckboxColumnInTable = false});
-
-  @override
-  State<OsobyTableWidget> createState() => _OsobyTableWidgetState();
-}
-
-class _OsobyTableWidgetState extends State<OsobyTableWidget> {
-  List<DataRow> tableRows = [];
-  List<bool>? selected;
-
-  @override
-  void initState() {
-    selected = List<bool>.generate(widget.persons.length, (int index) => false);
-    super.initState();
+      this.showCheckboxColumnInTable = false}) {
+    // selected = List<bool>.generate(persons.length, (int index) => false);
+    selected.addAll(List<bool>.generate(persons.length, (int index) => false));
   }
 
   final List<DataColumn2> tableColumns = const [
@@ -62,19 +51,17 @@ class _OsobyTableWidgetState extends State<OsobyTableWidget> {
   void handleClickOnRow(int rowIndex) {
     print("Row with id: $rowIndex clicked");
     // tableRows[rowIndex]
-    if (widget.showCheckboxColumnInTable == true) {
+    if (showCheckboxColumnInTable == true) {
       onSelectChanged(rowIndex);
-      widget.clickFunction(selected);
+      clickFunction(selected);
     } else {
-      widget.clickFunction(rowIndex);
+      clickFunction(rowIndex);
     }
   }
 
   void onSelectChanged(int index) {
-    setState(() {
-      selected![index] = !selected![index];
-      // log('Row $index has new checked value: ${selected![index]}');
-    });
+    selected![index] = !selected![index];
+    // log('Row $index has new checked value: ${selected![index]}');
   }
 
   List<DataRow> _createTableRows(List personal, {int? highlightedRow}) {
@@ -93,13 +80,8 @@ class _OsobyTableWidgetState extends State<OsobyTableWidget> {
 
   @override
   Widget build(BuildContext context) {
-    tableRows =
-        _createTableRows(widget.persons, highlightedRow: widget.highLighted);
-    return TableWidget(
-      columns: tableColumns,
-      rows: tableRows,
-      showCheckboxColumn: widget.showCheckboxColumnInTable!,
-    );
+    tableRows.addAll(_createTableRows(persons, highlightedRow: highLighted));
+    return TableWidget(columns: tableColumns, rows: tableRows);
   }
 }
 
