@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/widgets/delete_alert.dart';
 import '../../../../../core/widgets/widget_utils.dart';
 import '../../../domain/entities/osoba/osoba.dart';
 import '../../bloc/osoby/osoby/osoby_bloc.dart';
 
-final scaffoldKey = GlobalKey<ScaffoldState>();
-
 class EditOsobaPage extends StatelessWidget {
   final OsobaEntity? person;
+  // final scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'edit-osoba');
   const EditOsobaPage({super.key, this.person});
 
   @override
@@ -25,7 +23,7 @@ class EditOsobaPage extends StatelessWidget {
     final phoneController = TextEditingController();
     return Scaffold(
       appBar: _buildAppbar(context),
-      key: scaffoldKey,
+      // key: scaffoldKey,
       body: _buildBody(
         context,
         formKey,
@@ -51,10 +49,11 @@ class EditOsobaPage extends StatelessWidget {
                       builder: (ctx) => createDeleteDialog(ctx),
                     );
                     if (result) {
-                      _onDeleteButtonTapped(
-                          scaffoldKey.currentContext!, person!);
-                      GoRouter.of(scaffoldKey.currentContext!)
-                          .go(AppRoutes.navZoznamyOsoby);
+                      _onDeleteButtonTapped(context, person!);
+                      // GoRouter.of(context).go(AppRoutes.navZoznamyOsoby);
+                      if (GoRouter.of(context).canPop()) {
+                        GoRouter.of(context).pop();
+                      }
                     }
                   },
                   icon: const Icon(Icons.delete,
