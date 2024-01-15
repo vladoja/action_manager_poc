@@ -12,6 +12,7 @@ import '../../features/app/presentation/pages/osoby/edit_osoba_page.dart';
 import '../../features/app/presentation/pages/osoby/osoby_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
+import '../../features/app/presentation/pages/skuska_ziadost/exam_requests_page.dart';
 import '../utils/router_transition_factory.dart';
 import '../widgets/adaptive_layout_widget.dart';
 import '../widgets/dummy_screen.dart';
@@ -30,6 +31,8 @@ final _nkZoznamyPracoviska =
     GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyPracoviska');
 final _nkZoznamyPersonal =
     GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyPersonal');
+final _nkZoznamyZiadostiOSkusku =
+    GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyZiadostiOSkusku');
 
 final _nkTerminyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkTerminyOsoby');
 final _nkTerminyPracoviska =
@@ -193,6 +196,20 @@ class AppRouter {
                             },
                           )
                         ],
+                      ),
+                    ],
+                  ),
+                  StatefulShellBranch(
+                    navigatorKey: _nkZoznamyZiadostiOSkusku,
+                    routes: [
+                      GoRoute(
+                        path: AppRoutes.navZoznamyZiadostiOSkusku,
+                        pageBuilder: (context, state) =>
+                            RouterTransitionFactory.getTransitionPage(
+                                context: context,
+                                state: state,
+                                child: const ExamRequestsPage(),
+                                type: 'scale'),
                       ),
                     ],
                   ),
