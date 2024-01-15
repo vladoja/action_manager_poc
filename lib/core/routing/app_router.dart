@@ -3,10 +3,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/action.dart';
+import '../../features/app/domain/entities/osoba/osoba.dart';
 import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
+import '../../features/app/presentation/pages/osoby/edit_osoba_page.dart';
+import '../../features/app/presentation/pages/osoby/osoby_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../utils/router_transition_factory.dart';
@@ -62,34 +65,51 @@ class AppRouter {
                     routes: [
                       GoRoute(
                         path: AppRoutes.navZoznamyOsoby,
-                        pageBuilder: (context, state) => const NoTransitionPage(
-                          child: AdaptiveLayoutWidget(
-                            body: DummyScreen(
-                              label: 'Osoby',
-                              detailsPath:
-                                  '${AppRoutes.navZoznamyOsoby}/details',
-                            ),
-                          ),
-                        ),
+                        pageBuilder: (context, state) =>
+                            RouterTransitionFactory.getTransitionPage(
+                                context: context,
+                                state: state,
+                                child: const OsobyPage(),
+                                type: 'scale'),
                         routes: [
                           GoRoute(
-                            path: 'details',
+                            path: 'Details',
+                            redirect: (context, state) {
+                              if (state.extra == null) {
+                                return AppRoutes.navZoznamyOsoby;
+                              } else {
+                                return null;
+                              }
+                            },
+                            pageBuilder: (context, state) {
+                              final selectedPerson = state.extra as OsobaEntity;
+                              return RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: AdaptiveLayoutWidget(
+                                    body: OsobyPage(
+                                        selectedPersonId: selectedPerson.id),
+                                    secondaryBody: EditOsobaPage(
+                                      person: selectedPerson,
+                                    ),
+                                    showSecondaryBody: true,
+                                    secondaryBodyRatio: 0.6,
+                                  ),
+                                  type: 'size');
+                            },
+                          ),
+                          GoRoute(
+                            path: 'New',
                             pageBuilder: (context, state) =>
                                 RouterTransitionFactory.getTransitionPage(
-                              context: context,
-                              state: state,
-                              child: const AdaptiveLayoutWidget(
-                                body: DummyScreen(
-                                  label: 'Osoby',
-                                  detailsPath:
-                                      '${AppRoutes.navZoznamyOsoby}/details',
-                                ),
-                                secondaryBody:
-                                    DetailsScreen(label: 'Osoby Detaily'),
-                                showSecondaryBody: true,
-                              ),
-                              type: 'size', // fade|rotation|scale|size
-                            ),
+                                    context: context,
+                                    state: state,
+                                    child: const AdaptiveLayoutWidget(
+                                      body: OsobyPage(),
+                                      secondaryBody: EditOsobaPage(),
+                                      showSecondaryBody: true,
+                                    ),
+                                    type: 'size'),
                           ),
                         ],
                       ),
@@ -217,6 +237,13 @@ class AppRouter {
                           ),
                           GoRoute(
                             path: 'Details',
+                            redirect: (context, state) {
+                              if (state.extra == null) {
+                                return AppRoutes.navTerminyOsoby;
+                              } else {
+                                return null;
+                              }
+                            },
                             pageBuilder: (context, state) {
                               final selectedAction =
                                   state.extra as ActionEntity;

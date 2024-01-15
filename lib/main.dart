@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'config/theme/app_themes.dart';
 import 'core/routing/app_router.dart';
 import 'features/app/presentation/bloc/action/action_bloc.dart';
+import 'features/app/presentation/bloc/osoby/osoby/osoby_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal/personal_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal_filtered/personal_filtered_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal_search/personal_search_bloc.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<OsobyBloc>(
+          create: (context) => OsobyBloc(),
+        ),
         BlocProvider(
           create: (context) => PersonalBloc(),
         ),

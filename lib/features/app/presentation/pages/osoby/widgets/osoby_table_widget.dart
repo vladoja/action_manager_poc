@@ -1,31 +1,27 @@
-import 'dart:developer';
-
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/person/person.dart';
+import '../../../../domain/entities/osoba/osoba.dart';
 import '../../../widgets/table_widget.dart';
 
-class PersonalTableWidget extends StatelessWidget {
-  final List<PersonEntity> persons;
+class OsobyTableWidget extends StatelessWidget {
+  final List<OsobaEntity> persons;
   final Function clickFunction;
   final int? highLighted;
   final bool? showCheckboxColumnInTable;
 
-  ///
-  /// @showCheckboxColumnInTable - if true, shows checkboxes and sends to the clickFunction List<bool>, otherwise int
-  ///
-  PersonalTableWidget(
+  final List<DataRow> tableRows = [];
+  final List<bool> selected = [];
+
+  OsobyTableWidget(
       {super.key,
       required this.persons,
       required this.clickFunction,
       this.highLighted,
       this.showCheckboxColumnInTable = false}) {
+    // selected = List<bool>.generate(persons.length, (int index) => false);
     selected.addAll(List<bool>.generate(persons.length, (int index) => false));
   }
-
-  final List<DataRow> tableRows = [];
-  final List<bool> selected = [];
 
   final List<DataColumn2> tableColumns = const [
     DataColumn2(
@@ -39,7 +35,7 @@ class PersonalTableWidget extends StatelessWidget {
       label: Text('Titul'),
     ),
     DataColumn2(
-      label: Text('Oprávnenie'),
+      label: Text('Pracovisko'),
       // numeric: true,
       size: ColumnSize.L,
     ),
@@ -49,11 +45,12 @@ class PersonalTableWidget extends StatelessWidget {
     "firstName",
     "lastName",
     "title",
-    "role",
+    "employer",
   ];
 
   void handleClickOnRow(int rowIndex) {
-    log("Row with id: $rowIndex clicked");
+    print("Row with id: $rowIndex clicked");
+    // tableRows[rowIndex]
     if (showCheckboxColumnInTable == true) {
       onSelectChanged(rowIndex);
       clickFunction(selected);
@@ -62,49 +59,41 @@ class PersonalTableWidget extends StatelessWidget {
     }
   }
 
+  void onSelectChanged(int index) {
+    selected[index] = !selected[index];
+    // log('Row $index has new checked value: ${selected![index]}');
+  }
+
   List<DataRow> _createTableRows(List personal, {int? highlightedRow}) {
     List<DataRow> tableRows = [];
     for (var i = 0; i < personal.length; i++) {
       tableRows.add(
-        PersonalTableRowMapper.personEntityToRow(
+        PersonalTableRowMapper.osobaEntityToRow(
             personal[i], columnValues, (b) => handleClickOnRow(i),
             isHighLighted:
                 (highlightedRow != null && highlightedRow == i) ? true : false,
-            selected: selected![i]),
+            selected: selected[i]),
       );
     }
     return tableRows;
   }
 
-  void onSelectChanged(int index) {
-    selected![index] = !selected![index];
-  }
-
   @override
   Widget build(BuildContext context) {
-    tableRows.addAll(
-      _createTableRows(
-        persons,
-        highlightedRow: highLighted,
-      ),
-    );
-    return TableWidget(
-      columns: tableColumns,
-      rows: tableRows,
-      showCheckboxColumn: showCheckboxColumnInTable!,
-    );
+    tableRows.addAll(_createTableRows(persons, highlightedRow: highLighted));
+    return TableWidget(columns: tableColumns, rows: tableRows);
   }
 }
 
 class PersonalTableRowMapper {
-  static DataRow personEntityToRow(
-      PersonEntity model, List<String> columns, void Function(bool?)? onTap,
+  static DataRow osobaEntityToRow(
+      OsobaEntity model, List<String> columns, void Function(bool?)? onTap,
       {bool isHighLighted = false, bool selected = false}) {
     List<DataCell> cells = List<DataCell>.empty(growable: true);
     Map<String, dynamic> personJSON = model.toMap();
     for (var columnValue in columns) {
       if (personJSON.containsKey(columnValue) == false) {
-        throw "PersonEntity object doesnt contains key:'$columnValue'";
+        throw "OsobaEntity object doesnt contains key:'$columnValue'";
       }
       cells.add(DataCell(Text(personJSON[columnValue] ?? 'N/A')));
     }
