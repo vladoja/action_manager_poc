@@ -29,7 +29,7 @@ class ExamRequestsTableWidget extends StatelessWidget {
       label: Text('ID'),
     ),
     DataColumn2(
-      label: Text('USED ID'),
+      label: Text('USER ID'),
     ),
     DataColumn2(
       label: Text('Typ'),
@@ -96,7 +96,11 @@ class ExamRequestTableRowMapper {
       if (personJSON.containsKey(columnValue) == false) {
         throw "ExamRequestEntity object doesnt contains key:'$columnValue'";
       }
-      cells.add(DataCell(Text(personJSON[columnValue] ?? 'N/A')));
+      if (personJSON[columnValue] != null) {
+        cells.add(DataCell(Text(personJSON[columnValue].toString())));
+      } else {
+        cells.add(const DataCell(Text('N/A')));
+      }
     }
 
     DataRow row = DataRow(
