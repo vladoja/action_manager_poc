@@ -1,12 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:action_manager_poc/features/app/domain/entities/exam/ExamRequest.dart';
+
+import '../../../../../temp/dummy_ziadosti_o_skusku.dart';
+import '../../../domain/entities/exam/ExamRequest.dart';
 
 part 'exam_requests_event.dart';
 part 'exam_requests_state.dart';
 
 class ExamRequestsBloc extends Bloc<ExamRequestsEvent, ExamRequestsState> {
-  ExamRequestsBloc() : super(ExamRequestsState.initial()) {
+  ExamRequestsBloc()
+      : super(ExamRequestsState(examRequests: exam_requests_data_temp)) {
     on<ExamRequestsEvent>((event, emit) {
       // TODO: implement event handler
     });
