@@ -41,7 +41,8 @@ class MyApp extends StatelessWidget {
           create: (context) => ActionBloc(),
         ),
         BlocProvider<ExamRequestsBloc>(
-          create: (context) => ExamRequestsBloc(),
+          create: (context) =>
+              ExamRequestsBloc(osobyBloc: context.read<OsobyBloc>()),
         )
       ],
       // child: MaterialApp(

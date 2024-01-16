@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
+import '../osoba/osoba.dart';
+
 class ExamRequestEntity extends Equatable {
   final int id;
   final int userId;
@@ -10,6 +12,7 @@ class ExamRequestEntity extends Equatable {
   final String licenceExpirationDate;
   final String examRequestStatus;
   final List<int>? examsAssigned;
+  final OsobaEntity? user;
 
   const ExamRequestEntity(
       {required this.id,
@@ -17,7 +20,8 @@ class ExamRequestEntity extends Equatable {
       required this.typSkolenia,
       required this.licenceExpirationDate,
       required this.examRequestStatus,
-      required this.examsAssigned});
+      required this.examsAssigned,
+      this.user});
 
   @override
   List<Object?> get props {
@@ -28,12 +32,13 @@ class ExamRequestEntity extends Equatable {
       licenceExpirationDate,
       examRequestStatus,
       examsAssigned,
+      user,
     ];
   }
 
   @override
   String toString() {
-    return 'ExamRequestEntity(id: $id, userId: $userId, typSkolenia: $typSkolenia, licenceExpirationDate: $licenceExpirationDate, examRequestStatus: $examRequestStatus, examsAssigned: $examsAssigned)';
+    return 'ExamRequestEntity(id: $id, userId: $userId, typSkolenia: $typSkolenia, licenceExpirationDate: $licenceExpirationDate, examRequestStatus: $examRequestStatus, examsAssigned: $examsAssigned, , user: ${user != null ? user.toString() : ''})';
   }
 
   ExamRequestEntity copyWith({
@@ -43,6 +48,7 @@ class ExamRequestEntity extends Equatable {
     String? licenceExpirationDate,
     String? examRequestStatus,
     ValueGetter<List<int>?>? examsAssigned,
+    OsobaEntity? user,
   }) {
     return ExamRequestEntity(
       id: id ?? this.id,
@@ -53,6 +59,7 @@ class ExamRequestEntity extends Equatable {
       examRequestStatus: examRequestStatus ?? this.examRequestStatus,
       examsAssigned:
           examsAssigned != null ? examsAssigned() : this.examsAssigned,
+      user: user ?? this.user,
     );
   }
 
@@ -64,6 +71,7 @@ class ExamRequestEntity extends Equatable {
       'licenceExpirationDate': licenceExpirationDate,
       'examRequestStatus': examRequestStatus,
       'examsAssigned': examsAssigned,
+      'user': (user != null) ? user?.toMap() : null,
     };
   }
 
