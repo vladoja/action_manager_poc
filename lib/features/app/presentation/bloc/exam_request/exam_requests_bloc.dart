@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../temp/dummy_ziadosti_o_skusku.dart';
-import '../../../domain/entities/exam/ExamRequest.dart';
+import '../../../domain/entities/exam/exam_request.dart';
 import '../../../domain/entities/osoba/osoba.dart';
 import '../osoby/osoby/osoby_bloc.dart';
 

@@ -1,7 +1,8 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/exam/ExamRequest.dart';
+import '../../../../../../core/utils/action_utils.dart';
+import '../../../../domain/entities/exam/exam_request.dart';
 import '../../../widgets/table_widget.dart';
 
 class ExamRequestsTableWidget extends StatelessWidget {
@@ -32,7 +33,16 @@ class ExamRequestsTableWidget extends StatelessWidget {
       label: Text('USER ID'),
     ),
     DataColumn2(
+      label: Text('Priezvisko'),
+    ),
+    DataColumn2(
+      label: Text('Meno'),
+    ),
+    DataColumn2(
       label: Text('Typ'),
+    ),
+    DataColumn2(
+      label: Text('Status'),
     ),
     DataColumn2(
       label: Text('Expiracia'),
@@ -44,7 +54,10 @@ class ExamRequestsTableWidget extends StatelessWidget {
   final List<String> columnValues = [
     "id",
     "userId",
+    "user.lastName",
+    "user.firstName",
     "typSkolenia",
+    "examRequestStatus",
     "licenceExpirationDate",
   ];
 
@@ -90,14 +103,14 @@ class ExamRequestTableRowMapper {
   static DataRow examRequestEntityToRow(ExamRequestEntity model,
       List<String> columns, void Function(bool?)? onTap,
       {bool isHighLighted = false, bool selected = false}) {
+    print('ExamRequestEntity: $model');
     List<DataCell> cells = List<DataCell>.empty(growable: true);
     Map<String, dynamic> personJSON = model.toMap();
     for (var columnValue in columns) {
-      if (personJSON.containsKey(columnValue) == false) {
-        throw "ExamRequestEntity object doesnt contains key:'$columnValue'";
-      }
-      if (personJSON[columnValue] != null) {
-        cells.add(DataCell(Text(personJSON[columnValue].toString())));
+      var value = parseDotValue(columnValue, personJSON,
+          sourceNameForErrorLog: "ExamRequestsTableWidget");
+      if (value != null) {
+        cells.add(DataCell(Text(value.toString())));
       } else {
         cells.add(const DataCell(Text('N/A')));
       }

@@ -1,4 +1,4 @@
-import '../features/app/domain/entities/exam/ExamRequest.dart';
+import '../features/app/domain/entities/exam/exam_request.dart';
 
 const exam_requests_data_temp = <ExamRequestEntity>[
   ExamRequestEntity(

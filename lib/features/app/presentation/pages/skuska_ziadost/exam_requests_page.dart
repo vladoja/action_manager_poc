@@ -27,7 +27,7 @@ class ExamRequestsPage extends StatelessWidget {
 
   _buildBody(BuildContext context) {
     // watch
-    final examRequests = context.read<ExamRequestsBloc>().state.examRequests;
+    final examRequests = context.watch<ExamRequestsBloc>().state.examRequests;
 
     int? selectedRowId;
     for (int i = 0; i < examRequests.length; i++) {
