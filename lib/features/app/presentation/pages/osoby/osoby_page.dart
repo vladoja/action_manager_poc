@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../config/routes/app_routes.dart';
+import '../../../domain/entities/exam/exam_request.dart';
+import '../../../domain/entities/osoba/osoba.dart';
+import '../../bloc/exam_request/exam_requests_bloc.dart';
 import '../../bloc/osoby/osoby/osoby_bloc.dart';
 import 'widgets/osoby_table_widget.dart';
 
@@ -57,7 +60,16 @@ class OsobyPage extends StatelessWidget {
               persons: persons,
               clickFunction: (int id) {
                 print('Osoby Table. Clicked id: $id');
-                final previewedPerson = persons[id];
+                OsobaEntity previewedPerson = persons[id];
+                if (previewedPerson != null) {
+                  ExamRequestEntity? examRequest =
+                      _getExamRequestForOsoba(context, previewedPerson.id);
+                  print(
+                      'Osoba with "${previewedPerson.id}" has examRequest: $examRequest');
+                  previewedPerson.copyWith(examRequest: () => examRequest);
+                  previewedPerson =
+                      previewedPerson.copyWith(examRequest: () => examRequest);
+                }
                 GoRouter.of(context).go('${AppRoutes.navZoznamyOsoby}/Details',
                     extra: previewedPerson);
               },
@@ -67,5 +79,14 @@ class OsobyPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  ExamRequestEntity? _getExamRequestForOsoba(BuildContext context, int userId) {
+    List<ExamRequestEntity> examRequests =
+        context.read<ExamRequestsBloc>().state.examRequests;
+    ExamRequestEntity? searchedExamRequest = examRequests
+        .cast<ExamRequestEntity?>()
+        .firstWhere((element) => element!.userId == userId, orElse: () => null);
+    return searchedExamRequest;
   }
 }

@@ -6,6 +6,7 @@ import '../../../../../core/widgets/delete_alert.dart';
 import '../../../../../core/widgets/widget_utils.dart';
 import '../../../domain/entities/osoba/osoba.dart';
 import '../../bloc/osoby/osoby/osoby_bloc.dart';
+import 'widgets/exam_request_preview.dart';
 
 class EditOsobaPage extends StatelessWidget {
   final OsobaEntity? person;
@@ -143,6 +144,12 @@ class EditOsobaPage extends StatelessWidget {
                     },
                     child: const Text('Ulož')),
               ]),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            OsobaExamPreviewWidget(
+              examRequestEntity: (person != null) ? person!.examRequest : null,
             )
           ],
         ),

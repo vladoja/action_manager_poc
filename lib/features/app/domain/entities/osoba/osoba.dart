@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
+import '../exam/exam_request.dart';
+
 class OsobaEntity extends Equatable {
   final int id;
   final String firstName;
@@ -11,6 +13,7 @@ class OsobaEntity extends Equatable {
   final String? phone;
   final String? city;
   final String? employer;
+  final ExamRequestEntity? examRequest;
 
   const OsobaEntity(
       {required this.id,
@@ -19,7 +22,8 @@ class OsobaEntity extends Equatable {
       required this.title,
       required this.phone,
       required this.city,
-      required this.employer});
+      required this.employer,
+      this.examRequest});
 
   Map<String, dynamic> toMap() {
     return {
@@ -30,6 +34,7 @@ class OsobaEntity extends Equatable {
       'phone': phone,
       'city': city,
       'employer': employer,
+      'examRequest': (examRequest != null) ? examRequest!.toMap() : null,
     };
   }
 
@@ -76,6 +81,7 @@ class OsobaEntity extends Equatable {
     ValueGetter<String?>? phone,
     ValueGetter<String?>? city,
     ValueGetter<String?>? employer,
+    ValueGetter<ExamRequestEntity?>? examRequest,
   }) {
     return OsobaEntity(
       id: id ?? this.id,
@@ -85,6 +91,7 @@ class OsobaEntity extends Equatable {
       phone: phone?.call() ?? this.phone,
       city: city?.call() ?? this.city,
       employer: employer?.call() ?? this.employer,
+      examRequest: examRequest?.call() ?? this.examRequest,
     );
   }
 }
