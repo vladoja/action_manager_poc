@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../../config/routes/app_routes.dart';
 import '../../../../domain/entities/exam/exam_request.dart';
+import '../../../../domain/entities/osoba/osoba.dart';
 
 class OsobaExamPreviewWidget extends StatelessWidget {
   final ExamRequestEntity? examRequestEntity;
-  const OsobaExamPreviewWidget({super.key, this.examRequestEntity});
+  final OsobaEntity osoba;
+  const OsobaExamPreviewWidget(
+      {super.key, this.examRequestEntity, required this.osoba});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,14 @@ class OsobaExamPreviewWidget extends StatelessWidget {
                     _buildRow('Prihlaseny na termin', 'N/A'),
                   ]
                 : [
-                    _buildRow('Status prihlasky', 'Nedostupna'),
+                    _buildRow('Status prihlasky', 'Ziadna'),
+                    ElevatedButton(
+                        onPressed: () {
+                          GoRouter.of(context).go(
+                              '${AppRoutes.navZoznamyOsoby}/ExamRequest',
+                              extra: osoba);
+                        },
+                        child: const Text('Vytvor prihlasku'))
                   ],
           ),
           // Text('Status: Aktivna'),

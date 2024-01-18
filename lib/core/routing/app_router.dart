@@ -9,6 +9,7 @@ import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
 import '../../features/app/presentation/pages/osoby/edit_osoba_page.dart';
+import '../../features/app/presentation/pages/osoby/osoba_create_exam_request_page.dart';
 import '../../features/app/presentation/pages/osoby/osoby_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
@@ -114,6 +115,24 @@ class AppRouter {
                                     ),
                                     type: 'size'),
                           ),
+                          GoRoute(
+                              path: 'ExamRequest',
+                              pageBuilder: (context, state) {
+                                final selectedPerson =
+                                    state.extra as OsobaEntity;
+                                return RouterTransitionFactory
+                                    .getTransitionPage(
+                                        context: context,
+                                        state: state,
+                                        child: AdaptiveLayoutWidget(
+                                          body: OsobaCreateExamRequestPage(
+                                            osoba: selectedPerson,
+                                          ),
+                                          // secondaryBody: EditOsobaPage(),
+                                          showSecondaryBody: true,
+                                        ),
+                                        type: 'size');
+                              }),
                         ],
                       ),
                     ],

@@ -20,7 +20,7 @@ class ExamRequestEntity extends Equatable {
       required this.typSkolenia,
       required this.licenceExpirationDate,
       required this.examRequestStatus,
-      required this.examsAssigned,
+      this.examsAssigned,
       this.user});
 
   @override

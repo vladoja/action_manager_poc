@@ -148,9 +148,12 @@ class EditOsobaPage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            OsobaExamPreviewWidget(
-              examRequestEntity: (person != null) ? person!.examRequest : null,
-            )
+            (person != null)
+                ? OsobaExamPreviewWidget(
+                    osoba: person!,
+                    examRequestEntity: person!.examRequest,
+                  )
+                : const Placeholder(),
           ],
         ),
       ),
