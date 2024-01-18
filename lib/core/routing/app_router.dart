@@ -116,6 +116,35 @@ class AppRouter {
                                     type: 'size'),
                           ),
                           GoRoute(
+                              path: 'Edit',
+                              redirect: (context, state) {
+                                if (state.extra == null) {
+                                  return AppRoutes.navZoznamyOsoby;
+                                } else {
+                                  return null;
+                                }
+                              },
+                              pageBuilder: (context, state) {
+                                final selectedPerson =
+                                    state.extra as OsobaEntity;
+                                return RouterTransitionFactory
+                                    .getTransitionPage(
+                                        context: context,
+                                        state: state,
+                                        child: AdaptiveLayoutWidget(
+                                          body: EditOsobaPage(
+                                            person: selectedPerson,
+                                            showGoToEditPageButton: false,
+                                          ),
+                                          secondaryBody:
+                                              OsobaCreateExamRequestPage(
+                                            osoba: selectedPerson,
+                                          ),
+                                          showSecondaryBody: true,
+                                        ),
+                                        type: 'size');
+                              }),
+                          GoRoute(
                               path: 'ExamRequest',
                               pageBuilder: (context, state) {
                                 final selectedPerson =

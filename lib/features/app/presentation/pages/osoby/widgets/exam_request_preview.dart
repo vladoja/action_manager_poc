@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../../config/routes/app_routes.dart';
 import '../../../../domain/entities/exam/exam_request.dart';
 import '../../../../domain/entities/osoba/osoba.dart';
 
@@ -32,17 +30,8 @@ class OsobaExamPreviewWidget extends StatelessWidget {
                   ]
                 : [
                     _buildRow('Status prihlasky', 'Ziadna'),
-                    ElevatedButton(
-                        onPressed: () {
-                          GoRouter.of(context).go(
-                              '${AppRoutes.navZoznamyOsoby}/ExamRequest',
-                              extra: osoba);
-                        },
-                        child: const Text('Vytvor prihlasku'))
                   ],
           ),
-          // Text('Status: Aktivna'),
-          // Text('Licencia: 2024/05/30'),
         ],
       ),
     );
