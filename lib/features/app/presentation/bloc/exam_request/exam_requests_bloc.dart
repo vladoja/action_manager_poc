@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -18,22 +20,42 @@ class ExamRequestsBloc extends Bloc<ExamRequestsEvent, ExamRequestsState> {
       List<ExamRequestEntity> newExamRequestsList = [...event.examRequests];
       emit(ExamRequestsState(examRequests: newExamRequestsList));
     });
+    on<CreateExamRequestEvent>(_onCreateExamRequestEvent);
 
     add(ExamRequestsChangedEvent(
         examRequests:
-            tempInjectOsobyIntoExamRequests(exam_requests_data_temp)));
+            _tempInjectOsobyIntoExamRequests(exam_requests_data_temp)));
   }
 
-  List<ExamRequestEntity> tempInjectOsobyIntoExamRequests(
+  List<ExamRequestEntity> _tempInjectOsobyIntoExamRequests(
       List<ExamRequestEntity> examRequests) {
     List<ExamRequestEntity> newExamRequests = [];
     List<OsobaEntity> osoby = osobyBloc.state.osoby;
     for (ExamRequestEntity exam in examRequests) {
       exam = exam.copyWith(
-          user: osoby.firstWhere((element) => exam.id == element.id));
+          user: osoby
+              .firstWhere((osobaElement) => exam.userId == osobaElement.id));
       newExamRequests.add(exam);
     }
 
     return newExamRequests;
+  }
+
+  ExamRequestEntity _tempInjectOsobaIntoExamRequest(
+      ExamRequestEntity examRequest) {
+    List<OsobaEntity> osoby = osobyBloc.state.osoby;
+
+    return examRequest.copyWith(
+        user: osoby.firstWhere(
+            (osobaElement) => examRequest.userId == osobaElement.id));
+  }
+
+  FutureOr<void> _onCreateExamRequestEvent(
+      CreateExamRequestEvent event, Emitter<ExamRequestsState> emit) {
+    List<ExamRequestEntity> examRequests = [...state.examRequests];
+    ExamRequestEntity examRequestNew =
+        _tempInjectOsobaIntoExamRequest(event.examRequest);
+    examRequests.add(examRequestNew);
+    emit(ExamRequestsState(examRequests: examRequests));
   }
 }

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/widgets/widget_utils.dart';
 import '../../../../domain/entities/exam/exam_request.dart';
 import '../../../../domain/entities/osoba/osoba.dart';
+import '../../../bloc/exam_request/exam_requests_bloc.dart';
 
 class ExamRequestFormWidget extends StatelessWidget {
-  final ExamRequestEntity? person;
+  final ExamRequestEntity? examRequest;
   final OsobaEntity osobaEntity;
   const ExamRequestFormWidget(
-      {super.key, required this.person, required this.osobaEntity});
+      {super.key, required this.examRequest, required this.osobaEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +44,23 @@ class ExamRequestFormWidget extends StatelessWidget {
               key: formKey,
               child: Column(children: [
                 buildFormTextField(typSkolenia, "Typ skolenia",
-                    value: (person != null) ? person!.typSkolenia : null),
+                    value: (examRequest != null)
+                        ? examRequest!.typSkolenia
+                        : null),
                 const SizedBox(
                   height: 5,
                 ),
                 buildFormTextField(licenceExpirationDate, "Expiracia licencie",
-                    value: (person != null)
-                        ? person!.licenceExpirationDate
+                    value: (examRequest != null)
+                        ? examRequest!.licenceExpirationDate
                         : null),
                 const SizedBox(
                   height: 5,
                 ),
                 buildFormTextField(examRequestStatus, "Status ziadosti",
-                    value: (person != null) ? person!.examRequestStatus : null),
+                    value: (examRequest != null)
+                        ? examRequest!.examRequestStatus
+                        : null),
                 const SizedBox(
                   height: 10,
                 ),
@@ -62,7 +68,7 @@ class ExamRequestFormWidget extends StatelessWidget {
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         debugPrint("Safely validated");
-                        if (person == null) {
+                        if (examRequest == null) {
                           int id = DateTime.now().millisecondsSinceEpoch;
                           ExamRequestEntity examRequestNew = ExamRequestEntity(
                               id: id,
@@ -73,7 +79,7 @@ class ExamRequestFormWidget extends StatelessWidget {
                           _onCreateButtonTapped(context, examRequestNew);
                         } else {
                           ExamRequestEntity examRequestAfterEdit =
-                              person!.copyWith(
+                              examRequest!.copyWith(
                             typSkolenia: typSkolenia.text,
                             licenceExpirationDate: licenceExpirationDate.text,
                             examRequestStatus: examRequestStatus.text,
@@ -93,7 +99,11 @@ class ExamRequestFormWidget extends StatelessWidget {
   }
 
   void _onCreateButtonTapped(
-      BuildContext context, ExamRequestEntity examRequestNew) {}
+      BuildContext context, ExamRequestEntity examRequestNew) {
+    context
+        .read<ExamRequestsBloc>()
+        .add(CreateExamRequestEvent(examRequest: examRequestNew));
+  }
 
   void _onEditButtonTapped(
       BuildContext context, ExamRequestEntity examRequestAfterEdit) {}

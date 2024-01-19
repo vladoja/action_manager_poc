@@ -32,7 +32,7 @@ class OsobaCreateExamRequestPage extends StatelessWidget {
           ),
           ExamRequestFormWidget(
             osobaEntity: osoba,
-            person: null,
+            examRequest: null,
           ),
         ]),
       ),
