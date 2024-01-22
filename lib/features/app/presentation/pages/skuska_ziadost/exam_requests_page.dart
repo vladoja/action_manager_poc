@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../config/routes/app_routes.dart';
 import '../../bloc/exam_request/exam_requests_bloc.dart';
 import 'widgets/exam_requests_table_widget.dart';
 
@@ -45,7 +47,10 @@ class ExamRequestsPage extends StatelessWidget {
             child: ExamRequestsTableWidget(
               examRequests: examRequests,
               clickFunction: (int id) {
-                print('Osoby Table. Clicked id: $id');
+                var previewExamRequest = examRequests[id];
+                GoRouter.of(context).go(
+                    '${AppRoutes.navZoznamyZiadostiOSkusku}/Details',
+                    extra: previewExamRequest);
               },
               highLighted: selectedRowId,
             ),
