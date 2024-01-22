@@ -11,6 +11,7 @@ class PersonalTableWidget extends StatelessWidget {
   final Function clickFunction;
   final int? highLighted;
   final bool? showCheckboxColumnInTable;
+  final List<int>? selectedUsers;
 
   ///
   /// @showCheckboxColumnInTable - if true, shows checkboxes and sends to the clickFunction List<bool>, otherwise int
@@ -20,8 +21,24 @@ class PersonalTableWidget extends StatelessWidget {
       required this.persons,
       required this.clickFunction,
       this.highLighted,
-      this.showCheckboxColumnInTable = false}) {
-    selected.addAll(List<bool>.generate(persons.length, (int index) => false));
+      this.showCheckboxColumnInTable = false,
+      this.selectedUsers}) {
+    selected.addAll(_setSelectedRows(selectedUsers, persons));
+    // if (selectedUsers != null && selectedUsers!.isNotEmpty) {
+    //   for (var person in persons) {
+    //     if (selectedUsers!.cast<int?>().firstWhere(
+    //             (element) => element == person.id,
+    //             orElse: () => null) !=
+    //         null) {
+    //       selected.add(true);
+    //     } else {
+    //       selected.add(false);
+    //     }
+    //   }
+    // } else {
+    //   selected
+    //       .addAll(List<bool>.generate(persons.length, (int index) => false));
+    // }
   }
 
   final List<DataRow> tableRows = [];
@@ -52,6 +69,27 @@ class PersonalTableWidget extends StatelessWidget {
     "role",
   ];
 
+  List<bool> _setSelectedRows(
+      List<int>? selectedUsers, List<PersonEntity> persons) {
+    List<bool> selectedRows = [];
+    if (selectedUsers != null && selectedUsers.isNotEmpty) {
+      for (var person in persons) {
+        if (selectedUsers.cast<int?>().firstWhere(
+                (element) => element == person.id,
+                orElse: () => null) !=
+            null) {
+          selectedRows.add(true);
+        } else {
+          selectedRows.add(false);
+        }
+      }
+    } else {
+      selectedRows
+          .addAll(List<bool>.generate(persons.length, (int index) => false));
+    }
+    return selectedRows;
+  }
+
   void handleClickOnRow(int rowIndex) {
     log("Row with id: $rowIndex clicked");
     if (showCheckboxColumnInTable == true) {
@@ -70,14 +108,14 @@ class PersonalTableWidget extends StatelessWidget {
             personal[i], columnValues, (b) => handleClickOnRow(i),
             isHighLighted:
                 (highlightedRow != null && highlightedRow == i) ? true : false,
-            selected: selected![i]),
+            selected: selected[i]),
       );
     }
     return tableRows;
   }
 
   void onSelectChanged(int index) {
-    selected![index] = !selected![index];
+    selected[index] = !selected[index];
   }
 
   @override
