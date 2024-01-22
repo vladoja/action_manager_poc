@@ -20,8 +20,17 @@ class ExamRequestsTableWidget extends StatelessWidget {
       required this.clickFunction,
       this.highLighted,
       this.showCheckboxColumnInTable}) {
-    selected
-        .addAll(List<bool>.generate(examRequests.length, (int index) => false));
+    _setHighLightedRows();
+  }
+
+  void _setHighLightedRows() {
+    if (highLighted != null) {
+      selected.addAll(List<bool>.generate(
+          examRequests.length, (int index) => highLighted == index));
+    } else {
+      selected.addAll(
+          List<bool>.generate(examRequests.length, (int index) => false));
+    }
   }
 
   final List<DataColumn2> tableColumns = const [

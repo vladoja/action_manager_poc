@@ -263,6 +263,13 @@ class AppRouter {
                           routes: [
                             GoRoute(
                               path: 'Details',
+                              redirect: (context, state) {
+                                if (state.extra == null) {
+                                  return AppRoutes.navZoznamyZiadostiOSkusku;
+                                } else {
+                                  return null;
+                                }
+                              },
                               // builder: (context, state) => const EditPersonPage(),
                               pageBuilder: (context, state) {
                                 final examRequestEntity =
@@ -272,7 +279,9 @@ class AppRouter {
                                         context: context,
                                         state: state,
                                         child: AdaptiveLayoutWidget(
-                                          body: const ExamRequestsPage(),
+                                          body: ExamRequestsPage(
+                                              selectedExamRequestId:
+                                                  examRequestEntity.id),
                                           secondaryBody: ExamRequestDetails(
                                               examRequest: examRequestEntity),
                                           showSecondaryBody: true,
