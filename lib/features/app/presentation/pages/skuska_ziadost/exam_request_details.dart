@@ -16,19 +16,37 @@ class ExamRequestDetails extends StatelessWidget {
 
   _buildAppbar(BuildContext context) {
     return AppBar(
-      title: Text('Ziadost o skusku: Detialy'),
+      title: const Text('Ziadost o skusku: Detaily'),
     );
   }
 
   _buildBody(BuildContext context) {
-    return const Scrollbar(
+    int totalExamEventRequests = (examRequest.examsAssigned != null)
+        ? examRequest.examsAssigned!.length
+        : 0;
+    return Scrollbar(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [Text('DETAILY')],
+          children: [
+            const Text('DETAILY'),
+            const Divider(),
+            Text('Počet žiadostí: $totalExamEventRequests'),
+            const SizedBox(
+              height: 20,
+            ),
+            _buildPridelTerminWidget(),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPridelTerminWidget() {
+    return ElevatedButton(
+      onPressed: () {},
+      child: const Text('Pridaj termin'),
     );
   }
 }
