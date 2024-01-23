@@ -6,6 +6,7 @@ import '../../../domain/entities/exam/exam_request.dart';
 import '../../bloc/action/action_bloc.dart';
 import '../../bloc/exam_request/exam_requests_bloc.dart';
 import '../akcie/widgets/action_table_widget.dart';
+import 'widgets/exam_event_detail_widget.dart';
 
 class ExamRequestDetails extends StatelessWidget {
   final ExamRequestEntity examRequest;
@@ -29,6 +30,16 @@ class ExamRequestDetails extends StatelessWidget {
     int totalExamEventRequests = (examRequest.examsAssigned != null)
         ? examRequest.examsAssigned!.length
         : 0;
+    ActionEntity? actionEntity;
+    if (totalExamEventRequests > 0) {
+      int id = examRequest.examsAssigned![0];
+      actionEntity = context
+          .read<ActionBloc>()
+          .state
+          .actions
+          .cast<ActionEntity?>()
+          .firstWhere((element) => element!.id == id, orElse: () => null);
+    }
     return Scrollbar(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(8),
@@ -38,6 +49,9 @@ class ExamRequestDetails extends StatelessWidget {
             const Text('DETAILY'),
             const Divider(),
             Text('Počet žiadostí: $totalExamEventRequests'),
+            (totalExamEventRequests > 0)
+                ? _buildExamEventsDetails(actionEntity!)
+                : SizedBox.shrink(),
             const SizedBox(
               height: 20,
             ),
@@ -46,6 +60,10 @@ class ExamRequestDetails extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildExamEventsDetails(ActionEntity actionEntity) {
+    return ActionEventDetailWidget(actionEntity: actionEntity);
   }
 
   Widget _buildPridelTerminWidget(BuildContext context) {
@@ -89,12 +107,9 @@ class ExamRequestDetails extends StatelessWidget {
       },
     );
     if (actionId != null) {
-      print('Priradeny termin s id: $actionId');
       if (!context.mounted) return;
       _emitAddActionEventToExamRequest(context, examRequest, actionId);
-    } else {
-      print('Zrusene');
-    }
+    } else {}
   }
 
   void _emitAddActionEventToExamRequest(

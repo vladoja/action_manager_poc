@@ -15,6 +15,6 @@ const exam_requests_data_temp = <ExamRequestEntity>[
     examRequestStatus: 'VYTVORENA',
     typSkolenia: 'Emisne kontroly',
     userId: 3,
-    examsAssigned: [],
+    examsAssigned: [1],
   ),
 ];
