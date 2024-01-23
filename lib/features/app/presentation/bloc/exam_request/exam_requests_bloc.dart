@@ -21,6 +21,7 @@ class ExamRequestsBloc extends Bloc<ExamRequestsEvent, ExamRequestsState> {
       emit(ExamRequestsState(examRequests: newExamRequestsList));
     });
     on<CreateExamRequestEvent>(_onCreateExamRequestEvent);
+    on<UpdateExamRequestEvent>(_onUpdateExamRequestEvent);
 
     add(ExamRequestsChangedEvent(
         examRequests:
@@ -56,6 +57,17 @@ class ExamRequestsBloc extends Bloc<ExamRequestsEvent, ExamRequestsState> {
     ExamRequestEntity examRequestNew =
         _tempInjectOsobaIntoExamRequest(event.examRequest);
     examRequests.add(examRequestNew);
+    emit(ExamRequestsState(examRequests: examRequests));
+  }
+
+  FutureOr<void> _onUpdateExamRequestEvent(
+      UpdateExamRequestEvent event, Emitter<ExamRequestsState> emit) {
+    ExamRequestEntity examRequestToUpdate = event.examRequest;
+    List<ExamRequestEntity> examRequests = [
+      ...state.examRequests
+          .where((element) => element.id != examRequestToUpdate.id)
+    ];
+    examRequests.add(examRequestToUpdate);
     emit(ExamRequestsState(examRequests: examRequests));
   }
 }

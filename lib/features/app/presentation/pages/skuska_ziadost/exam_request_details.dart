@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../domain/entities/action.dart';
 import '../../../domain/entities/exam/exam_request.dart';
 import '../../bloc/action/action_bloc.dart';
+import '../../bloc/exam_request/exam_requests_bloc.dart';
 import '../akcie/widgets/action_table_widget.dart';
 
 class ExamRequestDetails extends StatelessWidget {
@@ -97,5 +98,16 @@ class ExamRequestDetails extends StatelessWidget {
   }
 
   void _emitAddActionEventToExamRequest(
-      BuildContext context, ExamRequestEntity examRequest, int actionId) {}
+      BuildContext context, ExamRequestEntity examRequest, int actionId) {
+    if (examRequest.examsAssigned == null) {
+      examRequest =
+          examRequest.copyWith(examsAssigned: () => List.filled(1, actionId));
+    } else {
+      examRequest = examRequest.copyWith(
+          examsAssigned: () => [...examRequest.examsAssigned!, actionId]);
+    }
+    context
+        .read<ExamRequestsBloc>()
+        .add(UpdateExamRequestEvent(examRequest: examRequest));
+  }
 }
