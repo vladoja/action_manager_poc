@@ -57,10 +57,10 @@ class ExamRequestDetails extends StatelessWidget {
 
   void _handlePridajTermin(
       BuildContext context, List<ActionEntity> actions) async {
-    List<int> personIdsToAdd = await showDialog(
+    int? actionId = await showDialog(
       context: context,
       builder: (context) {
-        List<int> selectedPersonIds = [];
+        int? actionId;
         return AlertDialog(
           title: const Text('Vyber termin skusky'),
           content: ConstrainedBox(
@@ -70,31 +70,32 @@ class ExamRequestDetails extends StatelessWidget {
             child: ActionTableWidget(
               actions: actions,
               clickFunction: (int id) {
-                // Najviac jeden termin je mozne priradit. Preto: clear()
-                selectedPersonIds.clear();
-                selectedPersonIds.add(actions[id].id);
+                actionId = actions[id].id;
               },
             ),
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context, <int>[]),
+              onPressed: () => Navigator.pop(context, null),
               child: const Text('Zrušiť'),
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context, selectedPersonIds),
+              onPressed: () => Navigator.pop(context, actionId),
               child: const Text('Pridať'),
             ),
           ],
         );
       },
     );
-    if (personIdsToAdd.isNotEmpty) {
-      // print('Pridany personal: $personIdsToAdd');
+    if (actionId != null) {
+      print('Priradeny termin s id: $actionId');
       if (!context.mounted) return;
-      // _emitAddPersonalToActionEvent(context, personIdsToAdd, persons, action);
+      _emitAddActionEventToExamRequest(context, examRequest, actionId);
     } else {
-      // print('Nikto nebol pridany');
+      print('Zrusene');
     }
   }
+
+  void _emitAddActionEventToExamRequest(
+      BuildContext context, ExamRequestEntity examRequest, int actionId) {}
 }
