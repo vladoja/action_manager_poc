@@ -262,7 +262,7 @@ class AppRouter {
                                   type: 'scale'),
                           routes: [
                             GoRoute(
-                              path: 'Details',
+                              path: 'Preview',
                               redirect: (context, state) {
                                 if (state.extra == null) {
                                   return AppRoutes.navZoznamyZiadostiOSkusku;

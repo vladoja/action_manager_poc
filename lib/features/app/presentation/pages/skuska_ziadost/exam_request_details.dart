@@ -22,7 +22,7 @@ class ExamRequestDetails extends StatelessWidget {
 
   _buildAppbar(BuildContext context) {
     return AppBar(
-      title: const Text('Ziadost o skusku: Detaily'),
+      title: const Text('Ziadost o skusku: Prehlad'),
     );
   }
 
@@ -48,10 +48,10 @@ class ExamRequestDetails extends StatelessWidget {
           children: [
             const Text('DETAILY'),
             const Divider(),
-            Text('Počet žiadostí: $totalExamEventRequests'),
+            Text('Počet žiadostí o termín skúšky: $totalExamEventRequests'),
             (totalExamEventRequests > 0)
                 ? _buildExamEventsDetails(actionEntity!)
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
             const SizedBox(
               height: 20,
             ),

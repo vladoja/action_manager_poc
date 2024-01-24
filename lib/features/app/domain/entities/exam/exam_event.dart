@@ -3,14 +3,14 @@ import 'package:flutter/widgets.dart';
 
 import '../../../../../config/enums/exam_event_status_enum.dart';
 
-class ExamEvent extends Equatable {
+class ExamEventApplication extends Equatable {
   final int actionId;
   final int requestExamId;
   final String? formaOznamenia;
   final String? datumOznamenia;
   final ExamEventStatus status;
 
-  const ExamEvent(
+  const ExamEventApplication(
       {required this.actionId,
       required this.requestExamId,
       required this.formaOznamenia,
@@ -23,17 +23,17 @@ class ExamEvent extends Equatable {
 
   @override
   String toString() {
-    return 'ExamEvent(actionId: $actionId, requestExamId: $requestExamId, formaOznamenia: $formaOznamenia, datumOznamenia: $datumOznamenia, status: $status)';
+    return 'ExamEventApplication(actionId: $actionId, requestExamId: $requestExamId, formaOznamenia: $formaOznamenia, datumOznamenia: $datumOznamenia, status: $status)';
   }
 
-  ExamEvent copyWith({
+  ExamEventApplication copyWith({
     int? actionId,
     int? requestExamId,
     ValueGetter<String?>? formaOznamenia,
     ValueGetter<String?>? datumOznamenia,
     ExamEventStatus? status,
   }) {
-    return ExamEvent(
+    return ExamEventApplication(
         actionId: actionId ?? this.actionId,
         requestExamId: requestExamId ?? this.requestExamId,
         formaOznamenia:

@@ -50,7 +50,7 @@ class ExamRequestsPage extends StatelessWidget {
               clickFunction: (int id) {
                 var previewExamRequest = examRequests[id];
                 GoRouter.of(context).go(
-                    '${AppRoutes.navZoznamyZiadostiOSkusku}/Details',
+                    '${AppRoutes.navZoznamyZiadostiOSkusku}/Preview',
                     extra: previewExamRequest);
               },
               highLighted: selectedRowId,
