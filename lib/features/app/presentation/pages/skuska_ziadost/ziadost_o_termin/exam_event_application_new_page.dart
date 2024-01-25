@@ -8,9 +8,10 @@ class ExamEventAppicationNewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: _buildAppbar(context),
-      body: Placeholder(),
+      body: _buildForm(context, formKey),
     );
   }
 
@@ -19,20 +20,18 @@ class ExamEventAppicationNewPage extends StatelessWidget {
   }
 
   _buildForm(BuildContext context, GlobalKey<FormState> formKey,
-      ExamEventApplication action) {
+      {ExamEventApplication? action}) {
     TextEditingController actionNameController = TextEditingController();
-    TextEditingController actionDateController = TextEditingController();
+    TextEditingController datumOznameniaController = TextEditingController();
     TextEditingController licenceEventController = TextEditingController();
-    TextEditingController licenceTypeController = TextEditingController();
     TextEditingController licenceCourseController = TextEditingController();
     if (action != null) {
       actionNameController.text = action.actionId.toString();
-      actionDateController.text = action.datumOznamenia.toString();
+      datumOznameniaController.text = action.datumOznamenia.toString();
       licenceEventController.text =
           (action.formaOznamenia != null && action.formaOznamenia!.length > 0)
               ? action.formaOznamenia!
               : '';
-      licenceTypeController.text = action!.requestExamId.toString();
     }
     return Column(
       children: [
@@ -43,14 +42,13 @@ class ExamEventAppicationNewPage extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  buildFormTextField(actionNameController, "Nazov terminu"),
-                  // buildFormTextField(actionDateController, "Datum terminu"),
-                  buildFormTextFieldWithDatePicker(
-                      context, actionDateController, "Dátum termínu"),
                   buildFormTextField(
-                      licenceEventController, "Etapa(s terminom)"),
-                  buildFormTextField(licenceCourseController, "Konanie"),
-                  buildFormTextField(licenceTypeController, "Oprávnenie"),
+                      actionNameController, "ID ziadosti o skúšku",
+                      disableEditing: true, value: "3"),
+                  buildFormTextFieldWithDatePicker(
+                      context, datumOznameniaController, "Dátum oznámenia"),
+                  buildFormTextField(licenceEventController, "Forma oznamenia"),
+                  buildFormTextField(licenceCourseController, "Status"),
                   const SizedBox(
                     height: 10,
                   ),
