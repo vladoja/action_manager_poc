@@ -15,6 +15,7 @@ import '../../features/app/presentation/pages/osoby/osoby_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../../features/app/presentation/pages/skuska_ziadost/exam_request_preview.dart';
+import '../../features/app/presentation/pages/skuska_ziadost/exam_requests_details.dart';
 import '../../features/app/presentation/pages/skuska_ziadost/exam_requests_page.dart';
 import '../utils/router_transition_factory.dart';
 import '../widgets/adaptive_layout_widget.dart';
@@ -253,44 +254,68 @@ class AppRouter {
                     navigatorKey: _nkZoznamyZiadostiOSkusku,
                     routes: [
                       GoRoute(
-                          path: AppRoutes.navZoznamyZiadostiOSkusku,
-                          pageBuilder: (context, state) =>
-                              RouterTransitionFactory.getTransitionPage(
+                        path: AppRoutes.navZoznamyZiadostiOSkusku,
+                        pageBuilder: (context, state) =>
+                            RouterTransitionFactory.getTransitionPage(
+                                context: context,
+                                state: state,
+                                child: const ExamRequestsPage(),
+                                type: 'scale'),
+                        routes: [
+                          GoRoute(
+                            path: 'Preview',
+                            redirect: (context, state) {
+                              if (state.extra == null) {
+                                return AppRoutes.navZoznamyZiadostiOSkusku;
+                              } else {
+                                return null;
+                              }
+                            },
+                            // builder: (context, state) => const EditPersonPage(),
+                            pageBuilder: (context, state) {
+                              final examRequestEntity =
+                                  state.extra as ExamRequestEntity;
+                              return RouterTransitionFactory.getTransitionPage(
                                   context: context,
                                   state: state,
-                                  child: const ExamRequestsPage(),
-                                  type: 'scale'),
-                          routes: [
-                            GoRoute(
-                              path: 'Preview',
-                              redirect: (context, state) {
-                                if (state.extra == null) {
-                                  return AppRoutes.navZoznamyZiadostiOSkusku;
-                                } else {
-                                  return null;
-                                }
-                              },
-                              // builder: (context, state) => const EditPersonPage(),
-                              pageBuilder: (context, state) {
-                                final examRequestEntity =
-                                    state.extra as ExamRequestEntity;
-                                return RouterTransitionFactory
-                                    .getTransitionPage(
-                                        context: context,
-                                        state: state,
-                                        child: AdaptiveLayoutWidget(
-                                          body: ExamRequestsPage(
-                                              selectedExamRequestId:
-                                                  examRequestEntity.id),
-                                          secondaryBody: ExamRequestPreview(
-                                              examRequest: examRequestEntity),
-                                          showSecondaryBody: true,
-                                          secondaryBodyRatio: 0.6,
-                                        ),
-                                        type: 'size');
-                              },
-                            )
-                          ]),
+                                  child: AdaptiveLayoutWidget(
+                                    body: ExamRequestsPage(
+                                        selectedExamRequestId:
+                                            examRequestEntity.id),
+                                    secondaryBody: ExamRequestPreview(
+                                        examRequest: examRequestEntity),
+                                    showSecondaryBody: true,
+                                    secondaryBodyRatio: 0.6,
+                                  ),
+                                  type: 'size');
+                            },
+                          ),
+                          GoRoute(
+                            path: 'Details',
+                            redirect: (context, state) {
+                              if (state.extra == null) {
+                                return AppRoutes.navZoznamyZiadostiOSkusku;
+                              } else {
+                                return null;
+                              }
+                            },
+                            // builder: (context, state) => const EditPersonPage(),
+                            pageBuilder: (context, state) {
+                              final examRequestEntity =
+                                  state.extra as ExamRequestEntity;
+                              return RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: AdaptiveLayoutWidget(
+                                    body: ExamRequestDetailsPage(),
+                                    showSecondaryBody: true,
+                                    secondaryBodyRatio: 0.6,
+                                  ),
+                                  type: 'size');
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -360,6 +385,13 @@ class AppRouter {
                           ),
                           GoRoute(
                             path: 'Edit',
+                            redirect: (context, state) {
+                              if (state.extra == null) {
+                                return AppRoutes.navTerminyOsoby;
+                              } else {
+                                return null;
+                              }
+                            },
                             pageBuilder: (context, state) {
                               final selectedAction =
                                   state.extra as ActionEntity;

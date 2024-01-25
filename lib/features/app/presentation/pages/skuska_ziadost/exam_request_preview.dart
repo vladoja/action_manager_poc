@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../config/routes/app_routes.dart';
 import '../../../domain/entities/action.dart';
 import '../../../domain/entities/exam/exam_request.dart';
 import '../../bloc/action/action_bloc.dart';
@@ -56,6 +58,11 @@ class ExamRequestPreview extends StatelessWidget {
               height: 20,
             ),
             _buildPridelTerminWidget(context),
+            const SizedBox(
+              height: 20,
+            ),
+            const Divider(),
+            _buildGoToDetailsWidget(context)
           ],
         ),
       ),
@@ -72,6 +79,20 @@ class ExamRequestPreview extends StatelessWidget {
       onPressed: () => _handlePridajTermin(context, actions),
       child: const Text('Pridaj termin'),
     );
+  }
+
+  Widget _buildGoToDetailsWidget(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        _handleGoToDetailsPage(context);
+      },
+      child: const Text('Zobraz detaily'),
+    );
+  }
+
+  void _handleGoToDetailsPage(BuildContext context) {
+    GoRouter.of(context).go('${AppRoutes.navZoznamyZiadostiOSkusku}/Details',
+        extra: examRequest);
   }
 
   void _handlePridajTermin(
