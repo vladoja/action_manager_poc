@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../utils/action_utils.dart';
 
 buildFormTextField(TextEditingController controller, String label,
-    {String? value}) {
+    {String? value, bool disableEditing = false}) {
   if (value != null && value.isNotEmpty) {
     controller.text = value;
   }
@@ -17,6 +17,7 @@ buildFormTextField(TextEditingController controller, String label,
       }
       return null;
     },
+    enabled: disableEditing ? false : true,
   );
 }
 
