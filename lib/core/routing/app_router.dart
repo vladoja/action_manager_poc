@@ -17,6 +17,7 @@ import '../../features/app/presentation/pages/personal/personal_page.dart';
 import '../../features/app/presentation/pages/skuska_ziadost/exam_request_preview.dart';
 import '../../features/app/presentation/pages/skuska_ziadost/exam_requests_details.dart';
 import '../../features/app/presentation/pages/skuska_ziadost/exam_requests_page.dart';
+import '../../features/app/presentation/pages/skuska_ziadost/ziadost_o_termin/exam_event_application_new_page.dart';
 import '../utils/router_transition_factory.dart';
 import '../widgets/adaptive_layout_widget.dart';
 import '../widgets/dummy_screen.dart';
@@ -307,12 +308,32 @@ class AppRouter {
                                   context: context,
                                   state: state,
                                   child: AdaptiveLayoutWidget(
-                                    body: ExamRequestDetailsPage(),
+                                    body: ExamRequestDetailsPage(
+                                        examRequest: examRequestEntity),
+                                    secondaryBody: ExamEventAppicationNewPage(),
                                     showSecondaryBody: true,
                                     secondaryBodyRatio: 0.6,
                                   ),
                                   type: 'size');
                             },
+                            // routes: [
+                            //   GoRoute(
+                            //     path: 'NovaZiadost',
+                            //     pageBuilder: (context, state) {
+                            //       return RouterTransitionFactory
+                            //           .getTransitionPage(
+                            //               context: context,
+                            //               state: state,
+                            //               child: AdaptiveLayoutWidget(
+                            //                 body: ExamRequestDetailsPage(
+                            //                     examRequest: examRequestEntity),
+                            //                 showSecondaryBody: true,
+                            //                 secondaryBodyRatio: 0.6,
+                            //               ),
+                            //               type: 'size');
+                            //     },
+                            //   ),
+                            // ],
                           ),
                         ],
                       ),
