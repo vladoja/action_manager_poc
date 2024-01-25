@@ -14,7 +14,7 @@ import '../../features/app/presentation/pages/osoby/osoba_create_exam_request_pa
 import '../../features/app/presentation/pages/osoby/osoby_page.dart';
 import '../../features/app/presentation/pages/personal/edit_person_page.dart';
 import '../../features/app/presentation/pages/personal/personal_page.dart';
-import '../../features/app/presentation/pages/skuska_ziadost/exam_request_details.dart';
+import '../../features/app/presentation/pages/skuska_ziadost/exam_request_preview.dart';
 import '../../features/app/presentation/pages/skuska_ziadost/exam_requests_page.dart';
 import '../utils/router_transition_factory.dart';
 import '../widgets/adaptive_layout_widget.dart';
@@ -282,7 +282,7 @@ class AppRouter {
                                           body: ExamRequestsPage(
                                               selectedExamRequestId:
                                                   examRequestEntity.id),
-                                          secondaryBody: ExamRequestDetails(
+                                          secondaryBody: ExamRequestPreview(
                                               examRequest: examRequestEntity),
                                           showSecondaryBody: true,
                                           secondaryBodyRatio: 0.6,

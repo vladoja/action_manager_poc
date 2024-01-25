@@ -8,9 +8,9 @@ import '../../bloc/exam_request/exam_requests_bloc.dart';
 import '../akcie/widgets/action_table_widget.dart';
 import 'widgets/exam_event_detail_widget.dart';
 
-class ExamRequestDetails extends StatelessWidget {
+class ExamRequestPreview extends StatelessWidget {
   final ExamRequestEntity examRequest;
-  const ExamRequestDetails({super.key, required this.examRequest});
+  const ExamRequestPreview({super.key, required this.examRequest});
 
   @override
   Widget build(BuildContext context) {
