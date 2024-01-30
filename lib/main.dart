@@ -6,6 +6,7 @@ import 'config/theme/app_themes.dart';
 import 'core/routing/app_router.dart';
 import 'features/app/presentation/bloc/action/action_bloc.dart';
 import 'features/app/presentation/bloc/exam_request/exam_requests_bloc.dart';
+import 'features/app/presentation/bloc/oso/oso/oso_bloc.dart';
 import 'features/app/presentation/bloc/osoby/osoby/osoby_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal/personal_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal_filtered/personal_filtered_bloc.dart';
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<OsobyBloc>(
           create: (context) => OsobyBloc(),
         ),
+        BlocProvider<OsoBloc>(
+          create: (context) => OsoBloc(),
+        ),
         BlocProvider(
           create: (context) => PersonalBloc(),
         ),
@@ -43,7 +47,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<ExamRequestsBloc>(
           create: (context) =>
               ExamRequestsBloc(osobyBloc: context.read<OsobyBloc>()),
-        )
+        ),
       ],
       // child: MaterialApp(
       //   theme: theme(),
