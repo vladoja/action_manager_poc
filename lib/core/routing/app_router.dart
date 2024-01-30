@@ -29,7 +29,7 @@ final _rootNavigatorKey =
 final _nkZoznamy = GlobalKey<NavigatorState>(debugLabel: 'nkZoznamy');
 final _nkTerminy = GlobalKey<NavigatorState>(debugLabel: 'nkTerminy');
 final _nkPracovisko = GlobalKey<NavigatorState>(debugLabel: 'nkPracovisko');
-final _nkOsoba = GlobalKey<NavigatorState>(debugLabel: 'nkOsoba');
+final _nkOSO = GlobalKey<NavigatorState>(debugLabel: 'nkOSO');
 
 final _nkZoznamyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyOsoby');
 final _nkZoznamyPracoviska =
@@ -43,7 +43,7 @@ final _nkTerminyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkTerminyOsoby');
 final _nkTerminyPracoviska =
     GlobalKey<NavigatorState>(debugLabel: 'nkTerminyPracoviska');
 
-final _nkOsobaZoznam = GlobalKey<NavigatorState>(debugLabel: 'nkOsobaZoznam');
+final _nkOSOZoznam = GlobalKey<NavigatorState>(debugLabel: 'nkOSOZoznam');
 
 class AppRouter {
   static final router = GoRouter(
@@ -483,7 +483,7 @@ class AppRouter {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _nkOsoba,
+            navigatorKey: _nkOSO,
             // initialLocation: AppRoutes.navOsoba,
             routes: [
               StatefulShellRoute.indexedStack(
@@ -494,10 +494,10 @@ class AppRouter {
                           navDestinations: destinationsOSO),
                   branches: <StatefulShellBranch>[
                     StatefulShellBranch(
-                      navigatorKey: _nkOsobaZoznam,
+                      navigatorKey: _nkOSOZoznam,
                       routes: [
                         GoRoute(
-                          path: AppRoutes.navOsobaZoznam,
+                          path: AppRoutes.navOSOZoznam,
                           pageBuilder: (context, state) =>
                               RouterTransitionFactory.getTransitionPage(
                                   context: context,
