@@ -23,6 +23,12 @@ final destinationsTerminy = [
       label: 'Pracoviská', icon: Icon(Icons.car_repair)),
 ];
 
+final destinationsOSO = [
+  const NavigationDestination(label: 'Zoznam', icon: Icon(Icons.group)),
+  const NavigationDestination(
+      label: 'Zakladne Skol', icon: Icon(Icons.school_outlined)),
+];
+
 class AppRoutes {
   static const String navZoznamy = '/Zoznamy';
   static const String navTerminy = '/Terminy';
@@ -36,4 +42,6 @@ class AppRoutes {
 
   static const String navTerminyOsoby = '$navTerminy/Osoby';
   static const String navTerminyPracoviska = '$navTerminy/Pracoviska';
+
+  static const String navOsobaZoznam = '$navOsoba/Zoznam';
 }

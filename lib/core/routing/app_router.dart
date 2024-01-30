@@ -43,6 +43,8 @@ final _nkTerminyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkTerminyOsoby');
 final _nkTerminyPracoviska =
     GlobalKey<NavigatorState>(debugLabel: 'nkTerminyPracoviska');
 
+final _nkOsobaZoznam = GlobalKey<NavigatorState>(debugLabel: 'nkOsobaZoznam');
+
 class AppRouter {
   static final router = GoRouter(
     errorBuilder: (context, state) => Container(color: Colors.red),
@@ -482,31 +484,30 @@ class AppRouter {
           ),
           StatefulShellBranch(
             navigatorKey: _nkOsoba,
-            initialLocation: AppRoutes.navOsoba,
+            // initialLocation: AppRoutes.navOsoba,
             routes: [
-              GoRoute(
-                path: AppRoutes.navOsoba,
-                pageBuilder: (context, state) =>
-                    RouterTransitionFactory.getTransitionPage(
-                        context: context,
-                        state: state,
-                        child: const DummyScreen(
-                            label: 'Osoby',
-                            detailsPath: '${AppRoutes.navOsoba}/details'),
-                        type: 'scale'),
-                routes: [
-                  GoRoute(
-                    path: 'details',
-                    pageBuilder: (context, state) =>
-                        RouterTransitionFactory.getTransitionPage(
-                      context: context,
-                      state: state,
-                      child: const DetailsScreen(label: 'Osoby Detaily'),
-                      type: 'scale', // fade|rotation|scale|size
-                    ),
-                  ),
-                ],
-              ),
+              StatefulShellRoute.indexedStack(
+                  builder: (context, state, navigationShell) =>
+                      ScaffoldWithNestedNavigation(
+                          key: const ValueKey('StatefulShellRoute Oso'),
+                          navigationShell: navigationShell,
+                          navDestinations: destinationsOSO),
+                  branches: <StatefulShellBranch>[
+                    StatefulShellBranch(
+                      navigatorKey: _nkOsobaZoznam,
+                      routes: [
+                        GoRoute(
+                          path: AppRoutes.navOsobaZoznam,
+                          pageBuilder: (context, state) =>
+                              RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: const OsobyPage(),
+                                  type: 'scale'),
+                        ),
+                      ],
+                    )
+                  ])
             ],
           ),
         ],
