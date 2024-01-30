@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import '../../../../../config/enums/exam_event_application_status_enum.dart';
 
 class ExamEventApplication extends Equatable {
+  final int id;
   final int actionId;
   final int requestExamId;
   final String? formaOznamenia;
@@ -11,7 +12,8 @@ class ExamEventApplication extends Equatable {
   final ExamEventAppliationStatus status;
 
   const ExamEventApplication(
-      {required this.actionId,
+      {required this.id,
+      required this.actionId,
       required this.requestExamId,
       required this.formaOznamenia,
       required this.datumOznamenia,
@@ -19,14 +21,15 @@ class ExamEventApplication extends Equatable {
 
   @override
   List<Object?> get props =>
-      [actionId, requestExamId, formaOznamenia, datumOznamenia, status];
+      [id, actionId, requestExamId, formaOznamenia, datumOznamenia, status];
 
   @override
   String toString() {
-    return 'ExamEventApplication(actionId: $actionId, requestExamId: $requestExamId, formaOznamenia: $formaOznamenia, datumOznamenia: $datumOznamenia, status: $status)';
+    return 'ExamEventApplication(id: $id, actionId: $actionId, requestExamId: $requestExamId, formaOznamenia: $formaOznamenia, datumOznamenia: $datumOznamenia, status: $status)';
   }
 
   ExamEventApplication copyWith({
+    int? id,
     int? actionId,
     int? requestExamId,
     ValueGetter<String?>? formaOznamenia,
@@ -34,6 +37,7 @@ class ExamEventApplication extends Equatable {
     ExamEventAppliationStatus? status,
   }) {
     return ExamEventApplication(
+        id: id ?? this.id,
         actionId: actionId ?? this.actionId,
         requestExamId: requestExamId ?? this.requestExamId,
         formaOznamenia:

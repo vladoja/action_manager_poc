@@ -22,6 +22,7 @@ const exam_requests_data_temp = <ExamRequestEntity>[
 
 const exam_event_applications_temp = <ExamEventApplication>[
   ExamEventApplication(
+      id: 1,
       actionId: 1,
       requestExamId: 2,
       formaOznamenia: 'email',
