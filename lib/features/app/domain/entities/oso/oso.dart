@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
@@ -81,4 +83,41 @@ class OsoEntity extends Equatable {
           : this.platnostOsvedceniaDatum,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'meno': meno,
+      'priezvisko': priezvisko,
+      'titul': titul,
+      'telefon': telefon,
+      'datumNarodenia': datumNarodenia,
+      'miestoNarodenia': miestoNarodenia,
+      'bydlisko': bydlisko,
+      'pek': pek,
+      'cisloPeciatky': cisloPeciatky,
+      'platnostOsvedceniaDatum': platnostOsvedceniaDatum,
+    };
+  }
+
+  factory OsoEntity.fromMap(Map<String, dynamic> map) {
+    return OsoEntity(
+      id: map['id']?.toInt() ?? 0,
+      meno: map['meno'] ?? '',
+      priezvisko: map['priezvisko'] ?? '',
+      titul: map['titul'],
+      telefon: map['telefon'],
+      datumNarodenia: map['datumNarodenia'],
+      miestoNarodenia: map['miestoNarodenia'],
+      bydlisko: map['bydlisko'],
+      pek: map['pek'],
+      cisloPeciatky: map['cisloPeciatky'],
+      platnostOsvedceniaDatum: map['platnostOsvedceniaDatum'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory OsoEntity.fromJson(String source) =>
+      OsoEntity.fromMap(json.decode(source));
 }
