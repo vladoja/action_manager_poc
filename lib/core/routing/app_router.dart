@@ -9,6 +9,7 @@ import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
+import '../../features/app/presentation/pages/oso/oso_page.dart';
 import '../../features/app/presentation/pages/osoby/edit_osoba_page.dart';
 import '../../features/app/presentation/pages/osoby/osoba_create_exam_request_page.dart';
 import '../../features/app/presentation/pages/osoby/osoby_page.dart';
@@ -502,7 +503,7 @@ class AppRouter {
                               RouterTransitionFactory.getTransitionPage(
                                   context: context,
                                   state: state,
-                                  child: const OsobyPage(),
+                                  child: const OSOPage(),
                                   type: 'scale'),
                         ),
                       ],
