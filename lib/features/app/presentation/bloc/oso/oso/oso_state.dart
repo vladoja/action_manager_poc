@@ -6,7 +6,7 @@ class OsoState extends Equatable {
   const OsoState({required this.oso});
 
   factory OsoState.initial() {
-    return const OsoState(oso: <OsoEntity>[]);
+    return const OsoState(oso: <OsoEntity>[...oso_zoznam_dummy]);
   }
 
   @override
