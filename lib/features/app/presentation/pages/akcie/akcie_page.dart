@@ -52,7 +52,7 @@ class _AkciePageState extends State<AkciePage> {
                 icon: const Icon(Icons.refresh),
                 tooltip: "Tap me"),
           );
-        } else if (state is ActionDone) {
+        } else if (state is ActionDone || state is ActionInitial) {
           List<ActionEntity> actions = state.actions;
           if (actions.isEmpty) {
             return const Center(

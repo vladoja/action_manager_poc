@@ -30,6 +30,7 @@ class _ActionAddPersonalTableWidgetState
             persons: widget.persons,
             clickFunction: selectedPersons,
             showCheckboxColumnInTable: true,
+            selectedUsers: widget.selectedPersonIds,
           ),
         ),
       ],

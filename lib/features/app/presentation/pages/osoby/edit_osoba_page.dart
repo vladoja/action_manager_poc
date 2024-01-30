@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../config/routes/app_routes.dart';
 import '../../../../../core/widgets/delete_alert.dart';
 import '../../../../../core/widgets/widget_utils.dart';
 import '../../../domain/entities/osoba/osoba.dart';
 import '../../bloc/osoby/osoby/osoby_bloc.dart';
+import 'widgets/exam_request_preview.dart';
 
 class EditOsobaPage extends StatelessWidget {
   final OsobaEntity? person;
   // final scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'edit-osoba');
-  const EditOsobaPage({super.key, this.person});
+
+  final bool? showGoToEditPageButton;
+  const EditOsobaPage(
+      {super.key, this.person, this.showGoToEditPageButton = true});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +148,30 @@ class EditOsobaPage extends StatelessWidget {
                     },
                     child: const Text('Ulož')),
               ]),
-            )
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            (person != null)
+                ? OsobaExamPreviewWidget(
+                    osoba: person!,
+                    examRequestEntity: person!.examRequest,
+                  )
+                : const SizedBox.shrink(),
+            const SizedBox(
+              height: 30,
+            ),
+            (person != null && showGoToEditPageButton!)
+                ? FilledButton(
+                    onPressed: () {
+                      _goToEditActionPage(context, person!);
+                    },
+                    child: const Text(
+                      'Edituj',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : const SizedBox.shrink()
           ],
         ),
       ),
@@ -160,5 +188,9 @@ class EditOsobaPage extends StatelessWidget {
 
   void _onDeleteButtonTapped(BuildContext context, OsobaEntity person) {
     BlocProvider.of<OsobyBloc>(context).add(RemoveOsobaInOsoby(person));
+  }
+
+  void _goToEditActionPage(BuildContext context, OsobaEntity osoba) {
+    GoRouter.of(context).go('${AppRoutes.navZoznamyOsoby}/Edit', extra: osoba);
   }
 }
