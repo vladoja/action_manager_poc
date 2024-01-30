@@ -1,21 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../../config/enums/exam_event_status_enum.dart';
+import '../../../../../config/enums/exam_event_application_status_enum.dart';
 
 class ExamEventApplication extends Equatable {
   final int actionId;
   final int requestExamId;
   final String? formaOznamenia;
   final String? datumOznamenia;
-  final ExamEventStatus status;
+  final ExamEventAppliationStatus status;
 
   const ExamEventApplication(
       {required this.actionId,
       required this.requestExamId,
       required this.formaOznamenia,
       required this.datumOznamenia,
-      required this.status});
+      this.status = ExamEventAppliationStatus.aktivny});
 
   @override
   List<Object?> get props =>
@@ -31,7 +31,7 @@ class ExamEventApplication extends Equatable {
     int? requestExamId,
     ValueGetter<String?>? formaOznamenia,
     ValueGetter<String?>? datumOznamenia,
-    ExamEventStatus? status,
+    ExamEventAppliationStatus? status,
   }) {
     return ExamEventApplication(
         actionId: actionId ?? this.actionId,

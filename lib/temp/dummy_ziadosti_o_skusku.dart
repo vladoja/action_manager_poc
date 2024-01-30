@@ -1,3 +1,4 @@
+import '../features/app/domain/entities/exam/exam_event_application.dart';
 import '../features/app/domain/entities/exam/exam_request.dart';
 
 const exam_requests_data_temp = <ExamRequestEntity>[
@@ -17,4 +18,12 @@ const exam_requests_data_temp = <ExamRequestEntity>[
     userId: 3,
     examsAssigned: [1],
   ),
+];
+
+const exam_event_applications_temp = <ExamEventApplication>[
+  ExamEventApplication(
+      actionId: 1,
+      requestExamId: 2,
+      formaOznamenia: 'email',
+      datumOznamenia: '2024/01/31'),
 ];

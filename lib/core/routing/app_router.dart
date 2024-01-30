@@ -310,7 +310,8 @@ class AppRouter {
                                   child: AdaptiveLayoutWidget(
                                     body: ExamRequestDetailsPage(
                                         examRequest: examRequestEntity),
-                                    secondaryBody: ExamEventAppicationNewPage(),
+                                    secondaryBody: ExamEventAppicationNewPage(
+                                        examRequest: examRequestEntity),
                                     showSecondaryBody: true,
                                     secondaryBodyRatio: 0.6,
                                   ),

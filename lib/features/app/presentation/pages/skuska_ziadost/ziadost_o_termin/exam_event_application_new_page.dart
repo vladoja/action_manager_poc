@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/widgets/widget_utils.dart';
 import '../../../../domain/entities/exam/exam_event_application.dart';
+import '../../../../domain/entities/exam/exam_request.dart';
 
 class ExamEventAppicationNewPage extends StatelessWidget {
-  const ExamEventAppicationNewPage({super.key});
+  final ExamRequestEntity examRequest;
+  const ExamEventAppicationNewPage({super.key, required this.examRequest});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class ExamEventAppicationNewPage extends StatelessWidget {
                 children: [
                   buildFormTextField(
                       actionNameController, "ID ziadosti o skúšku",
-                      disableEditing: true, value: "3"),
+                      disableEditing: true, value: examRequest.id.toString()),
                   buildFormTextFieldWithDatePicker(
                       context, datumOznameniaController, "Dátum oznámenia"),
                   buildFormTextField(licenceEventController, "Forma oznamenia"),
