@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/oso/oso/oso_bloc.dart';
+import 'widgets/oso_table_widget.dart';
 
 class OSOPage extends StatelessWidget {
   final int? selectedOSOid;
@@ -20,7 +24,7 @@ class OSOPage extends StatelessWidget {
   _buildAppBar(BuildContext context) {
     return AppBar(
       title: const Text(
-        'AM - Zoznamy / OSOS (Odborne Spôsobilé Osoby)',
+        'AM - Zoznamy / OSO (Odborne Spôsobilé Osoby)',
         style: TextStyle(color: Colors.black),
       ),
     );
@@ -28,41 +32,29 @@ class OSOPage extends StatelessWidget {
 
   _buildBody(BuildContext context) {
     // watch
-    // final persons = context.watch<OsobyBloc>().state.osoby;
+    final osoby = context.watch<OsoBloc>().state.oso;
 
-    // int? selectedRowId;
-    // for (int i = 0; i < persons.length; i++) {
-    //   if (persons[i].id == selectedOSOid) {
-    //     selectedRowId = i;
-    //     break;
-    //   }
-    // }
+    int? selectedRowId;
+    for (int i = 0; i < osoby.length; i++) {
+      if (osoby[i].id == selectedOSOid) {
+        selectedRowId = i;
+        break;
+      }
+    }
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text('Search OSO'),
-          // Expanded(
-          //   child: OsobyTableWidget(
-          //     persons: persons,
-          //     clickFunction: (int id) {
-          //       print('Osoby Table. Clicked id: $id');
-          //       OsobaEntity previewedPerson = persons[id];
-          //       if (previewedPerson != null) {
-          //         ExamRequestEntity? examRequest =
-          //             _getExamRequestForOsoba(context, previewedPerson.id);
-          //         print(
-          //             'Osoba with "${previewedPerson.id}" has examRequest: $examRequest');
-          //         previewedPerson.copyWith(examRequest: () => examRequest);
-          //         previewedPerson =
-          //             previewedPerson.copyWith(examRequest: () => examRequest);
-          //       }
-          //       GoRouter.of(context).go('${AppRoutes.navZoznamyOsoby}/Details',
-          //           extra: previewedPerson);
-          //     },
-          //     highLighted: selectedRowId,
-          //   ),
-          // ),
+          Expanded(
+            child: OsoTableWidget(
+              osoby: osoby,
+              clickFunction: (int id) {
+                debugPrint('Oso Table. Clicked id: $id');
+              },
+              highLighted: selectedRowId,
+            ),
+          ),
         ],
       ),
     );

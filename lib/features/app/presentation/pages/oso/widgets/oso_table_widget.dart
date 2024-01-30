@@ -43,6 +43,9 @@ class OsoTableWidget extends StatelessWidget {
     DataColumn2(
       label: Text('Datum Narodenia'),
     ),
+    DataColumn2(
+      label: Text('Miesto Narodenia'),
+    ),
   ];
 
   final List<String> columnValues = [
@@ -52,6 +55,7 @@ class OsoTableWidget extends StatelessWidget {
     "priezvisko",
     "titul",
     "datumNarodenia",
+    "miestoNarodenia",
   ];
 
   void handleClickOnRow(int rowIndex) {
