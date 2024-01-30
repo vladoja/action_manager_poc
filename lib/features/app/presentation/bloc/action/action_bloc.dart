@@ -11,13 +11,15 @@ part 'action_event.dart';
 part 'action_state.dart';
 
 class ActionBloc extends Bloc<ActionEvent, ActionState> {
-  ActionBloc() : super(ActionLoading()) {
+  ActionBloc() : super(ActionInitial()) {
+    // ActionBloc() : super(ActionLoading()) {
     on<GetActionsEvent>(_onGetActionsEvent);
     on<CreateActionEvent>(_onCreateActionEvent);
     on<UpdateActionEvent>(_updateActionEvent);
     on<RemoveActionEvent>(_removeActionEvent);
     on<AddPersonalToActionEvent>(_onAddPersonalToActionEvent);
     on<RemovePersonalFromActionEvent>(_onRemovePersonalFromActionEvent);
+    // add(GetActionsEvent());
   }
 
   FutureOr<void> _onGetActionsEvent(

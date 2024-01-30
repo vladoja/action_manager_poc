@@ -15,3 +15,9 @@ class CreateExamRequestEvent extends ExamRequestsEvent {
 
   CreateExamRequestEvent({required this.examRequest});
 }
+
+class UpdateExamRequestEvent extends ExamRequestsEvent {
+  final ExamRequestEntity examRequest;
+
+  UpdateExamRequestEvent({required this.examRequest});
+}
