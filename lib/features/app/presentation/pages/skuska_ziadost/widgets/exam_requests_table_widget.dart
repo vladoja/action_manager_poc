@@ -112,7 +112,7 @@ class ExamRequestTableRowMapper {
   static DataRow examRequestEntityToRow(ExamRequestEntity model,
       List<String> columns, void Function(bool?)? onTap,
       {bool isHighLighted = false, bool selected = false}) {
-    print('ExamRequestEntity: $model');
+    // print('ExamRequestEntity: $model');
     List<DataCell> cells = List<DataCell>.empty(growable: true);
     Map<String, dynamic> personJSON = model.toMap();
     for (var columnValue in columns) {
