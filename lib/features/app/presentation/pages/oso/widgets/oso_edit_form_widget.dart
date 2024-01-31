@@ -79,6 +79,19 @@ class OsoEditFormWidget extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                buildFormTextField(cisloPeciatky, "Cislo peciatky",
+                    value: (person != null) ? person!.cisloPeciatky : null),
+                const SizedBox(
+                  height: 10,
+                ),
+                buildFormTextField(
+                    platnostOsvedceniaDatum, "Platnost Osvedcenia",
+                    value: (person != null)
+                        ? person!.platnostOsvedceniaDatum
+                        : null),
+                const SizedBox(
+                  height: 10,
+                ),
                 buildFormTextField(bydlisko, "Bydlisko",
                     value: (person != null) ? person!.bydlisko : null),
                 const SizedBox(
@@ -89,12 +102,12 @@ class OsoEditFormWidget extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                buildFormTextField(telefon, "Datum narodenia",
+                buildFormTextField(datumNarodenia, "Datum narodenia",
                     value: (person != null) ? person!.datumNarodenia : null),
                 const SizedBox(
                   height: 10,
                 ),
-                buildFormTextField(telefon, "Miesto narodenia",
+                buildFormTextField(miestoNarodenia, "Miesto narodenia",
                     value: (person != null) ? person!.miestoNarodenia : null),
                 const SizedBox(
                   height: 10,
