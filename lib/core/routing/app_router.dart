@@ -9,6 +9,7 @@ import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
+import '../../features/app/presentation/pages/oso/oso_create_page.dart';
 import '../../features/app/presentation/pages/oso/oso_page.dart';
 import '../../features/app/presentation/pages/osoby/edit_osoba_page.dart';
 import '../../features/app/presentation/pages/osoby/osoba_create_exam_request_page.dart';
@@ -505,6 +506,21 @@ class AppRouter {
                                   state: state,
                                   child: const OSOPage(),
                                   type: 'scale'),
+                          routes: [
+                            GoRoute(
+                              path: 'New',
+                              pageBuilder: (context, state) =>
+                                  RouterTransitionFactory.getTransitionPage(
+                                      context: context,
+                                      state: state,
+                                      child: const AdaptiveLayoutWidget(
+                                        body: OSOPage(),
+                                        secondaryBody: OsoCreatePage(),
+                                        showSecondaryBody: true,
+                                      ),
+                                      type: 'size'),
+                            ),
+                          ],
                         ),
                       ],
                     )

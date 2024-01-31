@@ -1,5 +1,7 @@
+import 'package:action_manager_poc/config/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../bloc/oso/oso/oso_bloc.dart';
 import 'widgets/oso_table_widget.dart';
@@ -15,7 +17,7 @@ class OSOPage extends StatelessWidget {
       body: _buildBody(context),
       floatingActionButton: IconButton(
           onPressed: () {
-            // _onCreateNewOsoba(context);
+            _onCreateNewOso(context);
           },
           icon: const Icon(Icons.add_circle_outline_sharp)),
     );
@@ -58,5 +60,9 @@ class OSOPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _onCreateNewOso(BuildContext context) {
+    GoRouter.of(context).go('${AppRoutes.navOSOZoznam}/New');
   }
 }
