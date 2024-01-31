@@ -7,3 +7,8 @@ abstract class OsoEvent {
 class GetOSO extends OsoEvent {
   const GetOSO();
 }
+
+class CreateOsoInOso extends OsoEvent {
+  final OsoEntity osoba;
+  const CreateOsoInOso(this.osoba);
+}

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/widgets/widget_utils.dart';
 import '../../../../domain/entities/oso/oso.dart';
+import '../../../bloc/oso/oso/oso_bloc.dart';
 
 class OsoEditFormWidget extends StatelessWidget {
   final OsoEntity? person;
@@ -147,7 +149,8 @@ class OsoEditFormWidget extends StatelessWidget {
     );
   }
 
-  void _onCreateButtonTapped(BuildContext context, OsoEntity person) {
+  void _onCreateButtonTapped(BuildContext context, OsoEntity osoba) {
+    BlocProvider.of<OsoBloc>(context).add(CreateOsoInOso(osoba));
     // BlocProvider.of<OsobyBloc>(context).add(CreateOsobaInOsoby(person));
   }
 
