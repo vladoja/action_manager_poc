@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../utils/action_utils.dart';
 
 buildFormTextField(TextEditingController controller, String label,
-    {String? value, bool disableEditing = false}) {
+    {String? value, bool disableEditing = false, bool allowNullValue = false}) {
   if (value != null && value.isNotEmpty) {
     controller.text = value;
   }
@@ -12,7 +12,7 @@ buildFormTextField(TextEditingController controller, String label,
     controller: controller,
     decoration: InputDecoration(labelText: label),
     validator: (value) {
-      if (value == null || value.isEmpty) {
+      if (allowNullValue == false && (value == null || value.isEmpty)) {
         return 'Please enter some text';
       }
       return null;

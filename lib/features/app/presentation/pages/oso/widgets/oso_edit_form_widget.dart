@@ -75,12 +75,14 @@ class OsoEditFormWidget extends StatelessWidget {
                   height: 10,
                 ),
                 buildFormTextField(pek, "PEK (Zamestnávateľ)",
-                    value: (person != null) ? person!.pek : null),
+                    value: (person != null) ? person!.pek : null,
+                    allowNullValue: true),
                 const SizedBox(
                   height: 10,
                 ),
                 buildFormTextField(cisloPeciatky, "Cislo peciatky",
-                    value: (person != null) ? person!.cisloPeciatky : null),
+                    value: (person != null) ? person!.cisloPeciatky : null,
+                    allowNullValue: true),
                 const SizedBox(
                   height: 10,
                 ),
@@ -88,7 +90,8 @@ class OsoEditFormWidget extends StatelessWidget {
                     platnostOsvedceniaDatum, "Platnost Osvedcenia",
                     value: (person != null)
                         ? person!.platnostOsvedceniaDatum
-                        : null),
+                        : null,
+                    allowNullValue: true),
                 const SizedBox(
                   height: 10,
                 ),
