@@ -4,12 +4,14 @@ import 'package:go_router/go_router.dart';
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/action.dart';
 import '../../features/app/domain/entities/exam/exam_request.dart';
+import '../../features/app/domain/entities/oso/oso.dart';
 import '../../features/app/domain/entities/osoba/osoba.dart';
 import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
 import '../../features/app/presentation/pages/oso/oso_create_page.dart';
+import '../../features/app/presentation/pages/oso/oso_details_page.dart';
 import '../../features/app/presentation/pages/oso/oso_page.dart';
 import '../../features/app/presentation/pages/osoby/edit_osoba_page.dart';
 import '../../features/app/presentation/pages/osoby/osoba_create_exam_request_page.dart';
@@ -519,6 +521,31 @@ class AppRouter {
                                         showSecondaryBody: true,
                                       ),
                                       type: 'size'),
+                            ),
+                            GoRoute(
+                              path: 'Details',
+                              redirect: (context, state) {
+                                if (state.extra == null) {
+                                  return AppRoutes.navOSOZoznam;
+                                } else {
+                                  return null;
+                                }
+                              },
+                              pageBuilder: (context, state) {
+                                final selectedOso = state.extra as OsoEntity;
+                                return RouterTransitionFactory
+                                    .getTransitionPage(
+                                        context: context,
+                                        state: state,
+                                        child: AdaptiveLayoutWidget(
+                                          body: OSOPage(
+                                              selectedOSOid: selectedOso.id),
+                                          secondaryBody:
+                                              OsoDetailsPage(oso: selectedOso),
+                                          showSecondaryBody: true,
+                                        ),
+                                        type: 'size');
+                              },
                             ),
                           ],
                         ),

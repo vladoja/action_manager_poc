@@ -1,8 +1,9 @@
-import 'package:action_manager_poc/config/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../config/routes/app_routes.dart';
+import '../../../domain/entities/oso/oso.dart';
 import '../../bloc/oso/oso/oso_bloc.dart';
 import 'widgets/oso_table_widget.dart';
 
@@ -53,6 +54,8 @@ class OSOPage extends StatelessWidget {
               osoby: osoby,
               clickFunction: (int id) {
                 debugPrint('Oso Table. Clicked id: $id');
+                OsoEntity previevedOso = osoby[id];
+                _goToOsoDetailsPage(context, previevedOso);
               },
               highLighted: selectedRowId,
             ),
@@ -64,5 +67,9 @@ class OSOPage extends StatelessWidget {
 
   void _onCreateNewOso(BuildContext context) {
     GoRouter.of(context).go('${AppRoutes.navOSOZoznam}/New');
+  }
+
+  void _goToOsoDetailsPage(BuildContext context, OsoEntity oso) {
+    GoRouter.of(context).go('${AppRoutes.navOSOZoznam}/Details', extra: oso);
   }
 }
