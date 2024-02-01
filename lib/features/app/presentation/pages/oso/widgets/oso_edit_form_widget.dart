@@ -156,7 +156,7 @@ class OsoEditFormWidget extends StatelessWidget {
                         Navigator.of(context).pop();
                       }
                     },
-                    child: const Text('Ulož')),
+                    child: Text(person == null ? 'Vytvor' : 'Ulož')),
               ]),
             ),
           ],
@@ -167,10 +167,9 @@ class OsoEditFormWidget extends StatelessWidget {
 
   void _onCreateButtonTapped(BuildContext context, OsoEntity osoba) {
     BlocProvider.of<OsoBloc>(context).add(CreateOsoInOso(osoba));
-    // BlocProvider.of<OsobyBloc>(context).add(CreateOsobaInOsoby(person));
   }
 
-  void _onEditButtonTapped(BuildContext context, OsoEntity person) {
-    // BlocProvider.of<OsobyBloc>(context).add(UpdateOsobaInOsoby(person));
+  void _onEditButtonTapped(BuildContext context, OsoEntity osoba) {
+    BlocProvider.of<OsoBloc>(context).add(UpdateOsoInOso(osoba));
   }
 }

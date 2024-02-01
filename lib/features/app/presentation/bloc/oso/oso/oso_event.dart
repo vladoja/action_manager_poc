@@ -12,3 +12,8 @@ class CreateOsoInOso extends OsoEvent {
   final OsoEntity osoba;
   const CreateOsoInOso(this.osoba);
 }
+
+class UpdateOsoInOso extends OsoEvent {
+  final OsoEntity osoba;
+  const UpdateOsoInOso(this.osoba);
+}
