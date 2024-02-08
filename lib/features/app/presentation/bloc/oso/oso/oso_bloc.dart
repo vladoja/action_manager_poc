@@ -14,6 +14,7 @@ class OsoBloc extends Bloc<OsoEvent, OsoState> {
     on<GetOSO>(_onGetOSO);
     on<CreateOsoInOso>(_onCreateOsoInOso);
     on<UpdateOsoInOso>(_onUpdateOsoInOso);
+    on<RemoveOsoInOso>(_onRemoveOsoInOso);
   }
 
   FutureOr<void> _onGetOSO(GetOSO event, Emitter<OsoState> emit) {}
@@ -35,6 +36,15 @@ class OsoBloc extends Bloc<OsoEvent, OsoState> {
     oso.addAll(state.oso);
     oso.removeWhere((element) => element.id == osoToUpdate.id);
     oso.add(osoToUpdate);
+    emit(OsoState(oso: oso));
+  }
+
+  FutureOr<void> _onRemoveOsoInOso(
+      RemoveOsoInOso event, Emitter<OsoState> emit) {
+    List<OsoEntity> oso = [];
+    OsoEntity osoToUpdate = event.osoba;
+    oso.addAll(state.oso);
+    oso.removeWhere((element) => element.id == osoToUpdate.id);
     emit(OsoState(oso: oso));
   }
 }
