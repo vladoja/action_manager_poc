@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 
 /// Example without datasource
 class TableWidget extends StatelessWidget {
-  const TableWidget(
-      {super.key,
-      required this.columns,
-      required this.rows,
-      this.showCheckboxColumn = false});
+  const TableWidget({
+    super.key,
+    required this.columns,
+    required this.rows,
+    this.showCheckboxColumn = false,
+    this.isHorizontalScrollBarVisible = true,
+    this.isVerticalScrollBarVisible = true,
+  });
   final List<DataColumn2> columns;
   final List<DataRow> rows;
   final bool showCheckboxColumn;
+  final bool isHorizontalScrollBarVisible;
+  final bool isVerticalScrollBarVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,8 @@ class TableWidget extends StatelessWidget {
         showCheckboxColumn: showCheckboxColumn,
         columns: columns,
         rows: rows,
+        isHorizontalScrollBarVisible: isHorizontalScrollBarVisible,
+        isVerticalScrollBarVisible: isVerticalScrollBarVisible,
       ),
     );
   }
