@@ -28,13 +28,16 @@ class OsoTableWidget extends StatelessWidget {
       label: Text('PEK'),
     ),
     DataColumn2(
+      label: Text('Číslo pečiatky'),
+    ),
+    DataColumn2(
       label: Text('Platnost OSV'),
     ),
     DataColumn2(
-      label: Text('Meno'),
+      label: Text('Priezvisko'),
     ),
     DataColumn2(
-      label: Text('Priezvisko'),
+      label: Text('Meno'),
     ),
     DataColumn2(
       size: ColumnSize.S,
@@ -44,18 +47,19 @@ class OsoTableWidget extends StatelessWidget {
       label: Text('Datum Narodenia'),
     ),
     DataColumn2(
-      label: Text('Miesto Narodenia'),
+      label: Text('Bydlisko'),
     ),
   ];
 
   final List<String> columnValues = [
     "pek",
+    "cisloPeciatky",
     "platnostOsvedceniaDatum",
-    "meno",
     "priezvisko",
+    "meno",
     "titul",
     "datumNarodenia",
-    "miestoNarodenia",
+    "bydlisko",
   ];
 
   void handleClickOnRow(int rowIndex) {

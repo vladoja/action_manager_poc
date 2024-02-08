@@ -10,9 +10,9 @@ const oso_zoznam_dummy = [
       datumNarodenia: "5.5.1955",
       miestoNarodenia: "Šala",
       bydlisko: "Sereď",
-      pek: null,
-      cisloPeciatky: null,
-      platnostOsvedceniaDatum: null),
+      pek: "1001",
+      cisloPeciatky: "1001/001",
+      platnostOsvedceniaDatum: "2025/03/31"),
   OsoEntity(
       id: 2,
       meno: "Juraj",
