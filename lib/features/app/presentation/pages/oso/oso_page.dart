@@ -1,3 +1,4 @@
+import 'package:action_manager_poc/features/app/presentation/pages/oso/widgets/search_oso_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -48,7 +49,10 @@ class OSOPage extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text('Search OSO'),
+          const SearchOsoWidget(),
+          const SizedBox(
+            height: 10,
+          ),
           Expanded(
             child: OsoTableWidget(
               osoby: osoby,
