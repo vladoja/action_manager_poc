@@ -1,4 +1,3 @@
-import 'package:action_manager_poc/features/app/presentation/pages/oso/widgets/search_oso_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -6,7 +5,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../../config/routes/app_routes.dart';
 import '../../../domain/entities/oso/oso.dart';
 import '../../bloc/oso/oso/oso_bloc.dart';
+import '../../bloc/oso/oso_filtered/oso_filtered_bloc.dart';
 import 'widgets/oso_table_widget.dart';
+import 'widgets/search_oso_widget.dart';
 
 class OSOPage extends StatelessWidget {
   final int? selectedOSOid;
@@ -36,7 +37,7 @@ class OSOPage extends StatelessWidget {
 
   _buildBody(BuildContext context) {
     // watch
-    final osoby = context.watch<OsoBloc>().state.oso;
+    final osoby = context.watch<OsoFilteredBloc>().state.osoFiltered;
 
     int? selectedRowId;
     for (int i = 0; i < osoby.length; i++) {
@@ -45,26 +46,37 @@ class OSOPage extends StatelessWidget {
         break;
       }
     }
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SearchOsoWidget(),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: OsoTableWidget(
-              osoby: osoby,
-              clickFunction: (int id) {
-                debugPrint('Oso Table. Clicked id: $id');
-                OsoEntity previevedOso = osoby[id];
-                _goToOsoDetailsPage(context, previevedOso);
-              },
-              highLighted: selectedRowId,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<OsoBloc, OsoState>(
+          listener: (context, state) {
+            context
+                .read<OsoFilteredBloc>()
+                .add(CalculateFilteredOsoEvent(osoFiltered: state.oso));
+          },
+        ),
+      ],
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SearchOsoWidget(),
+            const SizedBox(
+              height: 10,
             ),
-          ),
-        ],
+            Expanded(
+              child: OsoTableWidget(
+                osoby: osoby,
+                clickFunction: (int id) {
+                  debugPrint('Oso Table. Clicked id: $id');
+                  OsoEntity previevedOso = osoby[id];
+                  _goToOsoDetailsPage(context, previevedOso);
+                },
+                highLighted: selectedRowId,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,9 +9,14 @@ part 'oso_filtered_event.dart';
 part 'oso_filtered_state.dart';
 
 class OsoFilteredBloc extends Bloc<OsoFilteredEvent, OsoFilteredState> {
-  OsoFilteredBloc() : super(OsoFilteredState.initial()) {
-    on<OsoFilteredEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+  final List<OsoEntity> initialOso;
+  OsoFilteredBloc({required this.initialOso})
+      : super(OsoFilteredState(osoFiltered: initialOso)) {
+    on<CalculateFilteredOsoEvent>(_onCalculateFilteredOsoEvent);
+  }
+
+  FutureOr<void> _onCalculateFilteredOsoEvent(
+      CalculateFilteredOsoEvent event, Emitter<OsoFilteredState> emit) {
+    emit(state.copyWith(osoFiltered: event.osoFiltered));
   }
 }
