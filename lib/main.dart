@@ -7,6 +7,7 @@ import 'core/routing/app_router.dart';
 import 'features/app/presentation/bloc/action/action_bloc.dart';
 import 'features/app/presentation/bloc/exam_request/exam_requests_bloc.dart';
 import 'features/app/presentation/bloc/oso/oso/oso_bloc.dart';
+import 'features/app/presentation/bloc/oso/oso_filter/oso_filter_bloc.dart';
 import 'features/app/presentation/bloc/osoby/osoby/osoby_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal/personal_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal_filtered/personal_filtered_bloc.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<OsoBloc>(
           create: (context) => OsoBloc(),
+        ),
+        BlocProvider<OsoFilterBloc>(
+          create: (context) => OsoFilterBloc(),
         ),
         BlocProvider(
           create: (context) => PersonalBloc(),

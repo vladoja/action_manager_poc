@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../bloc/oso/oso_filter/oso_filter_bloc.dart';
 
 class SearchOsoWidget extends StatelessWidget {
-  const SearchOsoWidget({super.key});
+  final int minSearchLength;
+  const SearchOsoWidget({super.key, this.minSearchLength = 3});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +17,9 @@ class SearchOsoWidget extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: TextFormField(
             validator: (value) {
-              if (value == null || getCleanedText(value).length < 2) {
-                return 'Zadaj minimalne 2 znaky';
+              if (value == null ||
+                  getCleanedText(value).length < minSearchLength) {
+                return 'Zadaj minimalne $minSearchLength znaky';
               }
               if (value != getCleanedText(value)) {
                 return 'Retazec obsahuje nepovolene znaky';
@@ -31,10 +36,11 @@ class SearchOsoWidget extends StatelessWidget {
               if (newSearchTerm != null && newSearchTerm.length > 1) {
                 String searchedTerm = getCleanedText(newSearchTerm);
                 debugPrint('Searching for: "$searchedTerm"');
+                setSearchTerm(context, searchedTerm);
               }
               // else {
               //   // formKey.currentState!.validate();
-              //   debugPrint('Search. At least 2 characters');
+              //   debugPrint('Search. At least minSearchLength characters');
               // }
             },
           ),
@@ -46,4 +52,8 @@ class SearchOsoWidget extends StatelessWidget {
 
 String getCleanedText(String text) {
   return text.replaceAll(RegExp(r"\s+"), '');
+}
+
+setSearchTerm(BuildContext context, String searchTerm) {
+  context.read<OsoFilterBloc>().add(SetOsoSearchTerm(searchTerm: searchTerm));
 }
