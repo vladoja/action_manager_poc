@@ -29,6 +29,8 @@ List<OsoEntity> calculateFilteredOso(List<OsoEntity> osoby, String searchTerm) {
     final String searchTermLowerCase = searchTerm.toLowerCase();
     filteredOso = filteredOso
         .where((OsoEntity person) =>
+            (person.cisloPeciatky != null &&
+                person.cisloPeciatky!.contains(searchTermLowerCase)) ||
             person.priezvisko.toLowerCase().contains(searchTermLowerCase) ||
             person.meno.toLowerCase().contains(searchTermLowerCase))
         .toList();

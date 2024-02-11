@@ -19,8 +19,11 @@ class SearchOsoWidget extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: TextFormField(
             validator: (value) {
-              if (value == null ||
-                  getCleanedText(value).length < minSearchLength) {
+              if (value == null || value.isEmpty) {
+                return null;
+              }
+
+              if (getCleanedText(value).length < minSearchLength) {
                 return 'Zadaj minimalne $minSearchLength znaky';
               }
               if (value != getCleanedText(value)) {
