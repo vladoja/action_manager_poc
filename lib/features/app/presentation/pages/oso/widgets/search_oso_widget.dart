@@ -12,12 +12,14 @@ class SearchOsoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final TextEditingController searchController = TextEditingController();
     return Column(
       children: [
         Form(
           key: formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: TextFormField(
+            controller: searchController,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return null;
@@ -31,11 +33,18 @@ class SearchOsoWidget extends StatelessWidget {
               }
               return null;
             },
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               labelText: 'Vyhladaj ...',
               border: InputBorder.none,
               filled: false,
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: const Icon(Icons.search),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  searchController.clear();
+                  setSearchTerm(context, '');
+                },
+                icon: const Icon(Icons.clear_rounded),
+              ),
             ),
             onChanged: (String? newSearchTerm) {
               if (newSearchTerm != null &&
