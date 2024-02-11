@@ -11,8 +11,10 @@ class SearchOsoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String currentSearchTerm = context.watch<OsoFilterBloc>().state.searchTerm;
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final TextEditingController searchController = TextEditingController();
+    searchController.text = currentSearchTerm;
     return Column(
       children: [
         Form(
