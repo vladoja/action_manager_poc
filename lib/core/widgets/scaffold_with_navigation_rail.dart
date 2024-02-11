@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../features/app/presentation/bloc/settings/settings_bloc.dart';
 
 class ScaffoldWithNavigationRail extends StatelessWidget {
   const ScaffoldWithNavigationRail({
@@ -35,8 +38,10 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
                   ? Padding(
                       padding: const EdgeInsets.only(top: 50),
                       child: IconButton(
-                        icon: Icon(Icons.swap_horizontal_circle_outlined),
-                        onPressed: () {},
+                        icon: const Icon(Icons.swap_horizontal_circle_outlined),
+                        onPressed: () {
+                          _handleShowTitlesInMainRail(context);
+                        },
                       ),
                     )
                   : const SizedBox.shrink(),
@@ -53,5 +58,11 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _handleShowTitlesInMainRail(BuildContext context) {
+    context
+        .read<SettingsBloc>()
+        .add(SetSettingsEvent(showTitlesInMainRail: true));
   }
 }

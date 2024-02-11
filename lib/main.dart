@@ -13,6 +13,7 @@ import 'features/app/presentation/bloc/osoby/osoby/osoby_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal/personal_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal_filtered/personal_filtered_bloc.dart';
 import 'features/app/presentation/bloc/personal/personal_search/personal_search_bloc.dart';
+import 'features/app/presentation/bloc/settings/settings_bloc.dart';
 
 final GoRouter router = AppRouter.router;
 
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<SettingsBloc>(
+          create: (context) => SettingsBloc(),
+        ),
         BlocProvider<OsobyBloc>(
           create: (context) => OsobyBloc(),
         ),
