@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../config/constants.dart';
 import '../../../bloc/oso/oso_filter/oso_filter_bloc.dart';
 
 class SearchOsoWidget extends StatelessWidget {
   final int minSearchLength;
-  const SearchOsoWidget({super.key, this.minSearchLength = 3});
+  const SearchOsoWidget(
+      {super.key, this.minSearchLength = kOsoSearchMinCharacters});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +35,13 @@ class SearchOsoWidget extends StatelessWidget {
               prefixIcon: Icon(Icons.search),
             ),
             onChanged: (String? newSearchTerm) {
-              if (newSearchTerm != null && newSearchTerm.length > 1) {
+              if (newSearchTerm != null &&
+                  newSearchTerm.length >= kOsoSearchMinCharacters) {
                 String searchedTerm = getCleanedText(newSearchTerm);
                 debugPrint('Searching for: "$searchedTerm"');
                 setSearchTerm(context, searchedTerm);
+              } else if (newSearchTerm != null && newSearchTerm.isEmpty) {
+                setSearchTerm(context, '');
               }
               // else {
               //   // formKey.currentState!.validate();
