@@ -4,11 +4,15 @@ import 'package:go_router/go_router.dart';
 import '../../config/routes/app_routes.dart';
 import '../../features/app/domain/entities/action.dart';
 import '../../features/app/domain/entities/exam/exam_request.dart';
+import '../../features/app/domain/entities/oso/oso.dart';
 import '../../features/app/domain/entities/osoba/osoba.dart';
 import '../../features/app/domain/entities/person/person.dart';
 import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
+import '../../features/app/presentation/pages/oso/oso_create_page.dart';
+import '../../features/app/presentation/pages/oso/oso_details_page.dart';
+import '../../features/app/presentation/pages/oso/oso_page.dart';
 import '../../features/app/presentation/pages/osoby/edit_osoba_page.dart';
 import '../../features/app/presentation/pages/osoby/osoba_create_exam_request_page.dart';
 import '../../features/app/presentation/pages/osoby/osoby_page.dart';
@@ -29,7 +33,7 @@ final _rootNavigatorKey =
 final _nkZoznamy = GlobalKey<NavigatorState>(debugLabel: 'nkZoznamy');
 final _nkTerminy = GlobalKey<NavigatorState>(debugLabel: 'nkTerminy');
 final _nkPracovisko = GlobalKey<NavigatorState>(debugLabel: 'nkPracovisko');
-final _nkOsoba = GlobalKey<NavigatorState>(debugLabel: 'nkOsoba');
+final _nkOSO = GlobalKey<NavigatorState>(debugLabel: 'nkOSO');
 
 final _nkZoznamyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkZoznamyOsoby');
 final _nkZoznamyPracoviska =
@@ -42,6 +46,8 @@ final _nkZoznamyZiadostiOSkusku =
 final _nkTerminyOsoby = GlobalKey<NavigatorState>(debugLabel: 'nkTerminyOsoby');
 final _nkTerminyPracoviska =
     GlobalKey<NavigatorState>(debugLabel: 'nkTerminyPracoviska');
+
+final _nkOSOZoznam = GlobalKey<NavigatorState>(debugLabel: 'nkOSOZoznam');
 
 class AppRouter {
   static final router = GoRouter(
@@ -481,32 +487,71 @@ class AppRouter {
             ],
           ),
           StatefulShellBranch(
-            navigatorKey: _nkOsoba,
-            initialLocation: AppRoutes.navOsoba,
+            navigatorKey: _nkOSO,
+            // initialLocation: AppRoutes.navOsoba,
             routes: [
-              GoRoute(
-                path: AppRoutes.navOsoba,
-                pageBuilder: (context, state) =>
-                    RouterTransitionFactory.getTransitionPage(
-                        context: context,
-                        state: state,
-                        child: const DummyScreen(
-                            label: 'Osoby',
-                            detailsPath: '${AppRoutes.navOsoba}/details'),
-                        type: 'scale'),
-                routes: [
-                  GoRoute(
-                    path: 'details',
-                    pageBuilder: (context, state) =>
-                        RouterTransitionFactory.getTransitionPage(
-                      context: context,
-                      state: state,
-                      child: const DetailsScreen(label: 'Osoby Detaily'),
-                      type: 'scale', // fade|rotation|scale|size
-                    ),
-                  ),
-                ],
-              ),
+              StatefulShellRoute.indexedStack(
+                  builder: (context, state, navigationShell) =>
+                      ScaffoldWithNestedNavigation(
+                          key: const ValueKey('StatefulShellRoute Oso'),
+                          navigationShell: navigationShell,
+                          navDestinations: destinationsOSO),
+                  branches: <StatefulShellBranch>[
+                    StatefulShellBranch(
+                      navigatorKey: _nkOSOZoznam,
+                      routes: [
+                        GoRoute(
+                          path: AppRoutes.navOSOZoznam,
+                          pageBuilder: (context, state) =>
+                              RouterTransitionFactory.getTransitionPage(
+                                  context: context,
+                                  state: state,
+                                  child: const OSOPage(),
+                                  type: 'scale'),
+                          routes: [
+                            GoRoute(
+                              path: 'New',
+                              pageBuilder: (context, state) =>
+                                  RouterTransitionFactory.getTransitionPage(
+                                      context: context,
+                                      state: state,
+                                      child: const AdaptiveLayoutWidget(
+                                        body: OSOPage(),
+                                        secondaryBody: OsoCreatePage(),
+                                        showSecondaryBody: true,
+                                      ),
+                                      type: 'size'),
+                            ),
+                            GoRoute(
+                              path: 'Details',
+                              redirect: (context, state) {
+                                if (state.extra == null) {
+                                  return AppRoutes.navOSOZoznam;
+                                } else {
+                                  return null;
+                                }
+                              },
+                              pageBuilder: (context, state) {
+                                final selectedOso = state.extra as OsoEntity;
+                                return RouterTransitionFactory
+                                    .getTransitionPage(
+                                        context: context,
+                                        state: state,
+                                        child: AdaptiveLayoutWidget(
+                                          body: OSOPage(
+                                              selectedOSOid: selectedOso.id),
+                                          secondaryBody:
+                                              OsoDetailsPage(oso: selectedOso),
+                                          showSecondaryBody: true,
+                                        ),
+                                        type: 'size');
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ])
             ],
           ),
         ],
