@@ -17,6 +17,21 @@ class OsoFilteredBloc extends Bloc<OsoFilteredEvent, OsoFilteredState> {
 
   FutureOr<void> _onCalculateFilteredOsoEvent(
       CalculateFilteredOsoEvent event, Emitter<OsoFilteredState> emit) {
-    emit(state.copyWith(osoFiltered: event.osoFiltered));
+    List<OsoEntity> filteredOso =
+        calculateFilteredOso(event.osoFiltered, event.searchedTerm);
+    emit(state.copyWith(osoFiltered: filteredOso));
   }
+}
+
+List<OsoEntity> calculateFilteredOso(List<OsoEntity> osoby, String searchTerm) {
+  List<OsoEntity> filteredOso = [...osoby];
+  if (searchTerm.isNotEmpty) {
+    final String searchTermLowerCase = searchTerm.toLowerCase();
+    filteredOso = filteredOso
+        .where((OsoEntity person) =>
+            person.priezvisko.toLowerCase().contains(searchTermLowerCase) ||
+            person.meno.toLowerCase().contains(searchTermLowerCase))
+        .toList();
+  }
+  return filteredOso;
 }
