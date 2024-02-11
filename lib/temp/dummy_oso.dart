@@ -25,4 +25,16 @@ const oso_zoznam_dummy = [
       pek: null,
       cisloPeciatky: null,
       platnostOsvedceniaDatum: null),
+  OsoEntity(
+      id: 3,
+      meno: "Michal",
+      priezvisko: "Molotov",
+      titul: "BC",
+      telefon: "0901222123",
+      datumNarodenia: "11.8.1957",
+      miestoNarodenia: "Sniná",
+      bydlisko: "Sereď",
+      pek: "1001",
+      cisloPeciatky: "1001/003",
+      platnostOsvedceniaDatum: "2024/06/30"),
 ];

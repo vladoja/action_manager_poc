@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../config/routes/app_routes.dart';
 import '../../../domain/entities/oso/oso.dart';
 import '../../bloc/oso/oso/oso_bloc.dart';
+import '../../bloc/oso/oso_filter/oso_filter_bloc.dart';
 import '../../bloc/oso/oso_filtered/oso_filtered_bloc.dart';
 import 'widgets/oso_table_widget.dart';
 import 'widgets/search_oso_widget.dart';
@@ -55,6 +56,14 @@ class OSOPage extends StatelessWidget {
                 .add(CalculateFilteredOsoEvent(osoFiltered: state.oso));
           },
         ),
+        BlocListener<OsoFilterBloc, OsoFilterState>(
+          listener: (context, state) {
+            List<OsoEntity> allOso = context.read<OsoBloc>().state.oso;
+            context.read<OsoFilteredBloc>().add(CalculateFilteredOsoEvent(
+                osoFiltered: allOso, searchedTerm: state.searchTerm));
+          },
+          child: Container(),
+        )
       ],
       child: Center(
         child: Column(

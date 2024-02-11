@@ -7,12 +7,15 @@ abstract class OsoFilteredEvent extends Equatable {
 
 class CalculateFilteredOsoEvent extends OsoFilteredEvent {
   final List<OsoEntity> osoFiltered;
+  final String searchedTerm;
 
-  CalculateFilteredOsoEvent({required this.osoFiltered});
+  CalculateFilteredOsoEvent(
+      {required this.osoFiltered, this.searchedTerm = ''});
 
   @override
-  List<Object> get props => [osoFiltered];
+  List<Object> get props => [osoFiltered, searchedTerm];
 
   @override
-  String toString() => 'CalculateFilteredOsoEvent(osoFiltered: $osoFiltered)';
+  String toString() =>
+      'CalculateFilteredOsoEvent(osoFiltered: $osoFiltered, searchedTerm: $searchedTerm)';
 }
