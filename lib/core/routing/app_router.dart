@@ -62,6 +62,7 @@ class AppRouter {
           key: const ValueKey('StatefulShellRoute Root'),
           navigationShell: navigationShell,
           navDestinations: mainDestinations,
+          showIconsAndTitlesButton: true,
         ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(

@@ -10,10 +10,12 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
     Key? key,
     required this.navigationShell,
     required this.navDestinations,
+    this.showIconsAndTitlesButton = false,
   }) : super(
             key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
   final StatefulNavigationShell navigationShell;
   final List<NavigationDestination> navDestinations;
+  final bool showIconsAndTitlesButton;
 
   void _goBranch(int index) {
     debugPrint(
@@ -42,7 +44,8 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
           onDestinationSelected: _goBranch);
     } else {
       return ScaffoldWithNavigationRail(
-          extended: true,
+          extended: false,
+          showIconsAndTitlesButton: showIconsAndTitlesButton,
           body: navigationShell,
           navDestinations:
               navDestinations.map((e) => e.convertToRail()).toList(),

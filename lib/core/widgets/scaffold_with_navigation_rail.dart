@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
 class ScaffoldWithNavigationRail extends StatelessWidget {
-  const ScaffoldWithNavigationRail(
-      {super.key,
-      required this.body,
-      required this.navDestinations,
-      required this.selectedIndex,
-      required this.onDestinationSelected,
-      required this.extended});
+  const ScaffoldWithNavigationRail({
+    super.key,
+    required this.body,
+    required this.navDestinations,
+    required this.selectedIndex,
+    required this.onDestinationSelected,
+    required this.extended,
+    this.showIconsAndTitlesButton = false,
+  });
   final Widget body;
   final List<NavigationRailDestination> navDestinations;
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
   final bool extended;
+  final bool showIconsAndTitlesButton;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +23,23 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
       body: Row(
         children: [
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 200),
+            constraints: (extended == true)
+                ? const BoxConstraints(maxWidth: 200)
+                : const BoxConstraints(maxWidth: 50),
             child: NavigationRail(
               destinations: navDestinations,
               selectedIndex: selectedIndex,
               onDestinationSelected: onDestinationSelected,
               extended: extended,
+              trailing: showIconsAndTitlesButton
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: IconButton(
+                        icon: Icon(Icons.swap_horizontal_circle_outlined),
+                        onPressed: () {},
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ),
           ),
           const VerticalDivider(
