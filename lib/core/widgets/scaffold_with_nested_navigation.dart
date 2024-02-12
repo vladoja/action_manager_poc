@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/app/presentation/bloc/settings/settings_bloc.dart';
 import '../utils/navigation_converter_extension.dart';
 import 'scaffold_with_navigation_bar.dart';
 import 'scaffold_with_navigation_rail.dart';
@@ -37,6 +39,8 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     // final double height = size.height;
+    bool showTitlesInMainRail =
+        context.watch<SettingsBloc>().state.showTitlesInMainRail;
     final double width = size.width;
     if (width < 450) {
       return ScaffoldWithNavigationBar(
@@ -46,7 +50,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
           onDestinationSelected: _goBranch);
     } else {
       return ScaffoldWithNavigationRail(
-          extended: extendedRail,
+          extended: showTitlesInMainRail,
           showIconsAndTitlesButton: showIconsAndTitlesButton,
           body: navigationShell,
           navDestinations:

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../config/routes/app_routes.dart';
@@ -8,7 +7,6 @@ import '../../features/app/domain/entities/exam/exam_request.dart';
 import '../../features/app/domain/entities/oso/oso.dart';
 import '../../features/app/domain/entities/osoba/osoba.dart';
 import '../../features/app/domain/entities/person/person.dart';
-import '../../features/app/presentation/bloc/settings/settings_bloc.dart';
 import '../../features/app/presentation/pages/akcie/action_personal_page.dart';
 import '../../features/app/presentation/pages/akcie/akcie_page.dart';
 import '../../features/app/presentation/pages/akcie/edit_action_page.dart';
@@ -60,16 +58,11 @@ class AppRouter {
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
-          bool showTitlesInMainRail =
-              context.read<SettingsBloc>().state.showTitlesInMainRail;
-          debugPrint(
-              'mainDestinations.showTitlesInMainRail: "$showTitlesInMainRail"');
           return ScaffoldWithNestedNavigation(
             key: const ValueKey('StatefulShellRoute Root'),
             navigationShell: navigationShell,
             navDestinations: mainDestinations,
             showIconsAndTitlesButton: true,
-            extendedRail: showTitlesInMainRail,
           );
         },
         branches: <StatefulShellBranch>[
@@ -79,9 +72,10 @@ class AppRouter {
               StatefulShellRoute.indexedStack(
                 builder: (context, state, navigationShell) =>
                     ScaffoldWithNestedNavigation(
-                        key: const ValueKey('StatefulShellRoute Zoznamy'),
-                        navigationShell: navigationShell,
-                        navDestinations: destinationsZoznamy),
+                  key: const ValueKey('StatefulShellRoute Zoznamy'),
+                  navigationShell: navigationShell,
+                  navDestinations: destinationsZoznamy,
+                ),
                 branches: <StatefulShellBranch>[
                   StatefulShellBranch(
                     navigatorKey: _nkZoznamyOsoby,

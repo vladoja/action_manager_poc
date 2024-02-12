@@ -6,7 +6,7 @@ class SettingsState extends Equatable {
   const SettingsState({required this.showTitlesInMainRail});
 
   factory SettingsState.initial() {
-    return const SettingsState(showTitlesInMainRail: false);
+    return const SettingsState(showTitlesInMainRail: true);
   }
 
   @override
