@@ -6,16 +6,18 @@ import 'scaffold_with_navigation_bar.dart';
 import 'scaffold_with_navigation_rail.dart';
 
 class ScaffoldWithNestedNavigation extends StatelessWidget {
-  const ScaffoldWithNestedNavigation({
-    Key? key,
-    required this.navigationShell,
-    required this.navDestinations,
-    this.showIconsAndTitlesButton = false,
-  }) : super(
+  const ScaffoldWithNestedNavigation(
+      {Key? key,
+      required this.navigationShell,
+      required this.navDestinations,
+      this.showIconsAndTitlesButton = false,
+      this.extendedRail = false})
+      : super(
             key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
   final StatefulNavigationShell navigationShell;
   final List<NavigationDestination> navDestinations;
   final bool showIconsAndTitlesButton;
+  final bool extendedRail;
 
   void _goBranch(int index) {
     debugPrint(
@@ -44,7 +46,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
           onDestinationSelected: _goBranch);
     } else {
       return ScaffoldWithNavigationRail(
-          extended: false,
+          extended: extendedRail,
           showIconsAndTitlesButton: showIconsAndTitlesButton,
           body: navigationShell,
           navDestinations:

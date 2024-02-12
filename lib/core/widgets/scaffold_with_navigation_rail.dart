@@ -61,8 +61,6 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
   }
 
   void _handleShowTitlesInMainRail(BuildContext context) {
-    context
-        .read<SettingsBloc>()
-        .add(SetSettingsEvent(showTitlesInMainRail: true));
+    context.read<SettingsBloc>().add(SwitchShowTitlesInMainRailEvent());
   }
 }

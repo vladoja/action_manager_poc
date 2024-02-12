@@ -10,3 +10,8 @@ class SetSettingsEvent extends SettingsEvent {
   @override
   List<Object> get props => [showTitlesInMainRail];
 }
+
+class SwitchShowTitlesInMainRailEvent extends SettingsEvent {
+  @override
+  List<Object> get props => [];
+}

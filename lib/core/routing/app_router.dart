@@ -69,6 +69,7 @@ class AppRouter {
             navigationShell: navigationShell,
             navDestinations: mainDestinations,
             showIconsAndTitlesButton: true,
+            extendedRail: showTitlesInMainRail,
           );
         },
         branches: <StatefulShellBranch>[
