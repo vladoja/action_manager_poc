@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../config/constants.dart';
 import '../../features/app/presentation/bloc/settings/settings_bloc.dart';
 
 class ScaffoldWithNavigationRail extends StatelessWidget {
@@ -27,21 +28,27 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
         children: [
           ConstrainedBox(
             constraints: (extended == true)
-                ? const BoxConstraints(maxWidth: 200)
-                : const BoxConstraints(maxWidth: 50),
+                ? const BoxConstraints(maxWidth: kNavigationRailExtendedWidth)
+                : const BoxConstraints(maxWidth: kNavigationRailIconsOnlyWidth),
             child: NavigationRail(
               destinations: navDestinations,
               selectedIndex: selectedIndex,
               onDestinationSelected: onDestinationSelected,
               extended: extended,
               trailing: showIconsAndTitlesButton
-                  ? Padding(
-                      padding: const EdgeInsets.only(top: 50),
-                      child: IconButton(
-                        icon: const Icon(Icons.swap_horizontal_circle_outlined),
-                        onPressed: () {
-                          _handleShowTitlesInMainRail(context);
-                        },
+                  ? Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Container(
+                        padding: const EdgeInsets.only(
+                            top: kNavigationRailIconsOnlyWidth),
+                        width: kNavigationRailIconsOnlyWidth,
+                        child: IconButton(
+                          icon:
+                              const Icon(Icons.swap_horizontal_circle_outlined),
+                          onPressed: () {
+                            _handleShowTitlesInMainRail(context);
+                          },
+                        ),
                       ),
                     )
                   : const SizedBox.shrink(),
