@@ -111,7 +111,18 @@ class OsoTableRowMapper {
       if (personJSON.containsKey(columnValue) == false) {
         throw "OsoEntity object doesnt contains key:'$columnValue'";
       }
-      cells.add(DataCell(Text(personJSON[columnValue] ?? 'N/A')));
+      if (columnValue == 'zostavajuceDniPlatnosti') {
+        cells.add(
+          DataCell(
+            Text(
+              personJSON[columnValue] ?? 'N/A',
+              style: TextStyle(backgroundColor: Color(Colors.red[400]!.value)),
+            ),
+          ),
+        );
+      } else {
+        cells.add(DataCell(Text(personJSON[columnValue] ?? 'N/A')));
+      }
     }
 
     DataRow row = DataRow(

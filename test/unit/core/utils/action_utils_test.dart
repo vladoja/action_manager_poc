@@ -43,4 +43,28 @@ void main() {
     expect(() => parseDotValue(pathToValue, nestedObject),
         throwsA(predicate((p0) => p0 is Exception)));
   });
+
+  test('Should get correct day difference between two date strings', () {
+    const String dateOne = '2024-02-12';
+    const String dateTwo = '2024-02-10';
+    int? dayDifference = getDayDifference(dateOne, dateTwo);
+    expect(dayDifference != null, true);
+    expect(dayDifference, 2);
+  });
+
+  test('Should get negative day difference, because dateTwo is the later on',
+      () {
+    const String dateOne = '2024-02-12';
+    const String dateTwo = '2024-02-29';
+    int? dayDifference = getDayDifference(dateOne, dateTwo);
+    expect(dayDifference != null, true);
+    expect(dayDifference, -17);
+  });
+
+  test('Should return null if second date is null.', () {
+    const String dateOne = '2024-02-12';
+    const String? dateTwo = null;
+    int? dayDifference = getDayDifference(dateOne, dateTwo);
+    expect(dayDifference, null);
+  });
 }
