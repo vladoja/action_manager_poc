@@ -57,12 +57,14 @@ class AppRouter {
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) =>
-            ScaffoldWithNestedNavigation(
-          key: const ValueKey('StatefulShellRoute Root'),
-          navigationShell: navigationShell,
-          navDestinations: mainDestinations,
-        ),
+        builder: (context, state, navigationShell) {
+          return ScaffoldWithNestedNavigation(
+            key: const ValueKey('StatefulShellRoute Root'),
+            navigationShell: navigationShell,
+            navDestinations: mainDestinations,
+            showIconsAndTitlesButton: true,
+          );
+        },
         branches: <StatefulShellBranch>[
           StatefulShellBranch(
             navigatorKey: _nkZoznamy,
@@ -70,9 +72,10 @@ class AppRouter {
               StatefulShellRoute.indexedStack(
                 builder: (context, state, navigationShell) =>
                     ScaffoldWithNestedNavigation(
-                        key: const ValueKey('StatefulShellRoute Zoznamy'),
-                        navigationShell: navigationShell,
-                        navDestinations: destinationsZoznamy),
+                  key: const ValueKey('StatefulShellRoute Zoznamy'),
+                  navigationShell: navigationShell,
+                  navDestinations: destinationsZoznamy,
+                ),
                 branches: <StatefulShellBranch>[
                   StatefulShellBranch(
                     navigatorKey: _nkZoznamyOsoby,

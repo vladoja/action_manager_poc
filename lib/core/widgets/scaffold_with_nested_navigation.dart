@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../config/constants.dart';
+import '../../features/app/presentation/bloc/settings/settings_bloc.dart';
 import '../utils/navigation_converter_extension.dart';
 import 'scaffold_with_navigation_bar.dart';
 import 'scaffold_with_navigation_rail.dart';
@@ -10,10 +13,12 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
     Key? key,
     required this.navigationShell,
     required this.navDestinations,
+    this.showIconsAndTitlesButton = false,
   }) : super(
             key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
   final StatefulNavigationShell navigationShell;
   final List<NavigationDestination> navDestinations;
+  final bool showIconsAndTitlesButton;
 
   void _goBranch(int index) {
     debugPrint(
@@ -33,8 +38,10 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     // final double height = size.height;
+    bool showTitlesInMainRail =
+        context.watch<SettingsBloc>().state.showTitlesInMainRail;
     final double width = size.width;
-    if (width < 450) {
+    if (width < kNavigationBarToRailWidth) {
       return ScaffoldWithNavigationBar(
           body: navigationShell,
           navDestinations: navDestinations,
@@ -42,7 +49,8 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
           onDestinationSelected: _goBranch);
     } else {
       return ScaffoldWithNavigationRail(
-          extended: true,
+          extended: showTitlesInMainRail,
+          showIconsAndTitlesButton: showIconsAndTitlesButton,
           body: navigationShell,
           navDestinations:
               navDestinations.map((e) => e.convertToRail()).toList(),

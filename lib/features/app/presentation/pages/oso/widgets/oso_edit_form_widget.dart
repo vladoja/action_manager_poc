@@ -58,106 +58,108 @@ class OsoEditFormWidget extends StatelessWidget {
           children: [
             Form(
               key: formKey,
-              child: Column(children: [
-                buildFormTextField(meno, "Meno",
-                    value: (person != null) ? person!.meno : null),
-                const SizedBox(
-                  height: 5,
-                ),
-                buildFormTextField(priezvisko, "Priezvisko",
-                    value: (person != null) ? person!.priezvisko : null),
-                const SizedBox(
-                  height: 5,
-                ),
-                buildFormTextField(titul, "Titul",
-                    value: (person != null) ? person!.titul : null),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildFormTextField(pek, "PEK (Zamestnávateľ)",
-                    value: (person != null) ? person!.pek : null,
-                    allowNullValue: true),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildFormTextField(cisloPeciatky, "Cislo peciatky",
-                    value: (person != null) ? person!.cisloPeciatky : null,
-                    allowNullValue: true),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildFormTextField(
-                    platnostOsvedceniaDatum, "Platnost Osvedcenia",
-                    value: (person != null)
-                        ? person!.platnostOsvedceniaDatum
-                        : null,
-                    allowNullValue: true),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildFormTextField(bydlisko, "Bydlisko",
-                    value: (person != null) ? person!.bydlisko : null),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildFormTextField(telefon, "Telefon",
-                    value: (person != null) ? person!.telefon : null),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildFormTextField(datumNarodenia, "Datum narodenia",
-                    value: (person != null) ? person!.datumNarodenia : null),
-                const SizedBox(
-                  height: 10,
-                ),
-                buildFormTextField(miestoNarodenia, "Miesto narodenia",
-                    value: (person != null) ? person!.miestoNarodenia : null),
-                const SizedBox(
-                  height: 10,
-                ),
-                ElevatedButton(
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        debugPrint("Safely validated");
-                        if (person == null) {
-                          int id = DateTime.now().millisecondsSinceEpoch;
-                          OsoEntity personNew = OsoEntity(
-                            id: id,
-                            meno: meno.text,
-                            priezvisko: priezvisko.text,
-                            titul: titul.text,
-                            pek: pek.text,
-                            bydlisko: bydlisko.text,
-                            telefon: telefon.text,
-                            datumNarodenia: datumNarodenia.text,
-                            miestoNarodenia: miestoNarodenia.text,
-                            cisloPeciatky: cisloPeciatky.text,
-                            platnostOsvedceniaDatum:
-                                platnostOsvedceniaDatum.text,
-                          );
-                          _onCreateButtonTapped(context, personNew);
-                        } else {
-                          OsoEntity personAfterEdit = OsoEntity(
-                            id: person!.id,
-                            meno: meno.text,
-                            priezvisko: priezvisko.text,
-                            titul: titul.text,
-                            pek: pek.text,
-                            bydlisko: bydlisko.text,
-                            telefon: telefon.text,
-                            datumNarodenia: datumNarodenia.text,
-                            miestoNarodenia: miestoNarodenia.text,
-                            cisloPeciatky: cisloPeciatky.text,
-                            platnostOsvedceniaDatum:
-                                platnostOsvedceniaDatum.text,
-                          );
-                          _onEditButtonTapped(context, personAfterEdit);
+              child: FocusTraversalGroup(
+                child: Column(children: [
+                  buildFormTextField(meno, "Meno",
+                      value: (person != null) ? person!.meno : null),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  buildFormTextField(priezvisko, "Priezvisko",
+                      value: (person != null) ? person!.priezvisko : null),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  buildFormTextField(titul, "Titul",
+                      value: (person != null) ? person!.titul : null),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildFormTextField(pek, "PEK (Zamestnávateľ)",
+                      value: (person != null) ? person!.pek : null,
+                      allowNullValue: true),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildFormTextField(cisloPeciatky, "Cislo peciatky",
+                      value: (person != null) ? person!.cisloPeciatky : null,
+                      allowNullValue: true),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildFormTextField(
+                      platnostOsvedceniaDatum, "Platnost Osvedcenia",
+                      value: (person != null)
+                          ? person!.platnostOsvedceniaDatum
+                          : null,
+                      allowNullValue: true),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildFormTextField(bydlisko, "Bydlisko",
+                      value: (person != null) ? person!.bydlisko : null),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildFormTextField(telefon, "Telefon",
+                      value: (person != null) ? person!.telefon : null),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildFormTextField(datumNarodenia, "Datum narodenia",
+                      value: (person != null) ? person!.datumNarodenia : null),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildFormTextField(miestoNarodenia, "Miesto narodenia",
+                      value: (person != null) ? person!.miestoNarodenia : null),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          debugPrint("Safely validated");
+                          if (person == null) {
+                            int id = DateTime.now().millisecondsSinceEpoch;
+                            OsoEntity personNew = OsoEntity(
+                              id: id,
+                              meno: meno.text,
+                              priezvisko: priezvisko.text,
+                              titul: titul.text,
+                              pek: pek.text,
+                              bydlisko: bydlisko.text,
+                              telefon: telefon.text,
+                              datumNarodenia: datumNarodenia.text,
+                              miestoNarodenia: miestoNarodenia.text,
+                              cisloPeciatky: cisloPeciatky.text,
+                              platnostOsvedceniaDatum:
+                                  platnostOsvedceniaDatum.text,
+                            );
+                            _onCreateButtonTapped(context, personNew);
+                          } else {
+                            OsoEntity personAfterEdit = OsoEntity(
+                              id: person!.id,
+                              meno: meno.text,
+                              priezvisko: priezvisko.text,
+                              titul: titul.text,
+                              pek: pek.text,
+                              bydlisko: bydlisko.text,
+                              telefon: telefon.text,
+                              datumNarodenia: datumNarodenia.text,
+                              miestoNarodenia: miestoNarodenia.text,
+                              cisloPeciatky: cisloPeciatky.text,
+                              platnostOsvedceniaDatum:
+                                  platnostOsvedceniaDatum.text,
+                            );
+                            _onEditButtonTapped(context, personAfterEdit);
+                          }
+                          Navigator.of(context).pop();
                         }
-                        Navigator.of(context).pop();
-                      }
-                    },
-                    child: Text(person == null ? 'Vytvor' : 'Ulož')),
-              ]),
+                      },
+                      child: Text(person == null ? 'Vytvor' : 'Ulož')),
+                ]),
+              ),
             ),
           ],
         ),

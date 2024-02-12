@@ -21,6 +21,7 @@ class SearchOsoWidget extends StatelessWidget {
           key: formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: TextFormField(
+            autofocus: true,
             controller: searchController,
             validator: (value) {
               if (value == null || value.isEmpty) {
