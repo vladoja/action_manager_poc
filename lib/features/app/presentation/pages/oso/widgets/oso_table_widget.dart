@@ -24,7 +24,7 @@ class OsoTableWidget extends StatelessWidget {
 
   final List<DataColumn2> tableColumns = const [
     DataColumn2(
-      // size: ColumnSize.L,
+      size: ColumnSize.M,
       label: Text('PEK'),
     ),
     DataColumn2(
@@ -32,6 +32,10 @@ class OsoTableWidget extends StatelessWidget {
     ),
     DataColumn2(
       label: Text('Platnost OSV'),
+    ),
+    DataColumn2(
+      size: ColumnSize.S,
+      label: Text('Kriticke dni'),
     ),
     DataColumn2(
       label: Text('Priezvisko'),
@@ -55,6 +59,7 @@ class OsoTableWidget extends StatelessWidget {
     "pek",
     "cisloPeciatky",
     "platnostOsvedceniaDatum",
+    "zostavajuceDniPlatnosti",
     "priezvisko",
     "meno",
     "titul",
