@@ -115,7 +115,9 @@ class OsoTableRowMapper {
         cells.add(
           DataCell(
             Text(
-              personJSON[columnValue] ?? 'N/A',
+              (personJSON[columnValue] != null)
+                  ? personJSON[columnValue].toString()
+                  : '',
               style: TextStyle(backgroundColor: Color(Colors.red[400]!.value)),
             ),
           ),

@@ -67,4 +67,15 @@ void main() {
     int? dayDifference = getDayDifference(dateOne, dateTwo);
     expect(dayDifference, null);
   });
+
+  test(
+      'Should get correct day difference between two date strings with different date formats.',
+      () {
+    const String dateOne = '2024-02-12';
+    const String dateTwo = '2024/02/10';
+    int? dayDifference = getDayDifference(dateOne, dateTwo,
+        date1Format: 'yyyy-MM-dd', date2Format: 'yyyy/MM/dd');
+    expect(dayDifference != null, true);
+    expect(dayDifference, 2);
+  });
 }
