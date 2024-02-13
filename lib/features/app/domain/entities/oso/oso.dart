@@ -29,7 +29,7 @@ class OsoEntity extends Equatable {
       required this.pek,
       required this.cisloPeciatky,
       required this.platnostOsvedceniaDatum,
-      this.zostavajuceDniPlatnosti = -1});
+      this.zostavajuceDniPlatnosti});
 
   @override
   List<Object?> get props {
@@ -45,6 +45,7 @@ class OsoEntity extends Equatable {
       pek,
       cisloPeciatky,
       platnostOsvedceniaDatum,
+      zostavajuceDniPlatnosti
     ];
   }
 

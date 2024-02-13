@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 import '../../../bloc/oso/oso/oso_bloc.dart';
 
@@ -21,6 +22,7 @@ class KritickeDniWidget extends StatelessWidget {
 }
 
 _onPrepocitajDniPressed(BuildContext context) {
-  debugPrint('Prepocitivam datumu');
-  context.read<OsoBloc>().add(const RecalculateKritickeDniEvent('2024-02-12'));
+  String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  debugPrint('Prepocitivam kriticky datum voci: "$today"');
+  context.read<OsoBloc>().add(RecalculateKritickeDniEvent(today));
 }

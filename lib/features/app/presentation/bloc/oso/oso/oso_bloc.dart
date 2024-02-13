@@ -58,6 +58,8 @@ class OsoBloc extends Bloc<OsoEvent, OsoState> {
       int? kritickeDniRozdiel = getDayDifference(
           currentDate, osoba.platnostOsvedceniaDatum,
           date2Format: 'yyyy/MM/dd');
+      // debugPrint(
+      //     'oso:${osoba.id} getDayDifference "$currentDate" vs "${osoba.platnostOsvedceniaDatum}". Rozdiel:$kritickeDniRozdiel');
       oso.add(osoba.copyWith(
         zostavajuceDniPlatnosti: () => kritickeDniRozdiel,
       ));
