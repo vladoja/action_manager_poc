@@ -44,7 +44,7 @@ dynamic parseDotValue(String pathToValue, Map<String, dynamic> data,
   }
 }
 
-/// Computes the day difference between two dates
+/// Computes the day difference between two dates. If [date2] is later, than the result is positive.
 ///
 /// [date1] is earliar date,
 /// [date2] is later date,
@@ -57,6 +57,6 @@ int? getDayDifference(String date1, String? date2,
   }
   DateTime date2DT = DateFormat(date2Format).parse(date2);
   int dayDifference =
-      DateFormat(date1Format).parse(date1).difference(date2DT).inDays;
+      -1 * DateFormat(date1Format).parse(date1).difference(date2DT).inDays;
   return dayDifference;
 }

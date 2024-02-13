@@ -49,7 +49,7 @@ void main() {
     const String dateTwo = '2024-02-10';
     int? dayDifference = getDayDifference(dateOne, dateTwo);
     expect(dayDifference != null, true);
-    expect(dayDifference, 2);
+    expect(dayDifference, -2);
   });
 
   test('Should get negative day difference, because dateTwo is the later on',
@@ -58,7 +58,7 @@ void main() {
     const String dateTwo = '2024-02-29';
     int? dayDifference = getDayDifference(dateOne, dateTwo);
     expect(dayDifference != null, true);
-    expect(dayDifference, -17);
+    expect(dayDifference, 17);
   });
 
   test('Should return null if second date is null.', () {
@@ -76,6 +76,6 @@ void main() {
     int? dayDifference = getDayDifference(dateOne, dateTwo,
         date1Format: 'yyyy-MM-dd', date2Format: 'yyyy/MM/dd');
     expect(dayDifference != null, true);
-    expect(dayDifference, 2);
+    expect(dayDifference, -2);
   });
 }

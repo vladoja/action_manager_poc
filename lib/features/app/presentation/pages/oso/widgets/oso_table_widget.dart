@@ -1,6 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../config/constants.dart';
 import '../../../../domain/entities/oso/oso.dart';
 import '../../../widgets/table_widget.dart';
 
@@ -112,13 +113,21 @@ class OsoTableRowMapper {
         throw "OsoEntity object doesnt contains key:'$columnValue'";
       }
       if (columnValue == 'zostavajuceDniPlatnosti') {
+        bool isKritickyDen = false;
+        if (personJSON[columnValue] != null &&
+            personJSON[columnValue] <= kOsoKritickyDatumLimit) {
+          isKritickyDen = true;
+        }
         cells.add(
           DataCell(
             Text(
               (personJSON[columnValue] != null)
                   ? personJSON[columnValue].toString()
                   : '',
-              style: TextStyle(backgroundColor: Color(Colors.red[400]!.value)),
+              style: TextStyle(
+                  backgroundColor: isKritickyDen
+                      ? Color(Colors.red[400]!.value)
+                      : Color(Colors.green[400]!.value)),
             ),
           ),
         );
