@@ -18,7 +18,7 @@ class _KritickeDniWidgetState extends State<KritickeDniWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Row(
           children: [
