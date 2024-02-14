@@ -52,7 +52,7 @@ dynamic parseDotValue(String pathToValue, Map<String, dynamic> data,
 /// [date2Format] date format.
 int? getDayDifference(String date1, String? date2,
     {String date1Format = 'yyyy-MM-dd', String date2Format = 'yyyy-MM-dd'}) {
-  if (date2 == null) {
+  if (date2 == null || date2.isEmpty) {
     return null;
   }
   DateTime date2DT = DateFormat(date2Format).parse(date2);
