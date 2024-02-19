@@ -15,6 +15,7 @@ class OsoEntity extends Equatable {
   final String? pek;
   final String? cisloPeciatky;
   final String? platnostOsvedceniaDatum;
+  final int? zostavajuceDniPlatnosti;
 
   const OsoEntity(
       {required this.id,
@@ -27,7 +28,8 @@ class OsoEntity extends Equatable {
       required this.bydlisko,
       required this.pek,
       required this.cisloPeciatky,
-      required this.platnostOsvedceniaDatum});
+      required this.platnostOsvedceniaDatum,
+      this.zostavajuceDniPlatnosti});
 
   @override
   List<Object?> get props {
@@ -43,12 +45,13 @@ class OsoEntity extends Equatable {
       pek,
       cisloPeciatky,
       platnostOsvedceniaDatum,
+      zostavajuceDniPlatnosti
     ];
   }
 
   @override
   String toString() {
-    return 'OsoEntity(id: $id, meno: $meno, priezvisko: $priezvisko, titul: $titul, telefon: $telefon, datumNarodenia: $datumNarodenia, miestoNarodenia: $miestoNarodenia, bydlisko: $bydlisko, pek: $pek, cisloPeciatky: $cisloPeciatky, platnostOsvedceniaDatum: $platnostOsvedceniaDatum)';
+    return 'OsoEntity(id: $id, meno: $meno, priezvisko: $priezvisko, titul: $titul, telefon: $telefon, datumNarodenia: $datumNarodenia, miestoNarodenia: $miestoNarodenia, bydlisko: $bydlisko, pek: $pek, cisloPeciatky: $cisloPeciatky, platnostOsvedceniaDatum: $platnostOsvedceniaDatum, zostavajuceDniPlatnosti: $zostavajuceDniPlatnosti )';
   }
 
   OsoEntity copyWith({
@@ -63,6 +66,7 @@ class OsoEntity extends Equatable {
     ValueGetter<String?>? pek,
     ValueGetter<String?>? cisloPeciatky,
     ValueGetter<String?>? platnostOsvedceniaDatum,
+    ValueGetter<int?>? zostavajuceDniPlatnosti,
   }) {
     return OsoEntity(
       id: id ?? this.id,
@@ -81,6 +85,9 @@ class OsoEntity extends Equatable {
       platnostOsvedceniaDatum: platnostOsvedceniaDatum != null
           ? platnostOsvedceniaDatum()
           : this.platnostOsvedceniaDatum,
+      zostavajuceDniPlatnosti: zostavajuceDniPlatnosti != null
+          ? zostavajuceDniPlatnosti()
+          : this.zostavajuceDniPlatnosti,
     );
   }
 
@@ -97,6 +104,7 @@ class OsoEntity extends Equatable {
       'pek': pek,
       'cisloPeciatky': cisloPeciatky,
       'platnostOsvedceniaDatum': platnostOsvedceniaDatum,
+      'zostavajuceDniPlatnosti': zostavajuceDniPlatnosti,
     };
   }
 
@@ -113,6 +121,7 @@ class OsoEntity extends Equatable {
       pek: map['pek'],
       cisloPeciatky: map['cisloPeciatky'],
       platnostOsvedceniaDatum: map['platnostOsvedceniaDatum'],
+      zostavajuceDniPlatnosti: map['zostavajuceDniPlatnosti']?.toInt(),
     );
   }
 

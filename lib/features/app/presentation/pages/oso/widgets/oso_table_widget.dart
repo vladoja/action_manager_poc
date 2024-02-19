@@ -1,6 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../../config/constants.dart';
 import '../../../../domain/entities/oso/oso.dart';
 import '../../../widgets/table_widget.dart';
 
@@ -24,7 +25,7 @@ class OsoTableWidget extends StatelessWidget {
 
   final List<DataColumn2> tableColumns = const [
     DataColumn2(
-      // size: ColumnSize.L,
+      size: ColumnSize.M,
       label: Text('PEK'),
     ),
     DataColumn2(
@@ -32,6 +33,10 @@ class OsoTableWidget extends StatelessWidget {
     ),
     DataColumn2(
       label: Text('Platnost OSV'),
+    ),
+    DataColumn2(
+      size: ColumnSize.S,
+      label: Text('Kriticke dni'),
     ),
     DataColumn2(
       label: Text('Priezvisko'),
@@ -55,6 +60,7 @@ class OsoTableWidget extends StatelessWidget {
     "pek",
     "cisloPeciatky",
     "platnostOsvedceniaDatum",
+    "zostavajuceDniPlatnosti",
     "priezvisko",
     "meno",
     "titul",
@@ -106,7 +112,28 @@ class OsoTableRowMapper {
       if (personJSON.containsKey(columnValue) == false) {
         throw "OsoEntity object doesnt contains key:'$columnValue'";
       }
-      cells.add(DataCell(Text(personJSON[columnValue] ?? 'N/A')));
+      if (columnValue == 'zostavajuceDniPlatnosti') {
+        bool isKritickyDen = false;
+        if (personJSON[columnValue] != null &&
+            personJSON[columnValue] <= kOsoKritickyDatumLimit) {
+          isKritickyDen = true;
+        }
+        cells.add(
+          DataCell(
+            Text(
+              (personJSON[columnValue] != null)
+                  ? personJSON[columnValue].toString()
+                  : '',
+              style: TextStyle(
+                  backgroundColor: isKritickyDen
+                      ? Color(Colors.red[400]!.value)
+                      : Color(Colors.green[400]!.value)),
+            ),
+          ),
+        );
+      } else {
+        cells.add(DataCell(Text(personJSON[columnValue] ?? 'N/A')));
+      }
     }
 
     DataRow row = DataRow(

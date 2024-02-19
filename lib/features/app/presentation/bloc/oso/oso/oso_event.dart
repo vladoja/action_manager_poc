@@ -22,3 +22,8 @@ class RemoveOsoInOso extends OsoEvent {
   final OsoEntity osoba;
   const RemoveOsoInOso(this.osoba);
 }
+
+class RecalculateKritickeDniEvent extends OsoEvent {
+  final String currentDate;
+  const RecalculateKritickeDniEvent(this.currentDate);
+}

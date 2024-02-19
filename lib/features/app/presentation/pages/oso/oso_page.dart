@@ -7,6 +7,7 @@ import '../../../domain/entities/oso/oso.dart';
 import '../../bloc/oso/oso/oso_bloc.dart';
 import '../../bloc/oso/oso_filter/oso_filter_bloc.dart';
 import '../../bloc/oso/oso_filtered/oso_filtered_bloc.dart';
+import 'widgets/kriticke_dni_widget.dart';
 import 'widgets/oso_table_widget.dart';
 import 'widgets/search_oso_widget.dart';
 
@@ -70,6 +71,10 @@ class OSOPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SearchOsoWidget(),
+            const SizedBox(
+              height: 5,
+            ),
+            const KritickeDniWidget(),
             const SizedBox(
               height: 10,
             ),

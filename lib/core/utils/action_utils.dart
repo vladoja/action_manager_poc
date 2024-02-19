@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 bool isDate(String str) {
   try {
     DateTime.parse(str);
@@ -40,4 +42,21 @@ dynamic parseDotValue(String pathToValue, Map<String, dynamic> data,
     }
     return v;
   }
+}
+
+/// Computes the day difference between two dates. If [date2] is later, than the result is positive.
+///
+/// [date1] is earliar date,
+/// [date2] is later date,
+/// [date1Format] date format,
+/// [date2Format] date format.
+int? getDayDifference(String date1, String? date2,
+    {String date1Format = 'yyyy-MM-dd', String date2Format = 'yyyy-MM-dd'}) {
+  if (date2 == null || date2.isEmpty) {
+    return null;
+  }
+  DateTime date2DT = DateFormat(date2Format).parse(date2);
+  int dayDifference =
+      -1 * DateFormat(date1Format).parse(date1).difference(date2DT).inDays;
+  return dayDifference;
 }

@@ -21,7 +21,7 @@ class OsoDetailsPage extends StatelessWidget {
 
   _buildAppbar(BuildContext context) {
     return AppBar(
-      title: const Text('Edituj OSO (Odobrne Spôsobilá Osoba)'),
+      title: const Text('Edituj OSO (Odborne Spôsobilá Osoba)'),
       actions: [
         IconButton(
           icon:
